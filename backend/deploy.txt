@@ -1,0 +1,3 @@
+// Start only database in the background
+docker-compose up -d postgres
+
