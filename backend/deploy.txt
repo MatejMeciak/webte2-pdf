@@ -1,0 +1,8 @@
+// Start only database in the background
+docker-compose up -d postgres
+
+// Start the whole backend
+docker-compose up -d
+
+// Docker documentation location
+http://localhost:8080/swagger-ui.html
