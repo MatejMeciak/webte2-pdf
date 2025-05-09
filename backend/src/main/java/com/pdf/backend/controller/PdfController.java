@@ -11,6 +11,7 @@ import com.pdf.backend.dto.pdf.PdfResponse;
 import com.pdf.backend.dto.pdf.PdfRotatePagesRequest;
 import com.pdf.backend.dto.pdf.PdfSplitAtPageRequest;
 import com.pdf.backend.dto.pdf.PdfToImagesRequest;
+import com.pdf.backend.service.HistoryService;
 import com.pdf.backend.service.PdfService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -18,8 +19,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -47,6 +48,7 @@ import java.io.ByteArrayOutputStream;
 public class PdfController {
 
     private final PdfService pdfService;
+    private final HistoryService historyService;
 
     @Operation(summary = "Merge two PDF files", description = "Combines two PDF files into a single document", requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "PDF files to merge", required = true, content = @Content(mediaType = MediaType.MULTIPART_FORM_DATA_VALUE)))
     @ApiResponses(value = {
@@ -60,7 +62,8 @@ public class PdfController {
     public ResponseEntity<?> mergePdfFiles(
             @RequestPart(value = "firstPdf", required = true) MultipartFile firstPdf,
             @RequestPart(value = "secondPdf", required = true) MultipartFile secondPdf,
-            @RequestPart(value = "outputName", required = false) String outputName) {
+            @RequestPart(value = "outputName", required = false) String outputName,
+            HttpServletRequest request) {
 
         try {
             // Validate files
@@ -75,7 +78,7 @@ public class PdfController {
             }
 
             // Prepare request
-            PdfMergeRequest request = PdfMergeRequest.builder()
+            PdfMergeRequest pdfRequest = PdfMergeRequest.builder()
                     .firstPdfName(firstPdf.getOriginalFilename())
                     .secondPdfName(secondPdf.getOriginalFilename())
                     .outputPdfName(outputName != null && !outputName.isEmpty() ? outputName : "merged.pdf")
@@ -84,7 +87,20 @@ public class PdfController {
                     .build();
 
             // Process merge
-            PdfResponse response = pdfService.mergePdfFiles(request);
+            PdfResponse response = pdfService.mergePdfFiles(pdfRequest);
+            
+            // Track operation
+            String requestDetails = String.format("Merged files: %s and %s into %s", 
+                    firstPdf.getOriginalFilename(), 
+                    secondPdf.getOriginalFilename(), 
+                    outputName != null && !outputName.isEmpty() ? outputName : "merged.pdf");
+            
+            historyService.trackOperation(
+                    "MERGE_PDF",
+                    determineSourceType(request),
+                    requestDetails,
+                    request
+            );
 
             if (!response.isSuccess()) {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -118,7 +134,8 @@ public class PdfController {
             @RequestPart(value = "pdf", required = true) MultipartFile pdf,
             @RequestParam(value = "startPage", required = true) int startPage,
             @RequestParam(value = "endPage", required = true) int endPage,
-            @RequestPart(value = "outputName", required = false) String outputName) {
+            @RequestPart(value = "outputName", required = false) String outputName,
+            HttpServletRequest request) {
 
         try {
             // Validate file
@@ -141,7 +158,7 @@ public class PdfController {
             }
 
             // Prepare request
-            PdfExtractPagesRequest request = PdfExtractPagesRequest.builder()
+            PdfExtractPagesRequest pdfRequest = PdfExtractPagesRequest.builder()
                     .pdfName(pdf.getOriginalFilename())
                     .startPage(startPage)
                     .endPage(endPage)
@@ -150,7 +167,21 @@ public class PdfController {
                     .build();
 
             // Process extraction
-            PdfResponse response = pdfService.extractPagesFromPdf(request);
+            PdfResponse response = pdfService.extractPagesFromPdf(pdfRequest);
+            
+            // Track operation
+            String requestDetails = String.format("Extracted pages %d-%d from %s into %s", 
+                    startPage, 
+                    endPage, 
+                    pdf.getOriginalFilename(),
+                    outputName != null && !outputName.isEmpty() ? outputName : "extracted.pdf");
+            
+            historyService.trackOperation(
+                    "EXTRACT_PAGES",
+                    determineSourceType(request),
+                    requestDetails,
+                    request
+            );
 
             if (!response.isSuccess()) {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -184,7 +215,8 @@ public class PdfController {
             @RequestPart(value = "pdf", required = true) MultipartFile pdf,
             @RequestParam(value = "splitAtPage", required = true) int splitAtPage,
             @RequestPart(value = "firstOutputName", required = false) String firstOutputName,
-            @RequestPart(value = "secondOutputName", required = false) String secondOutputName) {
+            @RequestPart(value = "secondOutputName", required = false) String secondOutputName,
+            HttpServletRequest request) {
 
         try {
             // Validate file
@@ -203,7 +235,7 @@ public class PdfController {
             }
 
             // Prepare request
-            PdfSplitAtPageRequest request = PdfSplitAtPageRequest.builder()
+            PdfSplitAtPageRequest pdfRequest = PdfSplitAtPageRequest.builder()
                     .pdfName(pdf.getOriginalFilename())
                     .splitAtPage(splitAtPage)
                     .firstOutputName(
@@ -214,7 +246,21 @@ public class PdfController {
                     .build();
 
             // Process split
-            Map<String, PdfResponse> responses = pdfService.splitPdfAtPage(request);
+            Map<String, PdfResponse> responses = pdfService.splitPdfAtPage(pdfRequest);
+            
+            // Track operation
+            String requestDetails = String.format("Split %s at page %d into %s and %s", 
+                    pdf.getOriginalFilename(), 
+                    splitAtPage,
+                    firstOutputName != null && !firstOutputName.isEmpty() ? firstOutputName : "part1.pdf",
+                    secondOutputName != null && !secondOutputName.isEmpty() ? secondOutputName : "part2.pdf");
+            
+            historyService.trackOperation(
+                    "SPLIT_PDF",
+                    determineSourceType(request),
+                    requestDetails,
+                    request
+            );
 
             if (responses.containsKey("error")) {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -269,7 +315,8 @@ public class PdfController {
     public ResponseEntity<?> removePageFromPdf(
             @RequestPart(value = "pdf", required = true) MultipartFile pdf,
             @RequestParam(value = "pageToRemove", required = true) int pageToRemove,
-            @RequestPart(value = "outputName", required = false) String outputName) {
+            @RequestPart(value = "outputName", required = false) String outputName,
+            HttpServletRequest request) {
 
         try {
             // Validate file
@@ -288,7 +335,7 @@ public class PdfController {
             }
 
             // Prepare request
-            PdfRemovePageRequest request = PdfRemovePageRequest.builder()
+            PdfRemovePageRequest pdfRequest = PdfRemovePageRequest.builder()
                     .pdfName(pdf.getOriginalFilename())
                     .pageToRemove(pageToRemove)
                     .outputPdfName(outputName != null && !outputName.isEmpty() ? outputName : "modified.pdf")
@@ -296,7 +343,20 @@ public class PdfController {
                     .build();
 
             // Process page removal
-            PdfResponse response = pdfService.removePageFromPdf(request);
+            PdfResponse response = pdfService.removePageFromPdf(pdfRequest);
+            
+            // Track operation
+            String requestDetails = String.format("Removed page %d from %s, output: %s", 
+                    pageToRemove, 
+                    pdf.getOriginalFilename(), 
+                    outputName != null && !outputName.isEmpty() ? outputName : "modified.pdf");
+            
+            historyService.trackOperation(
+                    "REMOVE_PAGE",
+                    determineSourceType(request),
+                    requestDetails,
+                    request
+            );
 
             if (!response.isSuccess()) {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -329,7 +389,8 @@ public class PdfController {
     public ResponseEntity<?> reorderPdfPages(
             @RequestPart(value = "pdf", required = true) MultipartFile pdf,
             @RequestParam(value = "pageOrder", required = true) List<Integer> pageOrder,
-            @RequestPart(value = "outputName", required = false) String outputName) {
+            @RequestPart(value = "outputName", required = false) String outputName,
+            HttpServletRequest request) {
 
         try {
             // Validate file
@@ -348,7 +409,7 @@ public class PdfController {
             }
 
             // Prepare request
-            PdfReorderPagesRequest request = PdfReorderPagesRequest.builder()
+            PdfReorderPagesRequest pdfRequest = PdfReorderPagesRequest.builder()
                     .pdfName(pdf.getOriginalFilename())
                     .pageOrder(pageOrder)
                     .outputPdfName(outputName != null && !outputName.isEmpty() ? outputName : "reordered.pdf")
@@ -356,7 +417,20 @@ public class PdfController {
                     .build();
 
             // Process page reordering
-            PdfResponse response = pdfService.reorderPdfPages(request);
+            PdfResponse response = pdfService.reorderPdfPages(pdfRequest);
+            
+            // Track operation
+            String requestDetails = String.format("Reordered pages in %s with order %s, output: %s", 
+                    pdf.getOriginalFilename(), 
+                    pageOrder.toString(), 
+                    outputName != null && !outputName.isEmpty() ? outputName : "reordered.pdf");
+            
+            historyService.trackOperation(
+                    "REORDER_PAGES",
+                    determineSourceType(request),
+                    requestDetails,
+                    request
+            );
 
             if (!response.isSuccess()) {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -389,7 +463,8 @@ public class PdfController {
     public ResponseEntity<?> addPasswordToPdf(
             @RequestPart(value = "pdf", required = true) MultipartFile pdf,
             @RequestParam(value = "password", required = true) String password,
-            @RequestPart(value = "outputName", required = false) String outputName) {
+            @RequestPart(value = "outputName", required = false) String outputName,
+            HttpServletRequest request) {
 
         try {
             // Validate file
@@ -408,7 +483,7 @@ public class PdfController {
             }
 
             // Prepare request
-            PdfAddPasswordRequest request = PdfAddPasswordRequest.builder()
+            PdfAddPasswordRequest pdfRequest = PdfAddPasswordRequest.builder()
                     .pdfName(pdf.getOriginalFilename())
                     .ownerPassword(password)
                     .outputPdfName(outputName != null && !outputName.isEmpty() ? outputName : "protected.pdf")
@@ -416,7 +491,19 @@ public class PdfController {
                     .build();
 
             // Process password protection
-            PdfResponse response = pdfService.addPasswordToPdf(request);
+            PdfResponse response = pdfService.addPasswordToPdf(pdfRequest);
+            
+            // Track operation
+            String requestDetails = String.format("Added password protection to %s, output: %s", 
+                    pdf.getOriginalFilename(), 
+                    outputName != null && !outputName.isEmpty() ? outputName : "protected.pdf");
+            
+            historyService.trackOperation(
+                    "ADD_PASSWORD",
+                    determineSourceType(request),
+                    requestDetails,
+                    request
+            );
 
             if (!response.isSuccess()) {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -449,7 +536,8 @@ public class PdfController {
     public ResponseEntity<?> removePasswordFromPdf(
             @RequestPart(value = "pdf", required = true) MultipartFile pdf,
             @RequestParam(value = "password", required = true) String password,
-            @RequestPart(value = "outputName", required = false) String outputName) {
+            @RequestPart(value = "outputName", required = false) String outputName,
+            HttpServletRequest request) {
 
         try {
             // Validate file
@@ -468,7 +556,7 @@ public class PdfController {
             }
 
             // Prepare request
-            PdfRemovePasswordRequest request = PdfRemovePasswordRequest.builder()
+            PdfRemovePasswordRequest pdfRequest = PdfRemovePasswordRequest.builder()
                     .pdfName(pdf.getOriginalFilename())
                     .password(password)
                     .outputPdfName(outputName != null && !outputName.isEmpty() ? outputName : "unprotected.pdf")
@@ -476,7 +564,19 @@ public class PdfController {
                     .build();
 
             // Process password removal
-            PdfResponse response = pdfService.removePasswordFromPdf(request);
+            PdfResponse response = pdfService.removePasswordFromPdf(pdfRequest);
+            
+            // Track operation
+            String requestDetails = String.format("Removed password protection from %s, output: %s", 
+                    pdf.getOriginalFilename(), 
+                    outputName != null && !outputName.isEmpty() ? outputName : "unprotected.pdf");
+            
+            historyService.trackOperation(
+                    "REMOVE_PASSWORD",
+                    determineSourceType(request),
+                    requestDetails,
+                    request
+            );
 
             if (!response.isSuccess()) {
                 // Check if the error message indicates an invalid password
@@ -514,7 +614,8 @@ public class PdfController {
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> convertPdfToImages(
             @RequestPart(value = "pdf", required = true) MultipartFile pdf,
-            @RequestParam(value = "dpi", required = false, defaultValue = "150") int dpi) {
+            @RequestParam(value = "dpi", required = false, defaultValue = "150") int dpi,
+            HttpServletRequest request) {
 
         try {
             // Validate file
@@ -533,14 +634,26 @@ public class PdfController {
             }
 
             // Prepare request
-            PdfToImagesRequest request = PdfToImagesRequest.builder()
+            PdfToImagesRequest pdfRequest = PdfToImagesRequest.builder()
                     .pdfName(pdf.getOriginalFilename())
                     .dpi(dpi)
                     .pdf(pdf.getBytes())
                     .build();
 
             // Process conversion
-            Map<String, byte[]> images = pdfService.convertPdfToImages(request);
+            Map<String, byte[]> images = pdfService.convertPdfToImages(pdfRequest);
+            
+            // Track operation
+            String requestDetails = String.format("Converted %s to images with DPI=%d", 
+                    pdf.getOriginalFilename(),
+                    dpi);
+            
+            historyService.trackOperation(
+                    "PDF_TO_IMAGES",
+                    determineSourceType(request),
+                    requestDetails,
+                    request
+            );
 
             if (images.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -593,7 +706,8 @@ public class PdfController {
             @RequestPart(value = "pdf", required = true) MultipartFile pdf,
             @RequestParam(value = "pages") List<Integer> pages,
             @RequestParam(value = "rotations") List<Integer> rotations,
-            @RequestPart(value = "outputName", required = false) String outputName) {
+            @RequestPart(value = "outputName", required = false) String outputName,
+            HttpServletRequest request) {
 
         try {
             // Validate file
@@ -626,7 +740,7 @@ public class PdfController {
             }
 
             // Prepare request
-            PdfRotatePagesRequest request = PdfRotatePagesRequest.builder()
+            PdfRotatePagesRequest pdfRequest = PdfRotatePagesRequest.builder()
                     .pdfName(pdf.getOriginalFilename())
                     .pageRotations(pageRotations)
                     .outputPdfName(outputName != null && !outputName.isEmpty() ? outputName : "rotated.pdf")
@@ -634,7 +748,26 @@ public class PdfController {
                     .build();
 
             // Process page rotation
-            PdfResponse response = pdfService.rotatePdfPages(request);
+            PdfResponse response = pdfService.rotatePdfPages(pdfRequest);
+            
+            // Track operation
+            StringBuilder rotationDetails = new StringBuilder();
+            for (int i = 0; i < pages.size(); i++) {
+                rotationDetails.append(String.format("Page %d rotated %d°", pages.get(i), rotations.get(i)));
+                if (i < pages.size() - 1) rotationDetails.append(", ");
+            }
+            
+            String requestDetails = String.format("Rotated pages in %s (%s), output: %s", 
+                    pdf.getOriginalFilename(), 
+                    rotationDetails.toString(),
+                    outputName != null && !outputName.isEmpty() ? outputName : "rotated.pdf");
+            
+            historyService.trackOperation(
+                    "ROTATE_PAGES",
+                    determineSourceType(request),
+                    requestDetails,
+                    request
+            );
 
             if (!response.isSuccess()) {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -671,7 +804,8 @@ public class PdfController {
             @RequestParam(value = "fontSize", required = false, defaultValue = "40") int fontSize,
             @RequestParam(value = "color", required = false, defaultValue = "#888888") String color,
             @RequestParam(value = "rotation", required = false, defaultValue = "45") int rotation,
-            @RequestPart(value = "outputName", required = false) String outputName) {
+            @RequestPart(value = "outputName", required = false) String outputName,
+            HttpServletRequest request) {
 
         try {
             // Validate file
@@ -695,7 +829,7 @@ public class PdfController {
             }
 
             // Prepare request
-            PdfAddWatermarkRequest request = PdfAddWatermarkRequest.builder()
+            PdfAddWatermarkRequest pdfRequest = PdfAddWatermarkRequest.builder()
                     .pdfName(pdf.getOriginalFilename())
                     .watermarkText(watermarkText)
                     .opacity(opacity)
@@ -707,7 +841,24 @@ public class PdfController {
                     .build();
 
             // Process watermark addition
-            PdfResponse response = pdfService.addWatermarkToPdf(request);
+            PdfResponse response = pdfService.addWatermarkToPdf(pdfRequest);
+            
+            // Track operation
+            String requestDetails = String.format("Added watermark \"%s\" to %s (opacity=%.1f, fontSize=%d, color=%s, rotation=%d°), output: %s", 
+                    watermarkText, 
+                    pdf.getOriginalFilename(),
+                    opacity,
+                    fontSize,
+                    color,
+                    rotation,
+                    outputName != null && !outputName.isEmpty() ? outputName : "watermarked.pdf");
+            
+            historyService.trackOperation(
+                    "ADD_WATERMARK",
+                    determineSourceType(request),
+                    requestDetails,
+                    request
+            );
 
             if (!response.isSuccess()) {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -726,5 +877,13 @@ public class PdfController {
         } catch (IOException e) {
             return ResponseEntity.badRequest().body("Error processing PDF file: " + e.getMessage());
         }
+    }
+    
+    /**
+     * Helper method to determine if the request is coming from the frontend or API
+     */
+    private String determineSourceType(HttpServletRequest request) {
+        String sourceType = request.getHeader("X-Source-Type");
+        return sourceType != null ? sourceType : "API";
     }
 }
