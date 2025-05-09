@@ -10,4 +10,10 @@ docker-compose up --build app -d
 // Docker documentation location
 http://localhost:8080/swagger-ui.html
 
-// On FE use header X-Source-Type: FRONTEND for correct history creation
+
+// Notes
+- On FE use header X-Source-Type: FRONTEND for correct history creation
+- database name -> postgres
+- database password -> postgres
+- admin account name -> admin@example.com
+- admin account password -> admin123
