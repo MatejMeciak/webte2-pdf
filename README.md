@@ -11,7 +11,7 @@ Aplikácia podporuje nasledujúce operácie s PDF súbormi:
 - 🔀 **Zmena poradia strán** – reorganizácia strán PDF súboru
 - 🔒 **Pridanie hesla** – ochrana PDF súboru heslom
 - 🖼 **Konverzia na obrázky** – každá strana PDF ako PNG/JPG
-- 📉 **Kompresia PDF** – zmenšenie veľkosti PDF súboru
+- 📉 **Pridanie vodoznaku** – pridanie vodoznaku na každú stranu PDF
 - 🔓 **Odstránenie hesla** – odomknutie chráneného PDF
 - 🔄 **Rotácia strán** – otočenie strán o 90/180/270 stupňov
 
