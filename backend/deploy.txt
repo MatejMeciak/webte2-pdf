@@ -4,5 +4,10 @@ docker-compose up -d postgres
 // Start the whole backend
 docker-compose up -d
 
+// Start and rebuild the backend (just the app)
+docker-compose up --build app -d
+
 // Docker documentation location
 http://localhost:8080/swagger-ui.html
+
+// On FE use header X-Source-Type: FRONTEND for correct history creation
