@@ -1,52 +1,22 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider, useAuth } from './contexts/AuthContext';
-import Login from './components/Login';
-import Register from './components/Register';
-import Dashboard from './components/Dashboard';
-import './App.css';
-
-function PrivateRoute({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated } = useAuth();
-  return isAuthenticated ? <>{children}</> : <Navigate to="/login" />;
-}
-
-function AdminRoute({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated, userRole } = useAuth();
-  return isAuthenticated && userRole === 'ADMIN' ? (
-    <>{children}</>
-  ) : (
-    <Navigate to="/dashboard" />
-  );
-}
+import { Route, Routes } from "react-router-dom";
+import DashboardPage from "./features/pdf/pages/DashboardPage";
+import PdfMergePage from "./features/pdf/pages/PdfMergePage";
+import PdfSplitPage from "./features/pdf/pages/PdfSplitPage";
+import PdfRemovePage from "./features/pdf/pages/PdfRemovePage";
+import Layout from "./components/Layout";
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route
-            path="/dashboard"
-            element={
-              <PrivateRoute>
-                <Dashboard />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/admin"
-            element={
-              <AdminRoute>
-                <div>Admin Dashboard</div>
-              </AdminRoute>
-            }
-          />
-          <Route path="/" element={<Navigate to="/login" />} />
-        </Routes>
-      </Router>
-    </AuthProvider>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<DashboardPage />} />
+        <Route path="merge" element={<PdfMergePage />} />
+        <Route path="split" element={<PdfSplitPage />} />
+        <Route path="remove" element={<PdfRemovePage />} />
+      </Route>
+    </Routes>
   );
 }
 
+export default App;
 export default App;
