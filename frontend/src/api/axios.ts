@@ -1,6 +1,10 @@
 import axios, { AxiosError, type InternalAxiosRequestConfig } from 'axios';
 
+// Get base URL from environment variables
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+
 const api = axios.create({
+  baseURL: API_BASE_URL,
   headers: {
     'X-Source-Type': 'FRONTEND',
     'Content-Type': 'application/json',
@@ -9,10 +13,10 @@ const api = axios.create({
 
 api.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    const token = localStorage.getItem('token');
+    const accessToken = localStorage.getItem('accessToken');
     
-    if (token) {
-      config.headers.set('Authorization', `Bearer ${token}`);
+    if (accessToken) {
+      config.headers.set('Authorization', `Bearer ${accessToken}`);
     }
     
     return config;
