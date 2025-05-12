@@ -13,7 +13,7 @@ function DashboardPage() {
   return (
     <div className="w-full max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
       <PageHeader
-        title="PDF Tools Dashboard"
+        title="PDF Dashboard"
         description="Select an action to manage your PDF documents"
       />
 
