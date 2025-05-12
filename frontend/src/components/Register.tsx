@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -18,14 +19,16 @@ interface RegisterForm {
 }
 
 export default function Register() {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<RegisterForm>();
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const { register, handleSubmit, watch, formState: { errors }, reset } = useForm<RegisterForm>();
   const { register: registerUser } = useAuth();
   const navigate = useNavigate();
 
   const onSubmit = async (data: RegisterForm) => {
     try {
-      await register(data.email, data.password, data.firstName, data.lastName);
-      navigate('/login');
+      await registerUser(data.email, data.password, data.firstName, data.lastName);
+      setSuccessMessage('Registrácia bola úspešná');
+      reset(); // Reset form fields
     } catch (error) {
       console.error('Registration failed:', error);
     }
@@ -42,6 +45,13 @@ export default function Register() {
             Vytvorte si nový účet
           </h2>
         </div>
+
+        {successMessage && (
+          <div className="rounded-md bg-green-50 p-4">
+            <div className="text-sm text-green-700">{successMessage}</div>
+          </div>
+        )}
+
         <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
           <div className="space-y-4">
             <div className="grid grid-cols-2 gap-4">

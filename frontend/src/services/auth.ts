@@ -38,10 +38,9 @@ export const register = async (data: RegisterData): Promise<AuthResponse> => {
 
 export const login = async (data: { email: string; password: string }): Promise<AuthResponse> => {
   try {
-    const response = await axios.post<AuthResponse>('/api/auth/login', data, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
+    const response = await axios.post<AuthResponse>(`${import.meta.env.VITE_API_URL}/auth/login`, {
+      email: data.email,
+      password: data.password
     });
     
     if (response.data.accessToken) {
@@ -52,11 +51,9 @@ export const login = async (data: { email: string; password: string }): Promise<
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      if (error.response?.status === 401) {
-        throw new Error('Invalid email or password');
-      }
-      throw new Error(error.response?.data?.message || 'Login failed');
+      const message = error.response?.data?.message || 'Nesprávne prihlasovacie údaje';
+      throw new Error(message);
     }
-    throw error;
+    throw new Error('Nastala neočakávaná chyba');
   }
 };

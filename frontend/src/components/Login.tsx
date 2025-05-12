@@ -25,6 +25,7 @@ export default function Login() {
       await authLogin(data.email, data.password);
       navigate('/dashboard');
     } catch (error: any) {
+      console.error('Login error:', error);
       setLoginError(error.message || 'Nastala chyba pri prihlasovaní');
     }
   };

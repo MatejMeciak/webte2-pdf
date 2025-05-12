@@ -46,15 +46,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = async (email: string, password: string) => {
     try {
-      // Use URLSearchParams to match Spring Security's form login expectation
-      const formData = new URLSearchParams();
-      formData.append('username', email); // Spring Security expects 'username'
-      formData.append('password', password);
-
-      const response = await axios.post('/api/auth/login', formData, {
+      const response = await axios.post('/api/auth/login', {
+        email,
+        password
+      }, {
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
+          'Content-Type': 'application/json'
+        }
       });
       
       if (response.data) {
@@ -64,7 +62,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
           setIsAuthenticated(true);
           setUserRole(role);
-          return;
+          return response.data;
         }
       }
       throw new Error('Neplatná odpoveď zo servera');
