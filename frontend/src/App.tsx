@@ -14,6 +14,7 @@ import PdfReorderPage from "./features/pdf/pages/PdfReorderPage";
 import PdfAddPasswordPage from "./features/pdf/pages/PdfAddPasswordPage";
 import PdfRemovePasswordPage from "./features/pdf/pages/PdfRemovePasswordPage";
 import PdfToImagesPage from "./features/pdf/pages/PdfToImagesPage";
+import PdfAddWatermarkPage from "./features/pdf/pages/PdfAddWatermarkPage";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             <Route path="add-password" element={<PdfAddPasswordPage />} />
             <Route path="remove-password" element={<PdfRemovePasswordPage />} />
             <Route path="to-images" element={<PdfToImagesPage />} />
+            <Route path="add-watermark" element={<PdfAddWatermarkPage />} />
           </Route>
           
           <Route element={<RedirectIfAuthenticated />}>

@@ -113,3 +113,33 @@ export const pdfToImagesFormSchema = z.object({
 });
 
 export type PdfToImagesFormValues = z.infer<typeof pdfToImagesFormSchema>;
+
+// Schema for add watermark to PDF form
+export const addWatermarkFormSchema = z.object({
+  watermarkText: z.string().min(1, "Watermark text is required"),
+  opacity: z.coerce
+    .number()
+    .min(0, "Opacity must be at least 0.0")
+    .max(1, "Opacity must be at most 1.0")
+    .default(0.3)
+    .optional(),
+  fontSize: z.coerce
+    .number()
+    .min(1, "Font size must be positive")
+    .default(40)
+    .optional(),
+  color: z.string()
+    .default("#888888")
+    .optional(),
+  rotation: z.coerce
+    .number()
+    .default(45)
+    .optional(),
+  outputName: z.string()
+    .optional()
+    .refine(name => !name || name.endsWith('.pdf'), {
+      message: "Filename must end with .pdf"
+    }),
+});
+
+export type AddWatermarkFormValues = z.infer<typeof addWatermarkFormSchema>;
