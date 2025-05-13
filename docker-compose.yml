@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  # Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: pdf-app-db
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    networks:
+      - pdf-app-network
+
+  # Backend
+  backend:
+    build: ./backend
+    container_name: pdf-app-backend
+    depends_on:
+      - postgres
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    networks:
+      - pdf-app-network
+
+  # Frontend
+  frontend:
+    build: ./frontend
+    container_name: pdf-app-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - pdf-app-network
+
+networks:
+  pdf-app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
