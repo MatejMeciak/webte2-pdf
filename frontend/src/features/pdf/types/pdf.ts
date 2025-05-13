@@ -143,3 +143,19 @@ export const addWatermarkFormSchema = z.object({
 });
 
 export type AddWatermarkFormValues = z.infer<typeof addWatermarkFormSchema>;
+
+// Schema for rotate PDF pages form
+export const rotatePagesFormSchema = z.object({
+  pages: z.array(z.coerce.number().positive("Page number must be positive")).min(1, "At least one page is required"),
+  rotations: z.array(z.coerce.number()).min(1, "At least one rotation is required"),
+  outputName: z.string()
+    .optional()
+    .refine(name => !name || name.endsWith('.pdf'), {
+      message: "Filename must end with .pdf"
+    }),
+}).refine((data) => data.pages.length === data.rotations.length, {
+  message: "Number of pages and rotations must match",
+  path: ["rotations"],
+});
+
+export type RotatePagesFormValues = z.infer<typeof rotatePagesFormSchema>;
