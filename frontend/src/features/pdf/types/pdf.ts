@@ -56,3 +56,22 @@ export const extractPagesFormSchema = z.object({
 });
 
 export type ExtractPagesFormValues = z.infer<typeof extractPagesFormSchema>;
+
+// Schema for reorder PDF pages form
+export const reorderPagesFormSchema = z.object({
+  pageOrder: z.string()
+    .min(1, "Page order is required")
+    .refine(value => {
+      // Check if the input is a valid comma-separated list of positive integers
+      return /^(\d+)(,\s*\d+)*$/.test(value);
+    }, {
+      message: "Page order must be a comma-separated list of page numbers (e.g., '1,3,2,4')"
+    }),
+  outputName: z.string()
+    .optional()
+    .refine(name => !name || name.endsWith('.pdf'), {
+      message: "Filename must end with .pdf"
+    }),
+});
+
+export type ReorderPagesFormValues = z.infer<typeof reorderPagesFormSchema>;

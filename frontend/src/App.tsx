@@ -10,6 +10,7 @@ import { AuthProvider } from "./features/auth/context/AuthContext";
 import { ProtectedRoute } from "./features/auth/components/ProtectedRoute";
 import { RedirectIfAuthenticated } from "./features/auth/components/RedirectIfAuthenticated";
 import PdfExtractPage from "./features/pdf/pages/PdfExtractPage";
+import PdfReorderPage from "./features/pdf/pages/PdfReorderPage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="split" element={<PdfSplitPage />} />
             <Route path="remove" element={<PdfRemovePage />} />
             <Route path="extract" element={<PdfExtractPage />} />
+            <Route path="reorder" element={<PdfReorderPage />} />
           </Route>
           
           <Route element={<RedirectIfAuthenticated />}>
