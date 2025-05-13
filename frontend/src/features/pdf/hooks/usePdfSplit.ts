@@ -1,6 +1,7 @@
 import { useState } from "react";
 import api from "@/api/axios";
 import type { SplitFormValues } from "../types/pdf";
+import { isAxiosError } from "axios";
 
 export function usePdfSplit() {
   const [isLoading, setIsLoading] = useState(false);
@@ -33,8 +34,7 @@ export function usePdfSplit() {
       const response = await api.post("/pdf/split", formData, {
         responseType: "blob",
         headers: {
-          ...api.defaults.headers,
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "multipart/form-data"
         },
       });
 
@@ -42,7 +42,7 @@ export function usePdfSplit() {
       handleFileDownload(response);
       
     } catch (err) {
-      if (api.isAxiosError(err)) {
+      if (isAxiosError(err)) {
         setError(err.response?.data || "Error splitting PDF. Please try again.");
       } else {
         setError("An unexpected error occurred. Please try again.");

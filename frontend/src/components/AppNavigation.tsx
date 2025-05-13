@@ -163,7 +163,7 @@ const AppNavigation = () => {
 const ListItem = React.forwardRef<
   React.ComponentRef<"a">,
   React.ComponentPropsWithoutRef<"a">
->(({ className, title, children, href, ...props }, ref) => {
+>(({ className, title, children, href, ...props }) => {
   return (
     <li>
       <Link

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import api from "@/api/axios";
 import type { RemovePageFormValues } from "../types/pdf";
+import { isAxiosError } from "axios";
 
 export function usePdfRemovePage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -29,8 +30,7 @@ export function usePdfRemovePage() {
       const response = await api.post("/pdf/remove-page", formData, {
         responseType: "blob",
         headers: {
-          ...api.defaults.headers,
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "multipart/form-data"
         },
       });
 
@@ -38,7 +38,7 @@ export function usePdfRemovePage() {
       handleFileDownload(response);
       
     } catch (err) {
-      if (api.isAxiosError(err)) {
+      if (isAxiosError(err)) {
         setError(err.response?.data || "Error removing page from PDF. Please try again.");
       } else {
         setError("An unexpected error occurred. Please try again.");

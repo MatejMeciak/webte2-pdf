@@ -1,6 +1,7 @@
 import { useState } from "react";
 import api from "@/api/axios";
 import type { MergeFormValues } from "../types/pdf";
+import { isAxiosError } from "axios";
 
 export function usePdfMerge() {
   const [isLoading, setIsLoading] = useState(false);
@@ -29,8 +30,7 @@ export function usePdfMerge() {
       const response = await api.post("/pdf/merge", formData, {
         responseType: "blob",
         headers: {
-          ...api.defaults.headers,
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "multipart/form-data"
         },
       });
 
@@ -38,7 +38,7 @@ export function usePdfMerge() {
       handleFileDownload(response);
       
     } catch (err) {
-      if (api.isAxiosError(err)) {
+      if (isAxiosError(err)) {
         setError(err.response?.data || "Error merging PDFs. Please try again.");
       } else {
         setError("An unexpected error occurred. Please try again.");
