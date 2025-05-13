@@ -13,6 +13,7 @@ import PdfExtractPage from "./features/pdf/pages/PdfExtractPage";
 import PdfReorderPage from "./features/pdf/pages/PdfReorderPage";
 import PdfAddPasswordPage from "./features/pdf/pages/PdfAddPasswordPage";
 import PdfRemovePasswordPage from "./features/pdf/pages/PdfRemovePasswordPage";
+import PdfToImagesPage from "./features/pdf/pages/PdfToImagesPage";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route path="reorder" element={<PdfReorderPage />} />
             <Route path="add-password" element={<PdfAddPasswordPage />} />
             <Route path="remove-password" element={<PdfRemovePasswordPage />} />
+            <Route path="to-images" element={<PdfToImagesPage />} />
           </Route>
           
           <Route element={<RedirectIfAuthenticated />}>

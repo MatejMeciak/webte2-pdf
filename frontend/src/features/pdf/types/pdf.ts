@@ -101,3 +101,15 @@ export const removePasswordFormSchema = z.object({
 });
 
 export type RemovePasswordFormValues = z.infer<typeof removePasswordFormSchema>;
+
+// Schema for PDF to Images form
+export const pdfToImagesFormSchema = z.object({
+  dpi: z.coerce
+    .number()
+    .positive("DPI must be positive")
+    .min(1, "DPI must be at least 1")
+    .default(150)
+    .optional(),
+});
+
+export type PdfToImagesFormValues = z.infer<typeof pdfToImagesFormSchema>;

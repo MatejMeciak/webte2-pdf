@@ -1,13 +1,13 @@
 import { useState } from "react";
 import api from "@/api/axios";
-import type { RemovePasswordFormValues } from "../types/pdf";
+import type { PdfToImagesFormValues } from "../types/pdf";
 import { isAxiosError } from "axios";
 
-export function usePdfRemovePassword() {
+export function usePdfToImages() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const removePasswordFromPdf = async (values: RemovePasswordFormValues, file: File) => {
+  const convertPdfToImages = async (values: PdfToImagesFormValues, file: File) => {
     if (!file) {
       setError("Please upload a PDF file first");
       return;
@@ -20,13 +20,12 @@ export function usePdfRemovePassword() {
       // Create form data with file and form values
       const formData = new FormData();
       formData.append("pdf", file);
-      formData.append("password", values.password);
-      if (values.outputName) {
-        formData.append("outputName", values.outputName);
+      if (values.dpi) {
+        formData.append("dpi", values.dpi.toString());
       }
 
-      // Send request to remove password from the PDF
-      const response = await api.post("/pdf/remove-password", formData, {
+      // Send request to convert PDF to images
+      const response = await api.post("/pdf/to-images", formData, {
         responseType: "blob",
         headers: {
           "Content-Type": "multipart/form-data"
@@ -36,7 +35,7 @@ export function usePdfRemovePassword() {
 
       // Check for error status
       if (response.status && response.status >= 400) {
-        let errorMsg = "Error removing password from PDF. Please try again.";
+        let errorMsg = "Error converting PDF to images. Please try again.";
         if (response.data instanceof Blob) {
           try {
             const text = await response.data.text();
@@ -54,7 +53,18 @@ export function usePdfRemovePassword() {
       
     } catch (err) {
       if (isAxiosError(err)) {
-        setError(err.response?.data || "Error removing password from PDF. Please try again.");
+        let errorMsg = "Error converting PDF to images. Please try again.";
+        if (err.response?.data instanceof Blob) {
+          try {
+            const text = await err.response.data.text();
+            errorMsg = text || errorMsg;
+          } catch {
+            // fallback to default
+          }
+        } else if (typeof err.response?.data === "string") {
+          errorMsg = err.response.data;
+        }
+        setError(errorMsg);
       } else {
         setError("An unexpected error occurred. Please try again.");
       }
@@ -63,14 +73,14 @@ export function usePdfRemovePassword() {
     }
   };
 
-  return { removePasswordFromPdf, isLoading, error };
+  return { convertPdfToImages, isLoading, error };
 }
 
 // Helper function to handle file download
 function handleFileDownload(response: any) {
   // Get filename from Content-Disposition header
   const contentDisposition = response.headers['content-disposition'];
-  let filename = 'unprotected.pdf';
+  let filename = 'images.zip';
   
   if (contentDisposition) {
     const filenameMatch = contentDisposition.match(/filename="?([^"]*)"?/);
@@ -80,7 +90,7 @@ function handleFileDownload(response: any) {
   }
 
   // Create blob URL and trigger download
-  const blob = new Blob([response.data], { type: 'application/pdf' });
+  const blob = new Blob([response.data], { type: 'application/zip' });
   const url = window.URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.href = url;
