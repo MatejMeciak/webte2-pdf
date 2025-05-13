@@ -21,7 +21,7 @@ import { useAuth } from "@/features/auth/context/AuthContext";
 
 const AppNavigation = () => {
   const [open, setOpen] = useState(false);
-  const { isAuthenticated, logout, user } = useAuth();
+  const { isAuthenticated, logout, user, isAdmin } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -72,6 +72,16 @@ const AppNavigation = () => {
                   <UserCircle className="h-5 w-5 mr-1.5 text-primary" />
                   <span>{user?.email}</span>
                 </div>
+                {isAdmin && (
+                  <Button
+                    variant="default"
+                    size="sm"
+                    onClick={() => navigate('/admin/history')}
+                    className="flex items-center"
+                  >
+                    Admin History
+                  </Button>
+                )}
                 <Button 
                   variant="outline" 
                   size="sm" 
@@ -128,17 +138,31 @@ const AppNavigation = () => {
                   
                   <div className="pt-4 mt-4 border-t">
                     {isAuthenticated ? (
-                      <Button 
-                        variant="outline" 
-                        className="w-full flex items-center justify-center"
-                        onClick={() => {
-                          handleLogout();
-                          setOpen(false);
-                        }}
-                      >
-                        <LogOut className="h-4 w-4 mr-2" />
-                        Logout
-                      </Button>
+                      <>
+                        {isAdmin && (
+                          <Button
+                            variant="default"
+                            className="w-full flex items-center justify-center mb-2"
+                            onClick={() => {
+                              navigate('/admin/history');
+                              setOpen(false);
+                            }}
+                          >
+                            Admin History
+                          </Button>
+                        )}
+                        <Button 
+                          variant="outline" 
+                          className="w-full flex items-center justify-center"
+                          onClick={() => {
+                            handleLogout();
+                            setOpen(false);
+                          }}
+                        >
+                          <LogOut className="h-4 w-4 mr-2" />
+                          Logout
+                        </Button>
+                      </>
                     ) : (
                       <div className="flex flex-col space-y-2">
                         <Link to="/login" onClick={() => setOpen(false)}>
