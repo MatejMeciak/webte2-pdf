@@ -31,9 +31,25 @@ export function usePdfAddPassword() {
         headers: {
           "Content-Type": "multipart/form-data"
         },
+        validateStatus: () => true, // Always resolve, handle status manually
       });
 
-      // Handle the download
+      // Check for error status
+      if (response.status && response.status >= 400) {
+        let errorMsg = "Error adding password to PDF. Please try again.";
+        if (response.data instanceof Blob) {
+          try {
+            const text = await response.data.text();
+            errorMsg = text || errorMsg;
+          } catch {
+            // fallback to default
+          }
+        }
+        setError(errorMsg);
+        return;
+      }
+
+      // Only handle download if status is OK
       handleFileDownload(response);
       
     } catch (err) {
