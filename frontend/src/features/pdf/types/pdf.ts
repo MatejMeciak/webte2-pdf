@@ -11,3 +11,14 @@ export const splitFormSchema = z.object({
 });
 
 export type SplitFormValues = z.infer<typeof splitFormSchema>;
+
+// Schema for merge PDF form
+export const mergeFormSchema = z.object({
+  outputName: z.string()
+    .min(1, "Output filename is required")
+    .refine(name => name.endsWith('.pdf'), {
+      message: "Filename must end with .pdf"
+    }),
+});
+
+export type MergeFormValues = z.infer<typeof mergeFormSchema>;

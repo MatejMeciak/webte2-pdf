@@ -8,7 +8,7 @@ export type PdfAction = {
 export const pdfActions: PdfAction[] = [
   {
     title: "Merge PDFs",
-    description: "Combine multiple PDF files into one document.",
+    description: "Combine 2 PDF files into one document.",
     path: "/merge",
     icon: (
       <svg

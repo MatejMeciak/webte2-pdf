@@ -1,18 +1,43 @@
+import { useState } from "react";
+import { PageHeader } from "@/components/ui/page-header";
+import { Card } from "@/components/ui/card";
+import { MultiPdfUploader } from "../components/MultiPdfUploader";
+import { MergeConfigForm } from "../components/MergeConfigForm";
+import { usePdfMerge } from "../hooks/usePdfMerge";
+
 export default function PdfMergePage() {
+  const [files, setFiles] = useState<File[]>([]);
+  const { mergePdf, isLoading, error } = usePdfMerge();
+
   return (
     <div className="w-full max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
-      <div className="flex flex-col items-center mb-12">
-        <h1 className="text-3xl font-bold tracking-tight text-center">PDF Merge Tool</h1>
-        <p className="mt-2 text-center text-muted-foreground">
-          Combine multiple PDF files into a single document.
-        </p>
-      </div>
+      <PageHeader
+        title="PDF Merge Tool"
+        description="Combine 2 PDF files into a single document."
+      />
 
-      {/* Add your PDF merge functionality here */}
-      <div className="bg-card rounded-lg border p-6 shadow-sm">
-        {/* Placeholder for PDF merge functionality */}
-        <p>PDF Merge functionality goes here.</p>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Upload section */}
+        <Card className="p-6 shadow-sm col-span-1 lg:col-span-2">
+          <h2 className="text-xl font-semibold mb-4">1. Select PDF Files</h2>
+          <MultiPdfUploader 
+            files={files} 
+            setFiles={setFiles} 
+            maxFiles={2} 
+          />
+        </Card>
+
+        {/* Merge configuration */}
+        <Card className="p-6 shadow-sm col-span-1">
+          <h2 className="text-xl font-semibold mb-4">2. Configure Merge Options</h2>
+          <MergeConfigForm 
+            onSubmit={mergePdf} 
+            files={files} 
+            isLoading={isLoading} 
+            error={error} 
+          />
+        </Card>
       </div>
     </div>
-  )
+  );
 }
