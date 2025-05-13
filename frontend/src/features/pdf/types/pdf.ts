@@ -75,3 +75,29 @@ export const reorderPagesFormSchema = z.object({
 });
 
 export type ReorderPagesFormValues = z.infer<typeof reorderPagesFormSchema>;
+
+// Schema for add password to PDF form
+export const addPasswordFormSchema = z.object({
+  password: z.string()
+    .min(1, "Password is required"),
+  outputName: z.string()
+    .optional()
+    .refine(name => !name || name.endsWith('.pdf'), {
+      message: "Filename must end with .pdf"
+    }),
+});
+
+export type AddPasswordFormValues = z.infer<typeof addPasswordFormSchema>;
+
+// Schema for remove password from PDF form
+export const removePasswordFormSchema = z.object({
+  password: z.string()
+    .min(1, "Password is required"),
+  outputName: z.string()
+    .optional()
+    .refine(name => !name || name.endsWith('.pdf'), {
+      message: "Filename must end with .pdf"
+    }),
+});
+
+export type RemovePasswordFormValues = z.infer<typeof removePasswordFormSchema>;

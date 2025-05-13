@@ -11,6 +11,8 @@ import { ProtectedRoute } from "./features/auth/components/ProtectedRoute";
 import { RedirectIfAuthenticated } from "./features/auth/components/RedirectIfAuthenticated";
 import PdfExtractPage from "./features/pdf/pages/PdfExtractPage";
 import PdfReorderPage from "./features/pdf/pages/PdfReorderPage";
+import PdfAddPasswordPage from "./features/pdf/pages/PdfAddPasswordPage";
+import PdfRemovePasswordPage from "./features/pdf/pages/PdfRemovePasswordPage";
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
             <Route path="remove" element={<PdfRemovePage />} />
             <Route path="extract" element={<PdfExtractPage />} />
             <Route path="reorder" element={<PdfReorderPage />} />
+            <Route path="add-password" element={<PdfAddPasswordPage />} />
+            <Route path="remove-password" element={<PdfRemovePasswordPage />} />
           </Route>
           
           <Route element={<RedirectIfAuthenticated />}>
