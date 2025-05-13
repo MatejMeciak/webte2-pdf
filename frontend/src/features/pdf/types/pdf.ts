@@ -37,3 +37,22 @@ export const removePageFormSchema = z.object({
 });
 
 export type RemovePageFormValues = z.infer<typeof removePageFormSchema>;
+
+// Schema for extract PDF pages form
+export const extractPagesFormSchema = z.object({
+  startPage: z.coerce
+    .number()
+    .positive("Start page must be positive")
+    .min(1, "Start page must be at least 1"),
+  endPage: z.coerce
+    .number()
+    .positive("End page must be positive")
+    .min(1, "End page must be at least 1"),
+  outputName: z.string()
+    .optional()
+    .refine(name => !name || name.endsWith('.pdf'), {
+      message: "Filename must end with .pdf"
+    }),
+});
+
+export type ExtractPagesFormValues = z.infer<typeof extractPagesFormSchema>;

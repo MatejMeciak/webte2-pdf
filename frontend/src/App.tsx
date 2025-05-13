@@ -9,6 +9,7 @@ import RegisterPage from "./features/auth/pages/RegisterPage";
 import { AuthProvider } from "./features/auth/context/AuthContext";
 import { ProtectedRoute } from "./features/auth/components/ProtectedRoute";
 import { RedirectIfAuthenticated } from "./features/auth/components/RedirectIfAuthenticated";
+import PdfExtractPage from "./features/pdf/pages/PdfExtractPage";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="merge" element={<PdfMergePage />} />
             <Route path="split" element={<PdfSplitPage />} />
             <Route path="remove" element={<PdfRemovePage />} />
+            <Route path="extract" element={<PdfExtractPage />} />
           </Route>
           
           <Route element={<RedirectIfAuthenticated />}>
