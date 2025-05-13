@@ -16,6 +16,7 @@ import PdfRemovePasswordPage from "./features/pdf/pages/PdfRemovePasswordPage";
 import PdfToImagesPage from "./features/pdf/pages/PdfToImagesPage";
 import PdfAddWatermarkPage from "./features/pdf/pages/PdfAddWatermarkPage";
 import PdfRotatePagesPage from "./features/pdf/pages/PdfRotatePagesPage";
+import AdminHistoryPage from "./features/history/pages/AdminHistoryPage";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
             <Route path="to-images" element={<PdfToImagesPage />} />
             <Route path="add-watermark" element={<PdfAddWatermarkPage />} />
             <Route path="rotate" element={<PdfRotatePagesPage />} />
+            <Route path="admin/history" element={<AdminHistoryPage />} />
           </Route>
           
           <Route element={<RedirectIfAuthenticated />}>
