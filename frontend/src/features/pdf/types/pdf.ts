@@ -22,3 +22,18 @@ export const mergeFormSchema = z.object({
 });
 
 export type MergeFormValues = z.infer<typeof mergeFormSchema>;
+
+// Schema for remove page PDF form
+export const removePageFormSchema = z.object({
+  pageToRemove: z.coerce
+    .number()
+    .positive("Page number must be positive")
+    .min(1, "Page must be at least 1"),
+  outputName: z.string()
+    .optional()
+    .refine(name => !name || name.endsWith('.pdf'), {
+      message: "Filename must end with .pdf"
+    }),
+});
+
+export type RemovePageFormValues = z.infer<typeof removePageFormSchema>;

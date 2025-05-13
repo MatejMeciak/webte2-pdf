@@ -50,8 +50,8 @@ export const pdfActions: PdfAction[] = [
     ),
   },
   {
-    title: "Remove Pages",
-    description: "Delete specific pages from your PDF document.",
+    title: "Remove Page",
+    description: "Delete a specific page from your PDF document.",
     path: "/remove",
     icon: (
       <svg
