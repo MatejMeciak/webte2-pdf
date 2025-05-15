@@ -43,6 +43,7 @@ Aplikácia podporuje nasledujúce operácie s PDF súbormi:
 ### 🧑‍💻 Matiko
 - Vývoj frontend rozhrania (React)
 - Prepojenie s API (token, PDF operácie)
+- Admin stránka pre pozeranie histórie akcií užívateľov
 
 ---
 

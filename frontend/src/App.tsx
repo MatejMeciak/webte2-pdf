@@ -1,35 +1,51 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Route, Routes } from "react-router-dom";
+import DashboardPage from "./features/pdf/pages/DashboardPage";
+import PdfMergePage from "./features/pdf/pages/PdfMergePage";
+import PdfSplitPage from "./features/pdf/pages/PdfSplitPage";
+import PdfRemovePage from "./features/pdf/pages/PdfRemovePage";
+import Layout from "./components/Layout";
+import LoginPage from "./features/auth/pages/LoginPage";
+import RegisterPage from "./features/auth/pages/RegisterPage";
+import { AuthProvider } from "./features/auth/context/AuthContext";
+import { ProtectedRoute } from "./features/auth/components/ProtectedRoute";
+import { RedirectIfAuthenticated } from "./features/auth/components/RedirectIfAuthenticated";
+import PdfExtractPage from "./features/pdf/pages/PdfExtractPage";
+import PdfReorderPage from "./features/pdf/pages/PdfReorderPage";
+import PdfAddPasswordPage from "./features/pdf/pages/PdfAddPasswordPage";
+import PdfRemovePasswordPage from "./features/pdf/pages/PdfRemovePasswordPage";
+import PdfToImagesPage from "./features/pdf/pages/PdfToImagesPage";
+import PdfAddWatermarkPage from "./features/pdf/pages/PdfAddWatermarkPage";
+import PdfRotatePagesPage from "./features/pdf/pages/PdfRotatePagesPage";
+import AdminHistoryPage from "./features/history/pages/AdminHistoryPage";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <AuthProvider>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route element={<ProtectedRoute />}>
+            <Route index element={<DashboardPage />} />
+            <Route path="merge" element={<PdfMergePage />} />
+            <Route path="split" element={<PdfSplitPage />} />
+            <Route path="remove" element={<PdfRemovePage />} />
+            <Route path="extract" element={<PdfExtractPage />} />
+            <Route path="reorder" element={<PdfReorderPage />} />
+            <Route path="add-password" element={<PdfAddPasswordPage />} />
+            <Route path="remove-password" element={<PdfRemovePasswordPage />} />
+            <Route path="to-images" element={<PdfToImagesPage />} />
+            <Route path="add-watermark" element={<PdfAddWatermarkPage />} />
+            <Route path="rotate" element={<PdfRotatePagesPage />} />
+            <Route path="admin/history" element={<AdminHistoryPage />} />
+          </Route>
+          
+          <Route element={<RedirectIfAuthenticated />}>
+            <Route path="login" element={<LoginPage />} />
+            <Route path="register" element={<RegisterPage />} />
+          </Route>
+        </Route>
+      </Routes>
+    </AuthProvider>
+  );
 }
 
-export default App
+export default App;
