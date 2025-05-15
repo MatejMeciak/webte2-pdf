@@ -1,0 +1,22 @@
+// Swagger docs
+http://localhost:8000/docs
+
+// Docker build process
+docker-compose down
+docker-compose build --no-cache
+docker-compose up -d
+
+
+// Passwords 
+admin@example.com
+admin
+
+user@example.com
+user
+
+
+// TODO 
+state a country resolution
+reorder a rotate nefunugje ked viac ako 1 integer
+add pasword neprida heslo a remove password neviem
+add watermark nefunguje
