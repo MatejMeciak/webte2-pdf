@@ -24,7 +24,7 @@ from app.schemas.pdf import (
     PdfAddWatermarkRequest
 )
 
-router = APIRouter(prefix="/pdf", tags=["PDF Operations"])
+router = APIRouter(tags=["PDF Operations"])
 pdf_service = PdfService()
 history_service = HistoryService()
 
@@ -328,7 +328,7 @@ async def remove_page_from_pdf(
 @router.post("/reorder")
 async def reorder_pdf_pages(
     pdf: UploadFile = File(...),
-    page_order: List[int] = Form(...),
+    page_order: str = Form(...),  # Change from List[int] to str
     output_name: Optional[str] = Form(None),
     request: Request = None,
     db: Session = Depends(get_db),
@@ -342,9 +342,15 @@ async def reorder_pdf_pages(
         if pdf.content_type != "application/pdf":
             raise HTTPException(status_code=400, detail="File must be PDF format")
         
-        # Validate page order
-        if not page_order:
-            raise HTTPException(status_code=400, detail="Page order list cannot be empty")
+        # Parse and validate page order
+        try:
+            # Parse comma-separated integers
+            page_order_list = [int(page.strip()) for page in page_order.split(',')]
+            
+            if not page_order_list:
+                raise HTTPException(status_code=400, detail="Page order list cannot be empty")
+        except ValueError:
+            raise HTTPException(status_code=400, detail="Invalid page order format. Use comma-separated integers (e.g., '1,2,3')")
         
         # Read file content
         pdf_content = await pdf.read()
@@ -358,7 +364,7 @@ async def reorder_pdf_pages(
         # Create reorder request
         reorder_request = PdfReorderPagesRequest(
             pdf_name=pdf.filename,
-            page_order=page_order,
+            page_order=page_order_list,  # Use the parsed list
             output_pdf_name=final_output_name,
             pdf=pdf_content
         )
@@ -608,8 +614,8 @@ async def convert_pdf_to_images(
 @router.post("/rotate")
 async def rotate_pdf_pages(
     pdf: UploadFile = File(...),
-    pages: List[int] = Form(...),
-    rotations: List[int] = Form(...),
+    pages: str = Form(...),  # Change from List[int] to str
+    rotations: str = Form(...),  # Change from List[int] to str
     output_name: Optional[str] = Form(None),
     request: Request = None,
     db: Session = Depends(get_db),
@@ -623,15 +629,22 @@ async def rotate_pdf_pages(
         if pdf.content_type != "application/pdf":
             raise HTTPException(status_code=400, detail="File must be PDF format")
         
-        # Validate pages and rotations
-        if not pages:
-            raise HTTPException(status_code=400, detail="Page list cannot be empty")
-        
-        if not rotations:
-            raise HTTPException(status_code=400, detail="Rotation list cannot be empty")
-        
-        if len(pages) != len(rotations):
-            raise HTTPException(status_code=400, detail="Number of pages and rotations must match")
+        # Parse and validate pages and rotations
+        try:
+            # Parse comma-separated integers
+            pages_list = [int(page.strip()) for page in pages.split(',')]
+            rotations_list = [int(rotation.strip()) for rotation in rotations.split(',')]
+            
+            if not pages_list:
+                raise HTTPException(status_code=400, detail="Page list cannot be empty")
+            
+            if not rotations_list:
+                raise HTTPException(status_code=400, detail="Rotation list cannot be empty")
+            
+            if len(pages_list) != len(rotations_list):
+                raise HTTPException(status_code=400, detail="Number of pages and rotations must match")
+        except ValueError:
+            raise HTTPException(status_code=400, detail="Invalid format. Use comma-separated integers (e.g., '1,2,3')")
         
         # Read file content
         pdf_content = await pdf.read()
@@ -643,7 +656,7 @@ async def rotate_pdf_pages(
         final_output_name = output_name if output_name else "rotated.pdf"
         
         # Create a map of page numbers to rotation angles
-        page_rotations = {pages[i]: rotations[i] for i in range(len(pages))}
+        page_rotations = {pages_list[i]: rotations_list[i] for i in range(len(pages_list))}
         
         # Create rotate request
         rotate_request = PdfRotatePagesRequest(
@@ -657,7 +670,7 @@ async def rotate_pdf_pages(
         result = pdf_service.rotate_pdf_pages(rotate_request)
         
         # Track operation
-        rotation_details = ", ".join(f"Page {pages[i]} rotated {rotations[i]}°" for i in range(len(pages)))
+        rotation_details = ", ".join(f"Page {pages_list[i]} rotated {rotations_list[i]}°" for i in range(len(pages_list)))
         request_details = f"Rotated pages in {pdf.filename} ({rotation_details}), output: {final_output_name}"
         history_service.track_operation(
             db=db,
@@ -687,10 +700,6 @@ async def rotate_pdf_pages(
 async def add_watermark_to_pdf(
     pdf: UploadFile = File(...),
     watermark_text: str = Form(...),
-    opacity: float = Form(0.3),
-    font_size: int = Form(40),
-    color: str = Form("#888888"),
-    rotation: int = Form(45),
     output_name: Optional[str] = Form(None),
     request: Request = None,
     db: Session = Depends(get_db),
@@ -698,6 +707,10 @@ async def add_watermark_to_pdf(
 ):
     """
     Add a text watermark to each page of a PDF document
+    
+    - **pdf**: PDF file to add watermark to
+    - **watermark_text**: Text to use as watermark
+    - **output_name**: Custom filename for the output PDF (optional)
     """
     try:
         # Validate file
@@ -707,9 +720,6 @@ async def add_watermark_to_pdf(
         # Validate watermark parameters
         if not watermark_text:
             raise HTTPException(status_code=400, detail="Watermark text cannot be empty")
-        
-        if opacity < 0 or opacity > 1:
-            raise HTTPException(status_code=400, detail="Opacity must be between 0.0 and 1.0")
         
         # Read file content
         pdf_content = await pdf.read()
@@ -724,19 +734,16 @@ async def add_watermark_to_pdf(
         watermark_request = PdfAddWatermarkRequest(
             pdf_name=pdf.filename,
             watermark_text=watermark_text,
-            opacity=opacity,
-            font_size=font_size,
-            color=color,
-            rotation=rotation,
             output_pdf_name=final_output_name,
-            pdf=pdf_content
+            pdf=pdf_content,
+            font_size=40  # Default font size
         )
         
         # Process watermark addition
         result = pdf_service.add_watermark_to_pdf(watermark_request)
         
         # Track operation
-        request_details = f'Added watermark "{watermark_text}" to {pdf.filename} (opacity={opacity}, fontSize={font_size}, color={color}, rotation={rotation}°), output: {final_output_name}'
+        request_details = f'Added watermark "{watermark_text}" to {pdf.filename}, output: {final_output_name}'
         history_service.track_operation(
             db=db,
             operation_type="ADD_WATERMARK",

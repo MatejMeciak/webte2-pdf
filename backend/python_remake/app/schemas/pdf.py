@@ -66,11 +66,9 @@ class PdfRotatePagesRequest(BaseModel):
     pdf: bytes
 
 class PdfAddWatermarkRequest(BaseModel):
-    pdf_name: str
-    watermark_text: str
-    opacity: float
-    font_size: int
-    color: str
-    rotation: int
-    output_pdf_name: str
     pdf: bytes
+    watermark_text: str
+    output_pdf_name: str
+    pdf_name: str
+    font_size: int = 40
+    color: str = "#808080"  # Default gray color

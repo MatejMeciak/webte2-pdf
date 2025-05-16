@@ -266,21 +266,33 @@ class PdfService:
             # Load PDF document with PyMuPDF for better encryption support
             doc = fitz.open(stream=request.pdf, filetype="pdf")
             
-            # Set password
+            # Create a temporary file to save the encrypted PDF
+            temp_file_path = request.output_pdf_name
+            
+            # Set password and save to the temp file
             doc.save(
-                request.output_pdf_name,
+                temp_file_path,
                 encryption=fitz.PDF_ENCRYPT_AES_256,
                 owner_pw=request.owner_password,
                 user_pw=request.owner_password  # Using same password for both
             )
             
-            # Get the encrypted content
-            output_bytes = doc.tobytes()
+            # Close the original document
+            doc.close()
+            
+            # Read the encrypted file back in as bytes
+            with open(temp_file_path, "rb") as f:
+                encrypted_bytes = f.read()
+            
+            # Remove the temporary file
+            import os
+            if os.path.exists(temp_file_path):
+                os.remove(temp_file_path)
             
             return PdfResponse(
                 file_name=request.output_pdf_name,
                 message="Password added successfully",
-                content=output_bytes,
+                content=encrypted_bytes,
                 success=True
             )
 
@@ -427,15 +439,12 @@ class PdfService:
 
     def add_watermark_to_pdf(self, request: PdfAddWatermarkRequest) -> PdfResponse:
         """
-        Add a text watermark to each page of a PDF file
+        Add a text watermark to each page of a PDF file.
+        Simple version with basic positioning in the center of the page.
         """
         try:
             # Load PDF document
             doc = fitz.open(stream=request.pdf, filetype="pdf")
-            
-            # Convert hex color to RGB tuple
-            color_hex = request.color.lstrip('#')
-            color_rgb = tuple(int(color_hex[i:i+2], 16) / 255 for i in (0, 2, 4))
             
             # Process each page
             for page_num in range(len(doc)):
@@ -444,29 +453,27 @@ class PdfService:
                 # Get page dimensions
                 rect = page.rect
                 
-                # Create a text watermark
-                text_width = request.font_size * len(request.watermark_text) * 0.6  # Approximate width
-                
-                # Center the watermark
-                x = (rect.width - text_width) / 2
+                # Use center position and basic gray color
+                x = rect.width / 2
                 y = rect.height / 2
                 
-                # Create the watermark
+                # Create a watermark using the page's annotation method
+                # This is the most basic and reliable way to add text to a PDF
                 page.insert_text(
-                    (x, y),
-                    request.watermark_text,
-                    fontsize=request.font_size,
-                    fontname="helv",
-                    rotate=request.rotation,
-                    color=color_rgb,
-                    alpha=request.opacity
-                )
+                    point=(x, y),
+                    text=request.watermark_text,
+                    fontsize=40,
+                    color=(0.5, 0.5, 0.5)  # Gray color
+                    )
             
-            # Save the document
-            doc.save(request.output_pdf_name)
+            # Save the document to a BytesIO buffer
+            output_buffer = io.BytesIO()
+            doc.save(output_buffer)
+            doc.close()
             
             # Get the watermarked content
-            output_bytes = doc.tobytes()
+            output_buffer.seek(0)
+            output_bytes = output_buffer.getvalue()
             
             return PdfResponse(
                 file_name=request.output_pdf_name,

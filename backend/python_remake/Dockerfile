@@ -1,27 +1,21 @@
+# Start with Python base image
 FROM python:3.11-slim
 
+# Set working directory
 WORKDIR /app
 
-# Install system dependencies for PyMuPDF/fitz
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    libffi-dev \
-    libssl-dev \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
-# Copy requirements first for better caching
-COPY requirements.txt .
-
-# Install Python dependencies with pip
+# Copy requirements and install dependencies
+COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the app code
-COPY . .
+# Copy the rest of the application
+COPY . /app/
 
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
+# Create data directory for GeoLite2 database
+RUN mkdir -p /app/data
+
+# Download the GeoLite2 database
+RUN python -m app.services.geo_lite_2 --data-dir=/app/data
 
 # Run the application
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

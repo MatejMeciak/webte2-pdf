@@ -17,6 +17,3 @@ user
 
 // TODO 
 state a country resolution
-reorder a rotate nefunugje ked viac ako 1 integer
-add pasword neprida heslo a remove password neviem
-add watermark nefunguje

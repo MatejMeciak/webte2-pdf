@@ -13,5 +13,5 @@ echo "Starting containers..."
 docker-compose up -d
 
 # Show the logs
-echo "Showing logs:"
-docker-compose logs -f app
+# echo "Showing logs:"
+# docker-compose logs -f app
