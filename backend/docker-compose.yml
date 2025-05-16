@@ -1,31 +1,33 @@
 version: '3.8'
 
 services:
-  app:
-    build: .
-    container_name: pdf-backend
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pdf-api-python
     ports:
-      - "8080:8080"
-    depends_on:
-      - postgres
+      - "8000:8000"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/pdfdb
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/pdfdb
+    volumes:
+      - ./app:/app/app
+      - geoip-data:/app/data  # Add persistent volume for GeoIP data
     restart: "no"
 
   postgres:
     image: postgres:16
-    container_name: pdf-postgres
+    container_name: pdf-postgres-python
     ports:
-      - "5432:5432"
+      - "5433:5432"  # Changed to 5433 to avoid conflict with Java version
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: pdfdb
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - postgres-data-python:/var/lib/postgresql/data
     restart: "no"
 
 volumes:
-  postgres-data:
+  postgres-data-python:
+  geoip-data:  # Define the new volume for GeoIP data
