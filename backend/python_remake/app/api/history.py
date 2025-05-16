@@ -34,7 +34,7 @@ def delete_all_history(
     history_service.delete_all_history(db)
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
-@router.get("/export-csv")
+@router.get("/export")
 def export_history_csv(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user_with_roles([Role.ADMIN]))
@@ -68,3 +68,20 @@ def export_history_csv(
     response.headers["Content-Type"] = "text/csv"
     
     return response
+
+@router.delete("/{history_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_history_item(
+    history_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user_with_roles([Role.ADMIN]))
+):
+    """
+    Delete a specific operation history item by ID (admin only)
+    """
+    deleted = history_service.delete_history_item(db, history_id)
+    if not deleted:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"History item with ID {history_id} not found"
+        )
+    return Response(status_code=status.HTTP_204_NO_CONTENT)

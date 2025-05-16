@@ -113,3 +113,16 @@ class HistoryService:
         """
         db.query(PdfOperationHistory).delete(synchronize_session=False)
         db.commit()
+
+    def delete_history_item(self, db: Session, history_id: int) -> bool:
+        """
+        Delete a single history record by ID
+        Returns True if item was found and deleted, False otherwise
+        """
+        history_item = db.query(PdfOperationHistory).filter(PdfOperationHistory.id == history_id).first()
+        if not history_item:
+            return False
+            
+        db.delete(history_item)
+        db.commit()
+        return True
