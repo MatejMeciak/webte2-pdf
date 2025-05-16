@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { type RemovePasswordFormValues, removePasswordFormSchema } from "../types/pdf";
 import { Unlock } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface RemovePasswordConfigFormProps {
   onSubmit: (values: RemovePasswordFormValues, file: File) => Promise<void>;
@@ -14,6 +15,7 @@ interface RemovePasswordConfigFormProps {
 }
 
 export function RemovePasswordConfigForm({ onSubmit, file, isLoading, error }: RemovePasswordConfigFormProps) {
+  const { t } = useTranslation();
   const form = useForm<RemovePasswordFormValues>({
     resolver: zodResolver(removePasswordFormSchema),
     defaultValues: {
@@ -39,11 +41,11 @@ export function RemovePasswordConfigForm({ onSubmit, file, isLoading, error }: R
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>{t('pdf.tools.removePassword.currentPassword')}</FormLabel>
                 <FormControl>
                   <Input
                     type="password"
-                    placeholder="Enter current PDF password"
+                    placeholder={t('pdf.tools.removePassword.currentPassword')}
                     {...field}
                   />
                 </FormControl>
@@ -91,10 +93,14 @@ export function RemovePasswordConfigForm({ onSubmit, file, isLoading, error }: R
             disabled={!canSubmit || isLoading}
             className="w-full"
           >
-            {isLoading ? "Processing..." : "Remove Password & Download"}
+            {isLoading ? (
+              <>{t('pdf.common.processing')}</>
+            ) : (
+              <>{t('pdf.tools.removePassword.unlockAndDownload')}</>
+            )}
           </Button>
         </div>
       </form>
     </Form>
   );
-} 
+}

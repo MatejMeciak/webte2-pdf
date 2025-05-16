@@ -18,11 +18,44 @@ import {
 } from "@/components/ui/sheet";
 import React from "react";
 import { useAuth } from "@/features/auth/context/AuthContext";
+import { useTranslation } from 'react-i18next';
+
+const FlagSK = () => (
+  <svg width="24" height="16" viewBox="0 0 32 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="32" height="8" fill="#FFFFFF"/>
+    <rect y="8" width="32" height="8" fill="#0B4EA2"/>
+    <rect y="16" width="32" height="8" fill="#EE1C25"/>
+    {/* State emblem background */}
+    <path d="M2 4V20H12V4H2Z" fill="#EE1C25"/>
+    {/* Double cross */}
+    <path d="M4 7H10V8H8V17H10V18H4V17H6V8H4V7Z" fill="#FFFFFF"/>
+    <path d="M5 10H9V11H5V10Z" fill="#FFFFFF"/>
+    <path d="M5 14H9V15H5V14Z" fill="#FFFFFF"/>
+    {/* Three hills */}
+    <path d="M3 17C3 17 5 15 7 15C9 15 11 17 11 17V20H3V17Z" fill="#0B4EA2"/>
+  </svg>
+);
+
+const FlagEN = () => (
+  <svg width="24" height="24" viewBox="0 0 32 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="32" height="24" fill="#012169"/>
+    <path d="M0 0L32 24M32 0L0 24" stroke="white" strokeWidth="4"/>
+    <path d="M0 0L32 24M32 0L0 24" stroke="#C8102E" strokeWidth="2"/>
+    <path d="M16 0V24M0 12H32" stroke="white" strokeWidth="8"/>
+    <path d="M16 0V24M0 12H32" stroke="#C8102E" strokeWidth="4"/>
+  </svg>
+);
 
 const AppNavigation = () => {
   const [open, setOpen] = useState(false);
   const { isAuthenticated, logout, user, isAdmin } = useAuth();
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
+
+  const handleLanguageChange = (lang: 'en' | 'sk') => {
+    i18n.changeLanguage(lang);
+    localStorage.setItem('language', lang);
+  };
 
   const handleLogout = async () => {
     await logout();
@@ -33,27 +66,47 @@ const AppNavigation = () => {
     <div className="border-b shadow-sm bg-white sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         <div className="flex items-center justify-between">
-          {/* Logo */}
+          {/* Logo and Language Selection */}
           <div className="flex items-center space-x-8">
-            <Link to="/" className="flex-shrink-0">
-              <h1 className="text-2xl font-bold text-primary tracking-tight">PDFMaster</h1>
-            </Link>
+            <div className="flex items-center space-x-4">
+              <Link to="/" className="flex-shrink-0">
+                <h1 className="text-2xl font-bold text-primary tracking-tight">PDFMaster</h1>
+              </Link>
+              <div className="flex items-center space-x-2">
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="w-8 h-8 p-0" 
+                  onClick={() => handleLanguageChange('sk')}
+                >
+                  <FlagSK />
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="w-8 h-8 p-0"
+                  onClick={() => handleLanguageChange('en')}
+                >
+                  <FlagEN />
+                </Button>
+              </div>
+            </div>
 
             {/* Desktop navigation */}
             <div className="hidden md:block">
               <NavigationMenu>
                 <NavigationMenuList>
                   <NavigationMenuItem>
-                    <NavigationMenuTrigger>PDF Tools</NavigationMenuTrigger>
+                    <NavigationMenuTrigger>{t('nav.pdfTools')}</NavigationMenuTrigger>
                     <NavigationMenuContent>
                       <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                         {pdfActions.map((action) => (
                           <ListItem
                             key={action.path}
-                            title={action.title}
+                            title={t(`pdf.actions.${action.titleKey}.title`)}
                             href={action.path}
                           >
-                            {action.description}
+                            {t(`pdf.actions.${action.titleKey}.description`)}
                           </ListItem>
                         ))}
                       </ul>
@@ -79,7 +132,7 @@ const AppNavigation = () => {
                     onClick={() => navigate('/admin/history')}
                     className="flex items-center"
                   >
-                    Admin History
+                    {t('nav.adminHistory')}
                   </Button>
                 )}
                 <Button 
@@ -89,16 +142,16 @@ const AppNavigation = () => {
                   className="flex items-center"
                 >
                   <LogOut className="h-4 w-4 mr-1.5" />
-                  Logout
+                  {t('nav.logout')}
                 </Button>
               </div>
             ) : (
               <>
                 <Link to="/login">
-                  <Button variant="ghost" size="sm">Login</Button>
+                  <Button variant="ghost" size="sm">{t('nav.login')}</Button>
                 </Link>
                 <Link to="/register">
-                  <Button variant="default" size="sm">Register</Button>
+                  <Button variant="default" size="sm">{t('nav.register')}</Button>
                 </Link>
               </>
             )}
@@ -148,7 +201,7 @@ const AppNavigation = () => {
                               setOpen(false);
                             }}
                           >
-                            Admin History
+                            {t('nav.adminHistory')}
                           </Button>
                         )}
                         <Button 
@@ -160,16 +213,16 @@ const AppNavigation = () => {
                           }}
                         >
                           <LogOut className="h-4 w-4 mr-2" />
-                          Logout
+                          {t('nav.logout')}
                         </Button>
                       </>
                     ) : (
                       <div className="flex flex-col space-y-2">
                         <Link to="/login" onClick={() => setOpen(false)}>
-                          <Button variant="outline" className="w-full">Login</Button>
+                          <Button variant="outline" className="w-full">{t('nav.login')}</Button>
                         </Link>
                         <Link to="/register" onClick={() => setOpen(false)}>
-                          <Button variant="default" className="w-full">Register</Button>
+                          <Button variant="default" className="w-full">{t('nav.register')}</Button>
                         </Link>
                       </div>
                     )}

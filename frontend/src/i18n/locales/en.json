@@ -1,0 +1,146 @@
+{
+  "nav": {
+    "pdfTools": "PDF Tools",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "adminHistory": "Admin History"
+  },
+  "common": {
+    "processing": "Processing...",
+    "selectPdf": "Select PDF",
+    "configure": "Configure",
+    "chooseFile": "Choose file",
+    "dragDropHere": "Drag & drop file here, or click to select",
+    "dropFileHere": "Drop file here"
+  },
+  "pdf": {
+    "actions": {
+      "merge": {
+        "title": "Merge PDFs",
+        "description": "Combine 2 PDF files into one document",
+        "mergeAndDownload": "Merge & Download"
+      },
+      "split": {
+        "title": "Split PDF",
+        "description": "Split a PDF document into two parts",
+        "splitAtPage": "Split at page",
+        "firstPartFilename": "First part filename",
+        "secondPartFilename": "Second part filename",
+        "splitAndDownload": "Split & Download",
+        "placeholders": {
+          "firstPart": "part1.pdf",
+          "secondPart": "part2.pdf",
+          "pageNumber": "1"
+        },
+        "errors": {
+          "uploadFirst": "Please upload a PDF file first",
+          "splitFailed": "Error splitting PDF. Please try again.",
+          "unexpected": "An unexpected error occurred. Please try again."
+        }
+      },
+      "removePage": {
+        "title": "Remove Page",
+        "description": "Delete a specific page from your PDF document",
+        "pageNumber": "Page number",
+        "removeAndDownload": "Remove & Download"
+      },
+      "extractPages": {
+        "title": "Extract Pages",
+        "description": "Extract specific pages from your PDF document",
+        "startPage": "Start page",
+        "endPage": "End page",
+        "extractAndDownload": "Extract & Download"
+      },
+      "reorderPages": {
+        "title": "Reorder Pages",
+        "description": "Rearrange the order of pages in your PDF document",
+        "pageOrder": "Page order (e.g. 3,1,2,4)",
+        "reorderAndDownload": "Reorder & Download"
+      },
+      "addPassword": {
+        "title": "Add Password",
+        "description": "Encrypt your PDF document with a password",
+        "password": "Password",
+        "confirmPassword": "Confirm password",
+        "protectAndDownload": "Protect & Download"
+      },
+      "removePassword": {
+        "title": "Remove Password",
+        "description": "Remove password protection from your PDF",
+        "currentPassword": "Current password",
+        "unlockAndDownload": "Unlock & Download"
+      },
+      "pdfToImages": {
+        "title": "PDF to Images",
+        "description": "Convert each page of your PDF to PNG images (ZIP)",
+        "dpi": "DPI (resolution)",
+        "convertAndDownload": "Convert & Download"
+      },
+      "rotatePages": {
+        "title": "Rotate Pages",
+        "description": "Rotate specific pages in your PDF document",
+        "pages": "Pages (comma-separated)",
+        "degrees": "Rotation degrees",
+        "rotateAndDownload": "Rotate & Download"
+      }
+    },
+    "merge": {
+      "title": "PDF Merge",
+      "description": "Combine 2 PDF files into one document",
+      "selectedFiles": "Selected files ({{count}})",
+      "outputFilename": "Output filename",
+      "mergeAndDownload": "Merge and Download"
+    },
+    "split": {
+      "title": "Split PDF",
+      "description": "Split a PDF document into two parts",
+      "splitAtPage": "Split at page",
+      "firstPartFilename": "First part filename",
+      "secondPartFilename": "Second part filename",
+      "splitAndDownload": "Split & Download",
+      "placeholders": {
+        "firstPart": "part1.pdf",
+        "secondPart": "part2.pdf",
+        "pageNumber": "1"
+      }
+    },
+    "common": {
+      "step1": "1. Select PDF File",
+      "step2": "2. Split Configuration",
+      "noFile": "No file selected",
+      "dragDrop": "Drag & drop a PDF file here, or click to select",
+      "chooseFile": "Choose file",
+      "removeAll": "Remove all",
+      "processing": "Processing...",
+      "outputFilename": "Output filename",
+      "download": "Download"
+    }
+  },
+  "dashboard": {
+    "title": "PDF Tools",
+    "description": "Choose a tool to modify your PDF documents",
+    "welcome": "Welcome back"
+  },
+  "auth": {
+    "login": {
+      "title": "Login",
+      "description": "Sign in to your account",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign in",
+      "noAccount": "Don't have an account?",
+      "register": "Register"
+    },
+    "register": {
+      "title": "Register",
+      "description": "Create a new account",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm password",
+      "submit": "Register",
+      "haveAccount": "Already have an account?",
+      "login": "Sign in"
+    }
+  }
+}

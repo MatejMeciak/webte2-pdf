@@ -1,0 +1,109 @@
+{
+  "nav": {
+    "pdfTools": "PDF Nástroje",
+    "login": "Prihlásiť sa",
+    "register": "Registrovať sa",
+    "logout": "Odhlásiť sa",
+    "adminHistory": "História správcu"
+  },
+  "common": {
+    "processing": "Spracúvam...",
+    "selectPdf": "Vyberte PDF",
+    "configure": "Konfigurácia",
+    "chooseFile": "Vybrať súbor",
+    "dragDropHere": "Pretiahnite súbor sem alebo kliknite pre výber",
+    "dropFileHere": "Pustite súbor tu"
+  },
+  "pdf": {
+    "tools": {
+      "removePage": {
+        "title": "Odstrániť stranu",
+        "description": "Odstráňte konkrétnu stranu z vášho PDF dokumentu",
+        "pageNumber": "Číslo strany",
+        "removeAndDownload": "Odstrániť stranu & Stiahnuť"
+      },
+      "extractPages": {
+        "title": "Extrahovať strany",
+        "description": "Extrahujte vybrané strany z PDF dokumentu",
+        "startPage": "Začiatočná strana",
+        "endPage": "Koncová strana",
+        "extractAndDownload": "Extrahovať & Stiahnuť"
+      },
+      "reorderPages": {
+        "title": "Zmeniť poradie strán",
+        "description": "Zmeňte poradie strán vo vašom PDF dokumente",
+        "pageOrder": "Poradie strán (napr. 3,1,2,4)",
+        "reorderAndDownload": "Zmeniť poradie & Stiahnuť"
+      },
+      "addPassword": {
+        "title": "Pridať heslo",
+        "description": "Zabezpečte PDF dokument heslom",
+        "password": "Heslo",
+        "confirmPassword": "Potvrďte heslo",
+        "protectAndDownload": "Zabezpečiť & Stiahnuť"
+      },
+      "removePassword": {
+        "title": "Odstrániť heslo",
+        "description": "Odstráňte heslo z PDF dokumentu",
+        "currentPassword": "Aktuálne heslo",
+        "unlockAndDownload": "Odomknúť & Stiahnuť"
+      },
+      "toImages": {
+        "title": "PDF na obrázky",
+        "description": "Konvertujte každú stranu PDF na PNG obrázok (ZIP)",
+        "dpi": "DPI (rozlíšenie)",
+        "convertAndDownload": "Konvertovať & Stiahnuť"
+      },
+      "rotate": {
+        "title": "Otočiť strany",
+        "description": "Otočte špecifické strany vo vašom PDF dokumente",
+        "pages": "Strany (oddelené čiarkou)",
+        "degrees": "Stupne otočenia",
+        "rotateAndDownload": "Otočiť & Stiahnuť"
+      }
+    },
+    "common": {
+      "step1": "1. Vyberte PDF súbor",
+      "step2": "2. Nastavenie rozdelenia",
+      "noFile": "Nie je vybraný žiadny súbor",
+      "dragDrop": "Pretiahnite PDF súbor sem alebo kliknite pre výber",
+      "chooseFile": "Vybrať súbor",
+      "processing": "Spracúvam...",
+      "errors": {
+        "uploadFirst": "Najprv nahrajte PDF súbor",
+        "processingFailed": "Spracovanie zlyhalo. Skúste to znova.",
+        "unexpected": "Nastala neočakávaná chyba. Skúste to znova."
+      }
+    },
+    "merge": {
+      "title": "Spájanie PDF",
+      "description": "Spojte 2 PDF súbory do jedného dokumentu"
+    }
+  },
+  "dashboard": {
+    "title": "PDF Nástroje",
+    "description": "Vyberte si nástroj na úpravu vašich PDF dokumentov",
+    "welcome": "Vitajte späť"
+  },
+  "auth": {
+    "login": {
+      "title": "Prihlásenie",
+      "description": "Prihláste sa do svojho účtu",
+      "email": "Email",
+      "password": "Heslo",
+      "submit": "Prihlásiť sa",
+      "noAccount": "Nemáte účet?",
+      "register": "Zaregistrujte sa"
+    },
+    "register": {
+      "title": "Registrácia",
+      "description": "Vytvorte si nový účet",
+      "email": "Email",
+      "password": "Heslo",
+      "confirmPassword": "Potvrďte heslo",
+      "submit": "Registrovať",
+      "haveAccount": "Už máte účet?",
+      "login": "Prihláste sa"
+    }
+  }
+}

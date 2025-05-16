@@ -2,14 +2,16 @@ import { useState } from "react";
 import api from "@/api/axios";
 import type { MergeFormValues } from "../types/pdf";
 import { isAxiosError } from "axios";
+import { useTranslation } from "react-i18next";
 
 export function usePdfMerge() {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const mergePdf = async (values: MergeFormValues, files: File[]) => {
     if (files.length < 2) {
-      setError("Please upload at least two PDF files");
+      setError(t('pdf.merge.errors.needTwoFiles'));
       return;
     }
 
@@ -39,9 +41,9 @@ export function usePdfMerge() {
       
     } catch (err) {
       if (isAxiosError(err)) {
-        setError(err.response?.data || "Error merging PDFs. Please try again.");
+        setError(err.response?.data || t('pdf.merge.errors.mergeFailed'));
       } else {
-        setError("An unexpected error occurred. Please try again.");
+        setError(t('pdf.common.errors.unexpected'));
       }
     } finally {
       setIsLoading(false);

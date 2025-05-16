@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/form";
 import { Loader2, Combine } from "lucide-react";
 import { type MergeFormValues, mergeFormSchema } from "../types/pdf";
+import { useTranslation } from "react-i18next";
 
 interface MergeConfigFormProps {
   onSubmit: (values: MergeFormValues, files: File[]) => void;
@@ -21,6 +22,8 @@ interface MergeConfigFormProps {
 }
 
 export function MergeConfigForm({ onSubmit, files, isLoading, error }: MergeConfigFormProps) {
+  const { t } = useTranslation();
+  
   // Initialize form with default values and validation schema
   const form = useForm<MergeFormValues>({
     resolver: zodResolver(mergeFormSchema),
@@ -43,7 +46,7 @@ export function MergeConfigForm({ onSubmit, files, isLoading, error }: MergeConf
           name="outputName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Output filename</FormLabel>
+              <FormLabel>{t('pdf.common.outputFilename')}</FormLabel>
               <FormControl>
                 <Input
                   placeholder="merged.pdf"
@@ -71,12 +74,12 @@ export function MergeConfigForm({ onSubmit, files, isLoading, error }: MergeConf
             {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Processing...
+                {t('pdf.common.processing')}
               </>
             ) : (
               <>
                 <Combine className="mr-2 h-4 w-4" />
-                Merge PDFs
+                {t('pdf.actions.merge.mergeAndDownload')}
               </>
             )}
           </Button>
