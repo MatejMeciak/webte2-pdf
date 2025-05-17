@@ -1,6 +1,6 @@
 import { useDropzone } from "react-dropzone";
 import { Button } from "@/components/ui/button";
-import { FileType, Upload } from "lucide-react";
+import { FileType, Upload, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 interface PdfUploaderProps {
@@ -47,19 +47,18 @@ export function PdfUploader({ file, setFile, feature }: PdfUploaderProps) {
       </div>
       
       {file && (
-        <div className="mt-4 p-3 bg-muted rounded-md flex items-center justify-between">
-          <div className="flex items-center overflow-hidden">
-            <FileType className="h-5 w-5 mr-2 flex-shrink-0" />
-            <span className="text-sm truncate" title={file.name}>
-              {file.name}
-            </span>
-          </div>
-          <Button 
-            variant="outline" 
-            size="sm" 
+        <div className="flex items-center gap-2 p-2 bg-muted rounded-md">
+          <span className="text-sm truncate flex-1" title={file.name}>
+            {file.name}
+          </span>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-8 w-8 p-0"
             onClick={() => setFile(null)}
           >
-            {t('common.remove')}
+            <X className="h-4 w-4" />
+            <span className="sr-only">{t('common.remove')}</span>
           </Button>
         </div>
       )}

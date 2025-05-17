@@ -172,6 +172,11 @@
       "dragDrop": "Pretiahnite PDF súbor sem alebo kliknite pre výber",
       "chooseFile": "Vybrať súbor",
       "processing": "Spracúvam...",
+      "download": "Stiahnuť",
+      "downloadAll": "Stiahnuť všetko",
+      "downloadZip": "Stiahnuť ZIP",
+      "downloadPdf": "Stiahnuť PDF",
+      "remove": "Odstrániť",
       "errors": {
         "uploadFirst": "Najprv nahrajte PDF súbor",
         "processingFailed": "Spracovanie zlyhalo. Skúste to znova.",
@@ -223,7 +228,8 @@
       },
       "errors": {
         "credentials": "Zadajte email aj heslo",
-        "invalid": "Nesprávny email alebo heslo"
+        "invalid": "Nesprávny email alebo heslo",
+        "failed": "Prihlásenie zlyhalo. Skúste to znova."
       }
     },
     "register": {
@@ -245,7 +251,8 @@
         "emailInvalid": "Zadajte platný email",
         "passwordRequired": "Heslo je povinné",
         "passwordLength": "Heslo musí mať aspoň 8 znakov",
-        "passwordsMatch": "Heslá sa nezhodujú"
+        "passwordsMatch": "Heslá sa nezhodujú",
+        "registrationFailed": "Registrácia zlyhala. Skúste to znova."
       }
     }
   },
