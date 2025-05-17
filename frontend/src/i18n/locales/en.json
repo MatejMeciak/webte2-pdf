@@ -5,14 +5,14 @@
     "register": "Register",
     "logout": "Logout",
     "adminHistory": "Admin History",
-    "guide": "User Guide"
+    "guide": "Guide"
   },
   "common": {
     "processing": "Processing...",
     "selectPdf": "Select PDF",
     "configure": "Configure",
     "chooseFile": "Choose file",
-    "dragDropHere": "Drag & drop file here, or click to select",
+    "dragDropHere": "Drag & drop file here or click to select",
     "dropFileHere": "Drop file here"
   },
   "pdf": {
@@ -260,7 +260,17 @@
       "confirmPassword": "Confirm password",
       "submit": "Register",
       "haveAccount": "Already have an account?",
-      "login": "Sign in"
+      "login": "Sign in",
+      "errors": {
+        "firstNameRequired": "First name is required",
+        "lastNameRequired": "Last name is required",
+        "emailRequired": "Email is required",
+        "emailInvalid": "Please enter a valid email",
+        "passwordRequired": "Password is required",
+        "passwordLength": "Password must be at least 8 characters",
+        "passwordsMatch": "Passwords do not match",
+        "registrationFailed": "Registration failed. Please try again."
+      }
     }
   },
   "errors": {

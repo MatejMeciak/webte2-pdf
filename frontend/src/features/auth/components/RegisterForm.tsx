@@ -82,7 +82,7 @@ export function RegisterForm() {
       navigate('/');
     } catch (err: any) {
       console.error('Registration failed:', err);
-      setError(err.response?.data?.message || 'Registration failed. Please try again.');
+      setError(err.response?.data?.message || t('auth.register.errors.registrationFailed'));
     } finally {
       setIsLoading(false);
     }
