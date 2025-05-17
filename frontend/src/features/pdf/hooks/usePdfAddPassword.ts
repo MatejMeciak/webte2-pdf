@@ -2,14 +2,16 @@ import { useState } from "react";
 import api from "@/api/axios";
 import type { AddPasswordFormValues } from "../types/pdf";
 import { isAxiosError } from "axios";
+import { useTranslation } from "react-i18next";
 
 export function usePdfAddPassword() {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const addPasswordToPdf = async (values: AddPasswordFormValues, file: File) => {
     if (!file) {
-      setError("Please upload a PDF file first");
+      setError(t('errors.uploadFirst'));
       return;
     }
 
@@ -54,9 +56,9 @@ export function usePdfAddPassword() {
       
     } catch (err) {
       if (isAxiosError(err)) {
-        setError(err.response?.data || "Error adding password to PDF. Please try again.");
+        setError(t('errors.addPasswordFailed'));
       } else {
-        setError("An unexpected error occurred. Please try again.");
+        setError(t('errors.unexpected'));
       }
     } finally {
       setIsLoading(false);
@@ -89,4 +91,4 @@ function handleFileDownload(response: any) {
   link.click();
   link.remove();
   window.URL.revokeObjectURL(url);
-} 
+}

@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { type RemovePageFormValues, removePageFormSchema } from "../types/pdf";
 import { Trash2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface RemovePageConfigFormProps {
   onSubmit: (values: RemovePageFormValues, file: File) => Promise<void>;
@@ -14,6 +15,7 @@ interface RemovePageConfigFormProps {
 }
 
 export function RemovePageConfigForm({ onSubmit, file, isLoading, error }: RemovePageConfigFormProps) {
+  const { t } = useTranslation();
   const form = useForm<RemovePageFormValues>({
     resolver: zodResolver(removePageFormSchema),
     defaultValues: {
@@ -41,7 +43,7 @@ export function RemovePageConfigForm({ onSubmit, file, isLoading, error }: Remov
             name="pageToRemove"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Page to Remove</FormLabel>
+                <FormLabel>{t('pdf.tools.removePage.pageNumber')}</FormLabel>
                 <FormControl>
                   <Input 
                     type="number" 
@@ -62,10 +64,10 @@ export function RemovePageConfigForm({ onSubmit, file, isLoading, error }: Remov
             name="outputName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Output Filename (optional)</FormLabel>
+                <FormLabel>{t('pdf.tools.removePage.outputFilename')}</FormLabel>
                 <FormControl>
                   <Input 
-                    placeholder="modified.pdf" 
+                    placeholder={t('pdf.tools.removePage.outputFilenamePlaceholder')}
                     {...field} 
                     disabled={!file || isLoading}
                   />
@@ -81,7 +83,9 @@ export function RemovePageConfigForm({ onSubmit, file, isLoading, error }: Remov
             <div className="flex items-center">
               <Trash2 className="h-5 w-5 mr-2" />
               <p>
-                Page <strong>{form.watch("pageToRemove")}</strong> will be removed from the PDF.
+                {t('pdf.tools.removePage.summary', {
+                  page: form.watch("pageToRemove")
+                })}
               </p>
             </div>
           </div>
@@ -97,7 +101,7 @@ export function RemovePageConfigForm({ onSubmit, file, isLoading, error }: Remov
             disabled={!canSubmit}
             className="w-full"
           >
-            {isLoading ? "Processing..." : "Remove Page & Download"}
+            {isLoading ? t('common.processing') : t('pdf.tools.removePage.removeAndDownload')}
           </Button>
         </div>
       </form>

@@ -6,8 +6,10 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { authService } from '../api/authService';
 import { useAuth } from '../context/AuthContext';
+import { useTranslation } from 'react-i18next';
 
 export function LoginForm() {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -20,7 +22,7 @@ export function LoginForm() {
     e.preventDefault();
     
     if (!email || !password) {
-      setError('Please enter both email and password');
+      setError(t('auth.login.errors.credentials'));
       return;
     }
     
@@ -40,7 +42,7 @@ export function LoginForm() {
       navigate('/');
     } catch (err: any) {
       console.error('Login failed:', err);
-      setError(err.response?.data?.message || 'Invalid email or password');
+      setError(err.response?.data?.message || t('auth.login.errors.invalid'));
     } finally {
       setIsLoading(false);
     }
@@ -49,9 +51,9 @@ export function LoginForm() {
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
-        <CardTitle className="text-2xl text-center">Login</CardTitle>
+        <CardTitle className="text-2xl text-center">{t('auth.login.title')}</CardTitle>
         <CardDescription className="text-center">
-          Enter your credentials to access your account
+          {t('auth.login.description')}
         </CardDescription>
       </CardHeader>
       
@@ -64,11 +66,11 @@ export function LoginForm() {
         
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email">{t('auth.login.email')}</Label>
             <Input
               id="email"
               type="email"
-              placeholder="Enter your email"
+              placeholder={t('auth.login.placeholders.email')}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -76,11 +78,11 @@ export function LoginForm() {
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password">{t('auth.login.password')}</Label>
             <Input
               id="password"
               type="password"
-              placeholder="Enter your password"
+              placeholder={t('auth.login.placeholders.password')}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -92,16 +94,16 @@ export function LoginForm() {
             className="w-full"
             disabled={isLoading}
           >
-            {isLoading ? 'Logging in...' : 'Login'}
+            {isLoading ? t('auth.login.loggingIn') : t('auth.login.submit')}
           </Button>
         </form>
       </CardContent>
       
       <CardFooter>
         <p className="text-center w-full text-sm">
-          Don't have an account?{' '}
+          {t('auth.login.noAccount')}{' '}
           <a href="/register" className="text-blue-600 hover:underline">
-            Register
+            {t('auth.login.register')}
           </a>
         </p>
       </CardFooter>

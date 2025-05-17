@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { type RemovePasswordFormValues, removePasswordFormSchema } from "../types/pdf";
 import { Unlock } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface RemovePasswordConfigFormProps {
   onSubmit: (values: RemovePasswordFormValues, file: File) => Promise<void>;
@@ -14,6 +15,7 @@ interface RemovePasswordConfigFormProps {
 }
 
 export function RemovePasswordConfigForm({ onSubmit, file, isLoading, error }: RemovePasswordConfigFormProps) {
+  const { t } = useTranslation();
   const form = useForm<RemovePasswordFormValues>({
     resolver: zodResolver(removePasswordFormSchema),
     defaultValues: {
@@ -39,11 +41,11 @@ export function RemovePasswordConfigForm({ onSubmit, file, isLoading, error }: R
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>{t('pdf.features.removePassword.currentPassword')}</FormLabel>
                 <FormControl>
                   <Input
                     type="password"
-                    placeholder="Enter current PDF password"
+                    placeholder={t('pdf.features.removePassword.placeholders.password')}
                     {...field}
                   />
                 </FormControl>
@@ -57,7 +59,7 @@ export function RemovePasswordConfigForm({ onSubmit, file, isLoading, error }: R
             name="outputName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Output Filename (Optional)</FormLabel>
+                <FormLabel>{t('pdf.features.removePassword.outputFilename')}</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="unprotected.pdf"
@@ -74,9 +76,7 @@ export function RemovePasswordConfigForm({ onSubmit, file, isLoading, error }: R
           <div className="flex items-center justify-center py-4 px-3 rounded-md bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 text-sm">
             <div className="flex items-center">
               <Unlock className="h-5 w-5 mr-2" />
-              <p>
-                The uploaded PDF will have its password protection removed.
-              </p>
+              <p>{t('pdf.features.removePassword.instructions')}</p>
             </div>
           </div>
 
@@ -91,10 +91,10 @@ export function RemovePasswordConfigForm({ onSubmit, file, isLoading, error }: R
             disabled={!canSubmit || isLoading}
             className="w-full"
           >
-            {isLoading ? "Processing..." : "Remove Password & Download"}
+            {isLoading ? t('common.processing') : t('pdf.features.removePassword.unlockAndDownload')}
           </Button>
         </div>
       </form>
     </Form>
   );
-} 
+}

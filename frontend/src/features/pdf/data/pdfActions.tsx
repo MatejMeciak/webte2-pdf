@@ -1,4 +1,7 @@
+import { t } from "i18next";
+
 export type PdfAction = {
+  titleKey: string;
   title: string;
   description: string;
   path: string;
@@ -7,6 +10,7 @@ export type PdfAction = {
 
 export const pdfActions: PdfAction[] = [
   {
+    titleKey: "merge",
     title: "Merge PDFs",
     description: "Combine 2 PDF files into one document.",
     path: "/merge",
@@ -29,6 +33,7 @@ export const pdfActions: PdfAction[] = [
     ),
   },
   {
+    titleKey: "split",
     title: "Split PDF",
     description: "Split a PDF into multiple documents.",
     path: "/split",
@@ -50,6 +55,7 @@ export const pdfActions: PdfAction[] = [
     ),
   },
   {
+    titleKey: "removePage",
     title: "Remove Page",
     description: "Delete a specific page from your PDF document.",
     path: "/remove",
@@ -74,6 +80,7 @@ export const pdfActions: PdfAction[] = [
     ),
   },
   {
+    titleKey: "extractPages",
     title: "Extract Pages",
     description: "Extract specific pages from a PDF document.",
     path: "/extract",
@@ -98,6 +105,7 @@ export const pdfActions: PdfAction[] = [
     ),
   },
   {
+    titleKey: "reorderPages",
     title: "Reorder Pages",
     description: "Rearrange the order of pages in your PDF document.",
     path: "/reorder",
@@ -123,6 +131,7 @@ export const pdfActions: PdfAction[] = [
     ),
   },
   {
+    titleKey: "addPassword",
     title: "Add Password",
     description: "Encrypt your PDF with a password.",
     path: "/add-password",
@@ -145,6 +154,7 @@ export const pdfActions: PdfAction[] = [
     ),
   },
   {
+    titleKey: "removePassword",
     title: "Remove Password",
     description: "Remove password protection from your PDF.",
     path: "/remove-password",
@@ -168,8 +178,9 @@ export const pdfActions: PdfAction[] = [
     ),
   },
   {
-    title: "PDF to Images",
-    description: "Convert each page of your PDF to PNG images (ZIP).",
+    titleKey: "pdfToImages",
+    title: t('pdf.tools.toImages.title'),
+    description: t('pdf.tools.toImages.description'),
     path: "/to-images",
     icon: (
       <svg
@@ -190,6 +201,7 @@ export const pdfActions: PdfAction[] = [
     ),
   },
   {
+    titleKey: "addWatermark",
     title: "Add Watermark",
     description: "Add a text watermark to every page of your PDF.",
     path: "/add-watermark",
@@ -213,6 +225,7 @@ export const pdfActions: PdfAction[] = [
     ),
   },
   {
+    titleKey: "rotatePages",
     title: "Rotate Pages",
     description: "Rotate specific pages in your PDF document.",
     path: "/rotate",

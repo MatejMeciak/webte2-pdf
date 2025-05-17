@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { type PdfToImagesFormValues, pdfToImagesFormSchema } from "../types/pdf";
 import { Image } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface PdfToImagesConfigFormProps {
   onSubmit: (values: PdfToImagesFormValues, file: File) => Promise<void>;
@@ -20,6 +21,8 @@ export function PdfToImagesConfigForm({ onSubmit, file, isLoading, error }: PdfT
       dpi: 150,
     },
   });
+
+  const { t } = useTranslation();
 
   const handleSubmit = async (values: PdfToImagesFormValues) => {
     if (file) {
@@ -38,12 +41,11 @@ export function PdfToImagesConfigForm({ onSubmit, file, isLoading, error }: PdfT
             name="dpi"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>DPI (Resolution)</FormLabel>
+                <FormLabel>{t('pdf.features.toImages.dpi')}</FormLabel>
                 <FormControl>
                   <Input
                     type="number"
-                    placeholder="150"
-                    min={1}
+                    placeholder={t('pdf.features.toImages.placeholders.dpi')}
                     {...field}
                   />
                 </FormControl>
@@ -57,9 +59,7 @@ export function PdfToImagesConfigForm({ onSubmit, file, isLoading, error }: PdfT
           <div className="flex items-center justify-center py-4 px-3 rounded-md bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 text-sm">
             <div className="flex items-center">
               <Image className="h-5 w-5 mr-2" />
-              <p>
-                Each page of your PDF will be converted to a PNG image and downloaded as a ZIP file.
-              </p>
+              <p>{t('pdf.features.toImages.instructions')}</p>
             </div>
           </div>
 
@@ -74,10 +74,10 @@ export function PdfToImagesConfigForm({ onSubmit, file, isLoading, error }: PdfT
             disabled={!canSubmit || isLoading}
             className="w-full"
           >
-            {isLoading ? "Processing..." : "Convert PDF to Images"}
+            {isLoading ? t('common.processing') : t('pdf.features.toImages.convertAndDownload')}
           </Button>
         </div>
       </form>
     </Form>
   );
-} 
+}

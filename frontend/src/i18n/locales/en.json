@@ -1,0 +1,273 @@
+{
+  "nav": {
+    "pdfTools": "PDF Tools",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "adminHistory": "Admin History"
+  },
+  "common": {
+    "processing": "Processing...",
+    "selectPdf": "Select PDF",
+    "configure": "Configure",
+    "chooseFile": "Choose file",
+    "dragDropHere": "Drag & drop file here, or click to select",
+    "dropFileHere": "Drop file here"
+  },
+  "pdf": {
+    "tools": {
+      "extractPages": {
+        "title": "Extract Pages",
+        "description": "Extract specific pages from your PDF document",
+        "summary": "Pages {{startPage}} to {{endPage}} will be extracted from the PDF into a new document.",
+        "outputFilename": "Output Filename",
+        "outputFilenamePlaceholder": "extracted.pdf",
+        "endPagePlaceholder": "e.g. 5"
+      },
+      "removePage": {
+        "title": "Remove Page",
+        "description": "Delete a specific page from your PDF document",
+        "pageNumber": "Page to Remove",
+        "outputFilename": "Output Filename (optional)",
+        "outputFilenamePlaceholder": "modified.pdf",
+        "summary": "Page {{page}} will be removed from the PDF.",
+        "removeAndDownload": "Remove Page & Download"
+      }
+    },
+    "features": {
+      "merge": {
+        "title": "Merge PDFs",
+        "description": "Combine 2 PDF files into one document",
+        "mergeAndDownload": "Merge & Download",
+        "dragDrop": "Drag & drop PDF files here, or click to select",
+        "chooseFile": "Choose files",
+        "outputFilename": "Output Filename"
+      },
+      "split": {
+        "title": "Split PDF",
+        "description": "Split a PDF document into two parts",
+        "splitAtPage": "Split at page",
+        "firstPartFilename": "First part filename",
+        "secondPartFilename": "Second part filename",
+        "splitAndDownload": "Split & Download",
+        "outputFilename": "Output filename",
+        "placeholders": {
+          "firstPart": "first_part.pdf",
+          "secondPart": "second_part.pdf",
+          "pageNumber": "Enter page number"
+        },
+        "errors": {
+          "uploadFirst": "Please upload a PDF file first",
+          "splitFailed": "Error splitting PDF. Please try again.",
+          "unexpected": "An unexpected error occurred. Please try again."
+        },
+        "step1": "1. Select PDF File",
+        "step2": "2. Split Configuration",
+        "dragDrop": "Drag & drop a PDF file here, or click to select",
+        "chooseFile": "Choose file"
+      },
+      "removePage": {
+        "title": "Remove Page",
+        "description": "Delete a specific page from your PDF document",
+        "pageNumber": "Page number",
+        "removeAndDownload": "Remove & Download",
+        "dragDrop": "Drag & drop a PDF file here, or click to select",
+        "chooseFile": "Choose file"
+      },
+      "extractPages": {
+        "title": "Extract Pages",
+        "description": "Extract specific pages from your PDF document",
+        "startPage": "Start page",
+        "endPage": "End page",
+        "extractAndDownload": "Extract & Download",
+        "dragDrop": "Drag & drop a PDF file here, or click to select",
+        "chooseFile": "Choose file",
+        "summary": "Pages {{startPage}} to {{endPage}} will be extracted from the PDF into a new document"
+      },
+      "reorderPages": {
+        "title": "Reorder PDF Pages",
+        "description": "Rearrange the order of pages in your PDF document",
+        "instructions": "Enter the page numbers in the order you want them to appear in the output PDF. For example, 2,1,4,3 will reorder a 4-page document so that the second page becomes first, the first page becomes second, and so on.",
+        "pageOrder": "Page order (e.g. 3,1,2,4)",
+        "reorderAndDownload": "Reorder & Download",
+        "dragDrop": "Drag & drop a PDF file here, or click to select",
+        "chooseFile": "Choose file",
+        "step1": "1. Select PDF",
+        "step2": "2. Configure Page Order",
+        "placeholders": {
+          "pageOrder": "e.g. 1,3,2,4"
+        },
+        "outputFilename": "Output Filename"
+      },
+      "addPassword": {
+        "title": "Add Password",
+        "description": "Encrypt your PDF document with a password",
+        "password": "Password",
+        "confirmPassword": "Confirm password",
+        "protectAndDownload": "Protect & Download",
+        "dragDrop": "Drag & drop a PDF file here, or click to select",
+        "chooseFile": "Choose file",
+        "instructions": "The uploaded PDF will be encrypted with the password you provide.",
+        "placeholders": {
+          "password": "Enter password to protect PDF"
+        },
+        "outputFilename": "Output filename"
+      },
+      "removePassword": {
+        "title": "Remove Password",
+        "description": "Remove password protection from your PDF",
+        "currentPassword": "Current password",
+        "unlockAndDownload": "Unlock & Download",
+        "dragDrop": "Drag & drop a PDF file here, or click to select",
+        "chooseFile": "Choose file",
+        "placeholders": {
+          "password": "Enter password"
+        },
+        "instructions": "The uploaded PDF will have its password protection removed.",
+        "outputFilename": "Output filename"
+      },
+      "toImages": {
+        "title": "PDF to Images",
+        "description": "Convert each page of your PDF to PNG images",
+        "dpi": "DPI (resolution)",
+        "convertAndDownload": "Convert & Download",
+        "dragDrop": "Drag & drop a PDF file here, or click to select",
+        "chooseFile": "Choose file"
+      },
+      "rotatePages": {
+        "title": "Rotate Pages",
+        "description": "Rotate specific pages in your PDF document",
+        "pages": "Pages (comma-separated)",
+        "degrees": "Rotation degrees",
+        "rotateAndDownload": "Rotate & Download",
+        "dragDrop": "Drag & drop a PDF file here, or click to select",
+        "chooseFile": "Choose file",
+        "instructions": "Enter page numbers (e.g. 1,3,5) and rotation angle (90, 180, 270)",
+        "outputFilename": "Output filename"
+      },
+      "addWatermark": {
+        "title": "Add Watermark",
+        "description": "Add a text watermark to every page of PDF",
+        "text": "Watermark text",
+        "opacity": "Opacity (0-1)",
+        "fontSize": "Font size",
+        "color": "Color (Hex)",
+        "rotation": "Rotation angle",
+        "addAndDownload": "Add Watermark & Download",
+        "placeholders": {
+          "text": "Enter watermark text",
+          "opacity": "0.5",
+          "fontSize": "48",
+          "color": "#000000",
+          "rotation": "45"
+        },
+        "dragDrop": "Drag & drop a PDF file here, or click to select",
+        "chooseFile": "Choose file",
+        "instructions": "The watermark will be added to every page of your PDF.",
+        "outputFilename": "Output filename"
+      },
+      "rotate": {
+        "title": "Rotate Pages",
+        "description": "Rotate selected pages in your PDF document",
+        "pages": "Page numbers",
+        "degrees": "Rotation degrees",
+        "rotateAndDownload": "Rotate & Download",
+        "placeholders": {
+          "pages": "e.g. 1,2,3",
+          "degrees": "90, 180, 270"
+        }
+      },
+      "toImages": {
+        "title": "PDF to Images",
+        "description": "Convert each page of PDF to PNG images",
+        "dpi": "DPI (resolution)",
+        "convertAndDownload": "Convert & Download",
+        "placeholders": {
+          "dpi": "e.g. 300"
+        },
+        "instructions": "Each page of your PDF will be converted to a PNG image and downloaded as a ZIP file.",
+        "dragDrop": "Drag & drop a PDF file here, or click to select",
+        "chooseFile": "Choose file"
+      }
+    },
+    "merge": {
+      "title": "PDF Merge",
+      "description": "Combine 2 PDF files into one document",
+      "selectedFiles": "Selected files ({{count}})",
+      "outputFilename": "Output filename",
+      "mergeAndDownload": "Merge and Download"
+    },
+    "split": {
+      "title": "Split PDF",
+      "description": "Split a PDF document into two parts",
+      "splitAtPage": "Split at page",
+      "firstPartFilename": "First part filename",
+      "secondPartFilename": "Second part filename",
+      "splitAndDownload": "Split & Download",
+      "placeholders": {
+        "firstPart": "part1.pdf",
+        "secondPart": "part2.pdf",
+        "pageNumber": "1"
+      }
+    },
+    "common": {
+      "step1": "1. Select PDF File",
+      "step2": "2. Split Configuration",
+      "noFile": "No file selected",
+      "dragDrop": "Drag & drop a PDF file here, or click to select",
+      "chooseFile": "Choose file",
+      "removeAll": "Remove all",
+      "processing": "Processing...",
+      "outputFilename": "Output filename",
+      "download": "Download"
+    }
+  },
+  "dashboard": {
+    "title": "PDF Tools",
+    "description": "Choose a tool to modify your PDF documents",
+    "welcome": "Welcome back"
+  },
+  "auth": {
+    "login": {
+      "title": "Login",
+      "description": "Sign in to your account",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign in",
+      "noAccount": "Don't have an account?",
+      "register": "Register",
+      "placeholders": {
+        "email": "Enter your email",
+        "password": "Enter your password"
+      },
+      "errors": {
+        "credentials": "Please enter email and password",
+        "invalid": "Invalid email or password"
+      }
+    },
+    "register": {
+      "title": "Register",
+      "description": "Create a new account",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm password",
+      "submit": "Register",
+      "haveAccount": "Already have an account?",
+      "login": "Sign in"
+    }
+  },
+  "errors": {
+      "uploadFirst": "Please upload a PDF file first",
+      "unexpected": "An unexpected error occurred. Please try again.",
+      "toImagesFailed": "Error converting PDF to images. Please try again.",
+      "rotatePagesFailed": "Error rotating PDF pages. Please try again.",
+      "reorderPagesFailed": "Error reordering PDF pages. Please try again.",
+      "removePasswordFailed": "Error removing password from PDF. Please try again.",
+      "removePageFailed": "Error removing page from PDF. Please try again.",
+      "extractPagesFailed": "Error extracting pages from PDF. Please try again.",
+      "addWatermarkFailed": "Error adding watermark to PDF. Please try again.",
+      "addPasswordFailed": "Error adding password to PDF. Please try again."
+    }
+}

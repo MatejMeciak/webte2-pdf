@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { type AddPasswordFormValues, addPasswordFormSchema } from "../types/pdf";
 import { Lock } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface AddPasswordConfigFormProps {
   onSubmit: (values: AddPasswordFormValues, file: File) => Promise<void>;
@@ -14,6 +15,7 @@ interface AddPasswordConfigFormProps {
 }
 
 export function AddPasswordConfigForm({ onSubmit, file, isLoading, error }: AddPasswordConfigFormProps) {
+  const { t } = useTranslation();
   const form = useForm<AddPasswordFormValues>({
     resolver: zodResolver(addPasswordFormSchema),
     defaultValues: {
@@ -39,11 +41,11 @@ export function AddPasswordConfigForm({ onSubmit, file, isLoading, error }: AddP
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>{t('pdf.features.addPassword.password')}</FormLabel>
                 <FormControl>
                   <Input
                     type="password"
-                    placeholder="Enter password to protect PDF"
+                    placeholder={t('pdf.features.addPassword.placeholders.password')}
                     {...field}
                   />
                 </FormControl>
@@ -57,7 +59,7 @@ export function AddPasswordConfigForm({ onSubmit, file, isLoading, error }: AddP
             name="outputName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Output Filename (Optional)</FormLabel>
+                <FormLabel>{t('pdf.features.addPassword.outputFilename')}</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="protected.pdf"
@@ -74,9 +76,7 @@ export function AddPasswordConfigForm({ onSubmit, file, isLoading, error }: AddP
           <div className="flex items-center justify-center py-4 px-3 rounded-md bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 text-sm">
             <div className="flex items-center">
               <Lock className="h-5 w-5 mr-2" />
-              <p>
-                The uploaded PDF will be encrypted with the password you provide.
-              </p>
+              <p>{t('pdf.features.addPassword.instructions')}</p>
             </div>
           </div>
 
@@ -91,10 +91,10 @@ export function AddPasswordConfigForm({ onSubmit, file, isLoading, error }: AddP
             disabled={!canSubmit || isLoading}
             className="w-full"
           >
-            {isLoading ? "Processing..." : "Add Password & Download"}
+            {isLoading ? t('common.processing') : t('pdf.features.addPassword.protectAndDownload')}
           </Button>
         </div>
       </form>
     </Form>
   );
-} 
+}

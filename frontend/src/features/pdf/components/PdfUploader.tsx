@@ -1,13 +1,17 @@
 import { useDropzone } from "react-dropzone";
 import { Button } from "@/components/ui/button";
 import { FileType, Upload } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface PdfUploaderProps {
   file: File | null;
   setFile: (file: File | null) => void;
+  feature: string; // Add feature prop
 }
 
-export function PdfUploader({ file, setFile }: PdfUploaderProps) {
+export function PdfUploader({ file, setFile, feature }: PdfUploaderProps) {
+  const { t } = useTranslation();
+
   // Handle file drop with react-dropzone
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
@@ -22,7 +26,7 @@ export function PdfUploader({ file, setFile }: PdfUploaderProps) {
   });
 
   return (
-    <>
+    <div className="space-y-4">
       <div
         {...getRootProps()}
         className={`border-2 border-dashed rounded-lg p-6 cursor-pointer transition-colors flex flex-col items-center justify-center min-h-40 ${
@@ -32,13 +36,13 @@ export function PdfUploader({ file, setFile }: PdfUploaderProps) {
         <input {...getInputProps()} />
         <FileType className="h-10 w-10 text-muted-foreground mb-2" />
         <p className="text-sm text-center text-muted-foreground">
-          {isDragActive
-            ? "Drop the PDF here"
-            : "Drag & drop a PDF file here, or click to select"}
+          {isDragActive 
+            ? t('common.dropFileHere') 
+            : t(`pdf.features.${feature}.dragDrop`)}
         </p>
         <Button variant="outline" size="sm" className="mt-4">
           <Upload className="h-4 w-4 mr-2" />
-          Choose file
+          {t(`pdf.features.${feature}.chooseFile`)}
         </Button>
       </div>
       
@@ -55,10 +59,10 @@ export function PdfUploader({ file, setFile }: PdfUploaderProps) {
             size="sm" 
             onClick={() => setFile(null)}
           >
-            Remove
+            {t('common.remove')}
           </Button>
         </div>
       )}
-    </>
+    </div>
   );
 }
