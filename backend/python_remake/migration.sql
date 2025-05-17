@@ -10,7 +10,7 @@ CREATE TABLE public.users (
 	last_name varchar NULL,
 	email varchar NOT NULL,
 	"password" varchar NOT NULL,
-	"role" public."role" NULL,
+	"role" varchar NULL,
 	enabled bool NULL,
 	CONSTRAINT users_pkey PRIMARY KEY (id)
 );
@@ -20,10 +20,10 @@ CREATE INDEX ix_users_id ON public.users USING btree (id);
 
 INSERT INTO public.users
 (first_name, last_name, email, "password", "role", enabled)
-VALUES('Admin', 'User', 'admin@example.com', '$2b$12$4DWMDfBhe9eFQSxUiWeAR..tRtNbGmkALnevt0B1uDcPSxbm8xwY2', 'ADMIN'::public."role", true);
+VALUES('Admin', 'User', 'admin@example.com', '$2b$12$4DWMDfBhe9eFQSxUiWeAR..tRtNbGmkALnevt0B1uDcPSxbm8xwY2', 'ADMIN', true);
 INSERT INTO public.users
 (first_name, last_name, email, "password", "role", enabled)
-VALUES('Test', 'User', 'user@example.com', '$2b$12$s9NRFaU/s34Srlqb3RhllOcy.4DYXtjTiKvHvW3R6uPdQlI3dAzFi', 'USER'::public."role", true);
+VALUES('Test', 'User', 'user@example.com', '$2b$12$s9NRFaU/s34Srlqb3RhllOcy.4DYXtjTiKvHvW3R6uPdQlI3dAzFi', 'USER', true);
 
 
 -- public.pdf_operation_history definition

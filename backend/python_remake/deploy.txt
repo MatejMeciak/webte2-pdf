@@ -1,5 +1,5 @@
 // Swagger docs
-http://localhost:8000/docs
+http://localhost:8080/docs
 
 // Docker build process
 docker-compose down
@@ -14,6 +14,4 @@ admin
 user@example.com
 user
 
-
-// TODO 
-state a country resolution
+Execute the migration.sql on first database startup!!
