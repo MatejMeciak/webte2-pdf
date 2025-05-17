@@ -42,7 +42,8 @@
         "mergeAndDownload": "Merge & Download",
         "dragDrop": "Drag & drop PDF files here, or click to select",
         "chooseFile": "Choose files",
-        "outputFilename": "Output Filename"
+        "outputFilename": "Output Filename",
+        "instructions": "To merge PDF files, upload two or more files. After uploading, you can change their order and set the output filename."
       },
       "split": {
         "title": "Split PDF",
@@ -65,7 +66,8 @@
         "step1": "1. Select PDF File",
         "step2": "2. Split Configuration",
         "dragDrop": "Drag & drop a PDF file here, or click to select",
-        "chooseFile": "Choose file"
+        "chooseFile": "Choose file",
+        "instructions": "Choose where to split the PDF. Enter the page number and optionally set names for both parts of the document."
       },
       "removePage": {
         "title": "Remove Page",
@@ -73,7 +75,8 @@
         "pageNumber": "Page number",
         "removeAndDownload": "Remove & Download",
         "dragDrop": "Drag & drop a PDF file here, or click to select",
-        "chooseFile": "Choose file"
+        "chooseFile": "Choose file",
+        "instructions": "Select the page number you want to remove from the document. You can also set a custom name for the output file."
       },
       "extractPages": {
         "title": "Extract Pages",
@@ -83,7 +86,8 @@
         "extractAndDownload": "Extract & Download",
         "dragDrop": "Drag & drop a PDF file here, or click to select",
         "chooseFile": "Choose file",
-        "summary": "Pages {{startPage}} to {{endPage}} will be extracted from the PDF into a new document"
+        "summary": "Pages {{startPage}} to {{endPage}} will be extracted from the PDF into a new document",
+        "instructions": "Enter the range of pages (from-to) you want to extract to a new document. You can set a custom name for the new file."
       },
       "reorderPages": {
         "title": "Reorder PDF Pages",
@@ -298,6 +302,20 @@
         "description": "Endpoint for merging multiple PDF files",
         "request": "curl -X POST https://api.example.com/pdf/merge \n-F 'files=@file1.pdf' \n-F 'files=@file2.pdf'",
         "response": "{\n  \"url\": \"https://api.example.com/downloads/merged.pdf\"\n}"
+      }
+    },
+    "features": {
+      "title": "Usage Guide",
+      "howTo": "How to Use",
+      "general": {
+        "title": "General Steps",
+        "steps": [
+          "Select a tool from the PDF tools menu",
+          "Upload PDF file(s) via drag & drop or file selection",
+          "Configure the settings for your chosen tool",
+          "Click the action button (e.g. 'Merge & Download')",
+          "Download your processed PDF file"
+        ]
       }
     }
   }

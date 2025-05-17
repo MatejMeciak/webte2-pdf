@@ -31,7 +31,8 @@
         "mergeFilesProcessing": "Spracúvam PDF súbory...",
         "dragDrop": "Pretiahnite PDF súbory sem alebo kliknite pre výber",
         "chooseFile": "Vybrať súbory",
-        "outputFilename": "Názov výstupného súboru"
+        "outputFilename": "Názov výstupného súboru",
+        "instructions": "Pre spojenie PDF súborov nahrajte dva alebo viac súborov. Po nahraní môžete zmeniť ich poradie a nastaviť názov výsledného súboru."
       },
       "split": {
         "title": "Rozdeliť PDF",
@@ -54,7 +55,8 @@
         "step1": "1. Vyberte PDF súbor",
         "step2": "2. Nastavenie rozdelenia",
         "dragDrop": "Pretiahnite PDF súbor sem alebo kliknite pre výber",
-        "chooseFile": "Vybrať súbor"
+        "chooseFile": "Vybrať súbor",
+        "instructions": "Vyberte bod, kde sa má PDF rozdeliť. Zadajte číslo strany a voliteľne názvy pre obe časti dokumentu."
       },
       "removePage": {
         "title": "Odstrániť stranu",
@@ -62,7 +64,8 @@
         "pageNumber": "Číslo strany",
         "removeAndDownload": "Odstrániť stranu & Stiahnuť",
         "dragDrop": "Pretiahnite PDF súbor sem alebo kliknite pre výber",
-        "chooseFile": "Vybrať súbor"
+        "chooseFile": "Vybrať súbor",
+        "instructions": "Vyberte číslo strany, ktorú chcete odstrániť z dokumentu. Môžete tiež zadať vlastný názov pre výsledný súbor."
       },
       "extractPages": {
         "title": "Extrahovať strany",
@@ -75,7 +78,8 @@
         "summary": "Strany {{startPage}} až {{endPage}} budú extrahované z PDF do nového dokumentu.",
         "outputFilename": "Názov výstupného súboru",
         "outputFilenamePlaceholder": "extrahovane.pdf",
-        "endPagePlaceholder": "napr. 5"
+        "endPagePlaceholder": "napr. 5",
+        "instructions": "Zadajte rozsah strán (od-do), ktoré chcete extrahovať do nového dokumentu. Môžete zadať vlastný názov pre nový súbor."
       },
       "reorderPages": {
         "title": "Zmeniť poradie strán",
@@ -296,15 +300,15 @@
     },
     "features": {
       "title": "Návod na použitie",
-      "howTo": "Ako používať nástroje",
+      "howTo": "Ako používať aplikáciu",
       "general": {
-        "title": "Všeobecné pokyny",
+        "title": "Všeobecný postup",
         "steps": [
-          "Vyberte nástroj z menu PDF Nástroje",
-          "Nahrajte PDF súbor(y) pretiahnutím alebo kliknutím na tlačidlo",
-          "Nastavte požadované parametre",
-          "Kliknite na tlačidlo akcie (napr. Spojiť & Stiahnuť)",
-          "Stiahnite si výsledný súbor"
+          "Vyberte si nástroj z menu PDF nástrojov",
+          "Nahrajte PDF súbor/y pomocou drag & drop alebo výberom súboru",
+          "Nastavte požadované parametre pre zvolený nástroj",
+          "Kliknite na tlačidlo akcie (napr. 'Spojiť & Stiahnuť')",
+          "Stiahnite si upravený PDF súbor"
         ]
       }
     }
