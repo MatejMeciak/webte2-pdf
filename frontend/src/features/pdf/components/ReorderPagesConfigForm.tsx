@@ -7,6 +7,7 @@ import { type ReorderPagesFormValues, reorderPagesFormSchema } from "../types/pd
 import { LayoutList } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface ReorderPagesConfigFormProps {
   onSubmit: (values: ReorderPagesFormValues, file: File) => void;
@@ -16,6 +17,7 @@ interface ReorderPagesConfigFormProps {
 }
 
 export function ReorderPagesConfigForm({ onSubmit, file, isLoading, error }: ReorderPagesConfigFormProps) {
+  const { t } = useTranslation();
   const form = useForm<ReorderPagesFormValues>({
     resolver: zodResolver(reorderPagesFormSchema),
     defaultValues: {
@@ -39,10 +41,10 @@ export function ReorderPagesConfigForm({ onSubmit, file, isLoading, error }: Reo
             name="pageOrder"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Page Order</FormLabel>
+                <FormLabel>{t('pdf.features.reorderPages.pageOrder')}</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="e.g., 2,1,4,3"
+                    placeholder={t('pdf.features.reorderPages.placeholders.pageOrder')}
                     {...field}
                   />
                 </FormControl>
@@ -56,7 +58,7 @@ export function ReorderPagesConfigForm({ onSubmit, file, isLoading, error }: Reo
             name="outputName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Output Filename (Optional)</FormLabel>
+                <FormLabel>{t('pdf.features.reorderPages.outputFilename')}</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="reordered.pdf"
@@ -73,11 +75,7 @@ export function ReorderPagesConfigForm({ onSubmit, file, isLoading, error }: Reo
           <Alert className="bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-800">
             <LayoutList className="h-5 w-5 mr-2" />
             <AlertDescription>
-              <p>
-                Enter the page numbers in the order you want them to appear in the output PDF. 
-                For example, <strong>2,1,4,3</strong> will reorder a 4-page document so that 
-                the second page becomes first, the first page becomes second, and so on.
-              </p>
+              <p>{t('pdf.features.reorderPages.instructions')}</p>
             </AlertDescription>
           </Alert>
 
@@ -90,12 +88,12 @@ export function ReorderPagesConfigForm({ onSubmit, file, isLoading, error }: Reo
             </Alert>
           )}
 
-          <Button 
-            type="submit" 
-            disabled={isLoading || !file}
+          <Button
+            type="submit"
+            disabled={!file || isLoading}
             className="w-full"
           >
-            {isLoading ? "Processing..." : "Reorder PDF Pages"}
+            {isLoading ? t('common.processing') : t('pdf.features.reorderPages.reorderAndDownload')}
           </Button>
         </div>
       </form>

@@ -22,7 +22,7 @@ export default function PdfRotatePagesPage() {
         {/* Upload section */}
         <Card className="p-6 shadow-sm col-span-1 lg:col-span-1">
           <h2 className="text-xl font-semibold mb-4">
-            {t("pdf.common.step1")}
+            {t("pdf.features.reorderPages.step1")}
           </h2>
           <PdfUploader file={file} setFile={setFile} />
         </Card>
@@ -30,7 +30,7 @@ export default function PdfRotatePagesPage() {
         {/* Rotate pages configuration */}
         <Card className="p-6 shadow-sm col-span-1 lg:col-span-2">
           <h2 className="text-xl font-semibold mb-4">
-            {t("pdf.common.step2")}
+            {t("pdf.features.reorderPages.step2")}
           </h2>
           <RotatePagesConfigForm
             onSubmit={rotatePdfPages}

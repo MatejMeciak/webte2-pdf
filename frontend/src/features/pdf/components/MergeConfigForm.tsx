@@ -46,7 +46,7 @@ export function MergeConfigForm({ onSubmit, files, isLoading, error }: MergeConf
           name="outputName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t('pdf.common.outputFilename')}</FormLabel>
+              <FormLabel>{t('pdf.features.merge.outputFilename')}</FormLabel>
               <FormControl>
                 <Input
                   placeholder="merged.pdf"
@@ -79,7 +79,7 @@ export function MergeConfigForm({ onSubmit, files, isLoading, error }: MergeConf
             ) : (
               <>
                 <Combine className="mr-2 h-4 w-4" />
-                {t('pdf.actions.merge.mergeAndDownload')}
+                {t('pdf.features.merge.mergeAndDownload')}
               </>
             )}
           </Button>

@@ -25,16 +25,16 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route element={<ProtectedRoute />}>
             <Route index element={<DashboardPage />} />
-            <Route path="merge" element={<PdfMergePage />} />
-            <Route path="split" element={<PdfSplitPage />} />
-            <Route path="remove" element={<PdfRemovePage />} />
-            <Route path="extract" element={<PdfExtractPage />} />
-            <Route path="reorder" element={<PdfReorderPage />} />
-            <Route path="add-password" element={<PdfAddPasswordPage />} />
-            <Route path="remove-password" element={<PdfRemovePasswordPage />} />
-            <Route path="to-images" element={<PdfToImagesPage />} />
-            <Route path="add-watermark" element={<PdfAddWatermarkPage />} />
-            <Route path="rotate" element={<PdfRotatePagesPage />} />
+            <Route path="/pdf/merge" element={<PdfMergePage />} />
+            <Route path="/pdf/split" element={<PdfSplitPage />} />
+            <Route path="/pdf/remove-page" element={<PdfRemovePage />} />
+            <Route path="/pdf/extract-pages" element={<PdfExtractPage />} />
+            <Route path="/pdf/reorder-pages" element={<PdfReorderPage />} />
+            <Route path="/pdf/add-password" element={<PdfAddPasswordPage />} />
+            <Route path="/pdf/remove-password" element={<PdfRemovePasswordPage />} />
+            <Route path="/pdf/to-images" element={<PdfToImagesPage />} />
+            <Route path="/pdf/add-watermark" element={<PdfAddWatermarkPage />} />
+            <Route path="/pdf/rotate-pages" element={<PdfRotatePagesPage />} />
             <Route path="admin/history" element={<AdminHistoryPage />} />
           </Route>
           

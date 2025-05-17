@@ -14,8 +14,8 @@ export default function PdfRotatePagesPage() {
   return (
     <div className="w-full max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
       <PageHeader
-        title={t("pdf.tools.rotate.title")}
-        description={t("pdf.tools.rotate.description")}
+        title={t("pdf.features.rotatePages.title")}
+        description={t("pdf.features.rotatePages.description")}
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -24,7 +24,7 @@ export default function PdfRotatePagesPage() {
           <h2 className="text-xl font-semibold mb-4">
             {t("pdf.common.step1")}
           </h2>
-          <PdfUploader file={file} setFile={setFile} />
+          <PdfUploader file={file} setFile={setFile} feature="rotatePages" />
         </Card>
 
         {/* Rotate pages configuration */}

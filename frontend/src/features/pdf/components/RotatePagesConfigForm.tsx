@@ -7,6 +7,7 @@ import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "
 import { rotatePagesFormSchema, type RotatePagesFormValues } from "../types/pdf";
 import { RotateCw } from "lucide-react";
 import { z } from "zod";
+import { useTranslation } from "react-i18next";
 
 interface RotatePagesConfigFormProps {
   onSubmit: (values: RotatePagesFormValues, file: File) => Promise<void>;
@@ -25,6 +26,7 @@ const outputNameSchema = z.object({
 });
 
 export function RotatePagesConfigForm({ onSubmit, file, isLoading, error }: RotatePagesConfigFormProps) {
+  const { t } = useTranslation();
   const [pagesInput, setPagesInput] = useState("");
   const [rotationsInput, setRotationsInput] = useState("");
   const [localError, setLocalError] = useState<string | null>(null);
@@ -75,33 +77,44 @@ export function RotatePagesConfigForm({ onSubmit, file, isLoading, error }: Rota
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
         <div className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium mb-1">Pages (comma-separated)</label>
-            <Input
-              type="text"
-              value={pagesInput}
-              onChange={e => setPagesInput(e.target.value)}
-              placeholder="e.g., 1,2,3"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Rotations (degrees, comma-separated)</label>
-            <Input
-              type="text"
-              value={rotationsInput}
-              onChange={e => setRotationsInput(e.target.value)}
-              placeholder="e.g., 90,180,270"
-            />
-            <span className="text-xs text-muted-foreground">
-              If you enter only one value, it will be used for all pages.
-            </span>
-          </div>
+          <FormField
+            control={form.control}
+            name="pages"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t('pdf.features.rotatePages.pages')}</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder={t('pdf.features.rotatePages.placeholders.pages')}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="degrees"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t('pdf.features.rotatePages.degrees')}</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder={t('pdf.features.rotatePages.placeholders.degrees')}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <FormField
             control={form.control}
             name="outputName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Output Filename (Optional)</FormLabel>
+                <FormLabel>{t('pdf.features.rotatePages.outputFilename')}</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="rotated.pdf"
@@ -119,7 +132,7 @@ export function RotatePagesConfigForm({ onSubmit, file, isLoading, error }: Rota
             <div className="flex items-center">
               <RotateCw className="h-5 w-5 mr-2" />
               <p>
-                Enter the pages and their corresponding rotation angles (degrees). The number of pages and rotations must match.
+                {t('pdf.features.rotatePages.instructions')}
               </p>
             </div>
           </div>
@@ -135,10 +148,10 @@ export function RotatePagesConfigForm({ onSubmit, file, isLoading, error }: Rota
             disabled={!canSubmit || isLoading}
             className="w-full"
           >
-            {isLoading ? "Processing..." : "Rotate Pages & Download"}
+            {isLoading ? t('common.processing') : t('pdf.features.rotatePages.rotateAndDownload')}
           </Button>
         </div>
       </form>
     </Form>
   );
-} 
+}

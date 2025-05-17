@@ -30,8 +30,8 @@ export function SplitConfigForm({ onSubmit, file, isLoading, error }: SplitConfi
     resolver: zodResolver(splitFormSchema),
     defaultValues: {
       splitAtPage: 1,
-      firstOutputName: t('pdf.split.placeholders.firstPart'),
-      secondOutputName: t('pdf.split.placeholders.secondPart'),
+      firstOutputName: t('pdf.features.split.placeholders.firstPart'),
+      secondOutputName: t('pdf.features.split.placeholders.secondPart'),
     },
   });
 
@@ -49,11 +49,11 @@ export function SplitConfigForm({ onSubmit, file, isLoading, error }: SplitConfi
           name="splitAtPage"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t('pdf.split.splitAtPage')}</FormLabel>
+              <FormLabel>{t('pdf.features.split.splitAtPage')}</FormLabel>
               <FormControl>
                 <Input
                   type="number"
-                  placeholder={t('pdf.split.placeholders.pageNumber')}
+                  placeholder={t('pdf.features.split.placeholders.pageNumber')}
                   {...field}
                 />
               </FormControl>
@@ -68,9 +68,12 @@ export function SplitConfigForm({ onSubmit, file, isLoading, error }: SplitConfi
             name="firstOutputName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t('pdf.split.firstPartFilename')}</FormLabel>
+                <FormLabel>{t('pdf.features.split.firstPartFilename')}</FormLabel>
                 <FormControl>
-                  <Input placeholder="part1.pdf" {...field} />
+                  <Input 
+                    placeholder={t('pdf.features.split.placeholders.firstPart')} 
+                    {...field} 
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -82,9 +85,12 @@ export function SplitConfigForm({ onSubmit, file, isLoading, error }: SplitConfi
             name="secondOutputName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t('pdf.split.secondPartFilename')}</FormLabel>
+                <FormLabel>{t('pdf.features.split.secondPartFilename')}</FormLabel>
                 <FormControl>
-                  <Input placeholder="part2.pdf" {...field} />
+                  <Input 
+                    placeholder={t('pdf.features.split.placeholders.secondPart')} 
+                    {...field} 
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -104,15 +110,9 @@ export function SplitConfigForm({ onSubmit, file, isLoading, error }: SplitConfi
           disabled={!file || isLoading}
         >
           {isLoading ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              {t('pdf.common.processing')}
-            </>
+            <>{t('pdf.common.processing')}</>
           ) : (
-            <>
-              <Scissors className="mr-2 h-4 w-4" />
-              {t('pdf.split.splitAndDownload')}
-            </>
+            <>{t('pdf.features.split.splitAndDownload')}</>
           )}
         </Button>
       </form>

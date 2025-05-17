@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { type AddWatermarkFormValues, addWatermarkFormSchema } from "../types/pdf";
 import { Droplet } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface AddWatermarkConfigFormProps {
   onSubmit: (values: AddWatermarkFormValues, file: File) => Promise<void>;
@@ -14,6 +15,7 @@ interface AddWatermarkConfigFormProps {
 }
 
 export function AddWatermarkConfigForm({ onSubmit, file, isLoading, error }: AddWatermarkConfigFormProps) {
+  const { t } = useTranslation();
   const form = useForm<AddWatermarkFormValues>({
     resolver: zodResolver(addWatermarkFormSchema),
     defaultValues: {
@@ -43,10 +45,10 @@ export function AddWatermarkConfigForm({ onSubmit, file, isLoading, error }: Add
             name="watermarkText"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Watermark Text</FormLabel>
+                <FormLabel>{t('pdf.features.addWatermark.text')}</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Enter watermark text"
+                    placeholder={t('pdf.features.addWatermark.placeholders.text')}
                     {...field}
                   />
                 </FormControl>
@@ -61,14 +63,14 @@ export function AddWatermarkConfigForm({ onSubmit, file, isLoading, error }: Add
               name="opacity"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Opacity (0-1)</FormLabel>
+                  <FormLabel>{t('pdf.features.addWatermark.opacity')}</FormLabel>
                   <FormControl>
                     <Input
                       type="number"
                       step="0.01"
                       min={0}
                       max={1}
-                      placeholder="0.3"
+                      placeholder={t('pdf.features.addWatermark.placeholders.opacity')}
                       {...field}
                     />
                   </FormControl>
@@ -81,12 +83,12 @@ export function AddWatermarkConfigForm({ onSubmit, file, isLoading, error }: Add
               name="fontSize"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Font Size</FormLabel>
+                  <FormLabel>{t('pdf.features.addWatermark.fontSize')}</FormLabel>
                   <FormControl>
                     <Input
                       type="number"
                       min={1}
-                      placeholder="40"
+                      placeholder={t('pdf.features.addWatermark.placeholders.fontSize')}
                       {...field}
                     />
                   </FormControl>
@@ -102,11 +104,11 @@ export function AddWatermarkConfigForm({ onSubmit, file, isLoading, error }: Add
               name="color"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Color (Hex)</FormLabel>
+                  <FormLabel>{t('pdf.features.addWatermark.color')}</FormLabel>
                   <FormControl>
                     <Input
                       type="text"
-                      placeholder="#888888"
+                      placeholder={t('pdf.features.addWatermark.placeholders.color')}
                       {...field}
                     />
                   </FormControl>
@@ -119,11 +121,11 @@ export function AddWatermarkConfigForm({ onSubmit, file, isLoading, error }: Add
               name="rotation"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Rotation (degrees)</FormLabel>
+                  <FormLabel>{t('pdf.features.addWatermark.rotation')}</FormLabel>
                   <FormControl>
                     <Input
                       type="number"
-                      placeholder="45"
+                      placeholder={t('pdf.features.addWatermark.placeholders.rotation')}
                       {...field}
                     />
                   </FormControl>
@@ -138,7 +140,7 @@ export function AddWatermarkConfigForm({ onSubmit, file, isLoading, error }: Add
             name="outputName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Output Filename (Optional)</FormLabel>
+                <FormLabel>{t('pdf.features.addWatermark.outputFilename')}</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="watermarked.pdf"
@@ -155,9 +157,7 @@ export function AddWatermarkConfigForm({ onSubmit, file, isLoading, error }: Add
           <div className="flex items-center justify-center py-4 px-3 rounded-md bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 text-sm">
             <div className="flex items-center">
               <Droplet className="h-5 w-5 mr-2" />
-              <p>
-                The watermark will be added to every page of your PDF.
-              </p>
+              <p>{t('pdf.features.addWatermark.instructions')}</p>
             </div>
           </div>
 
@@ -172,10 +172,10 @@ export function AddWatermarkConfigForm({ onSubmit, file, isLoading, error }: Add
             disabled={!canSubmit || isLoading}
             className="w-full"
           >
-            {isLoading ? "Processing..." : "Add Watermark & Download"}
+            {isLoading ? t('common.processing') : t('pdf.features.addWatermark.addAndDownload')}
           </Button>
         </div>
       </form>
     </Form>
   );
-} 
+}

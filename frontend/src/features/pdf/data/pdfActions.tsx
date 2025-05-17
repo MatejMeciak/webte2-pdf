@@ -1,3 +1,5 @@
+import { t } from "i18next";
+
 export type PdfAction = {
   titleKey: string;
   title: string;
@@ -177,8 +179,8 @@ export const pdfActions: PdfAction[] = [
   },
   {
     titleKey: "pdfToImages",
-    title: "PDF to Images",
-    description: "Convert each page of your PDF to PNG images (ZIP).",
+    title: t('pdf.tools.toImages.title'),
+    description: t('pdf.tools.toImages.description'),
     path: "/to-images",
     icon: (
       <svg

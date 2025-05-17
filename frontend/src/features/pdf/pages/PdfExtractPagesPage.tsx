@@ -14,8 +14,8 @@ export default function PdfSplitPage() {
   return (
     <div className="w-full max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
       <PageHeader
-        title={t('pdf.features.split.title')}
-        description={t('pdf.features.split.description')}
+        title={t('pdf.tools.extractPages.title')}
+        description={t('pdf.tools.extractPages.description')}
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

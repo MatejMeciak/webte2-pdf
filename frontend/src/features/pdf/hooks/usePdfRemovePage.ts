@@ -2,14 +2,16 @@ import { useState } from "react";
 import api from "@/api/axios";
 import type { RemovePageFormValues } from "../types/pdf";
 import { isAxiosError } from "axios";
+import { useTranslation } from "react-i18next";
 
 export function usePdfRemovePage() {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const removePageFromPdf = async (values: RemovePageFormValues, file: File) => {
     if (!file) {
-      setError("Please upload a PDF file first");
+      setError(t('errors.uploadFirst'));
       return;
     }
 
@@ -39,9 +41,9 @@ export function usePdfRemovePage() {
       
     } catch (err) {
       if (isAxiosError(err)) {
-        setError(err.response?.data || "Error removing page from PDF. Please try again.");
+        setError(t('errors.removePageFailed'));
       } else {
-        setError("An unexpected error occurred. Please try again.");
+        setError(t('errors.unexpected'));
       }
     } finally {
       setIsLoading(false);

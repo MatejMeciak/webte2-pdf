@@ -14,8 +14,8 @@ export default function PdfMergePage() {
   return (
     <div className="w-full max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
       <PageHeader
-        title={t('pdf.merge.title')}
-        description={t('pdf.merge.description')}
+        title={t('pdf.features.merge.title')}
+        description={t('pdf.features.merge.description')}
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

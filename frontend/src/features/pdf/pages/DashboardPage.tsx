@@ -23,8 +23,8 @@ function DashboardPage() {
         {pdfActions.map((action) => (
           <PdfActionCard
             key={action.path}
-            title={t(`pdf.actions.${action.titleKey}.title`)}
-            description={t(`pdf.actions.${action.titleKey}.description`)}
+            title={t(`pdf.features.${action.titleKey}.title`)}
+            description={t(`pdf.features.${action.titleKey}.description`)}
             path={action.path}
             icon={action.icon}
             onClick={handleActionClick}

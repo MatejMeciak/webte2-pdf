@@ -14,8 +14,8 @@ export default function PdfRemovePasswordPage() {
   return (
     <div className="w-full max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
       <PageHeader
-        title={t("pdf.tools.removePassword.title")}
-        description={t("pdf.tools.removePassword.description")}
+        title={t("pdf.features.removePassword.title")}
+        description={t("pdf.features.removePassword.description")}
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -24,7 +24,7 @@ export default function PdfRemovePasswordPage() {
           <h2 className="text-xl font-semibold mb-4">
             {t("pdf.common.step1")}
           </h2>
-          <PdfUploader file={file} setFile={setFile} />
+          <PdfUploader file={file} setFile={setFile} feature="removePassword" />
         </Card>
 
         {/* Remove password configuration */}

@@ -14,8 +14,8 @@ export default function PdfToImagesPage() {
   return (
     <div className="w-full max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
       <PageHeader
-        title={t("pdf.tools.toImages.title")}
-        description={t("pdf.tools.toImages.description")}
+        title={t('pdf.features.toImages.title')}
+        description={t('pdf.features.toImages.description')}
       />
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Upload section */}
@@ -23,7 +23,7 @@ export default function PdfToImagesPage() {
           <h2 className="text-xl font-semibold mb-4">
             {t("pdf.common.step1")}
           </h2>
-          <PdfUploader file={file} setFile={setFile} />
+          <PdfUploader file={file} setFile={setFile} feature="toImages" />
         </Card>
 
         {/* PDF to Images configuration */}

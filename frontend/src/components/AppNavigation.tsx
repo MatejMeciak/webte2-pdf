@@ -100,13 +100,13 @@ const AppNavigation = () => {
                     <NavigationMenuTrigger>{t('nav.pdfTools')}</NavigationMenuTrigger>
                     <NavigationMenuContent>
                       <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                        {pdfActions.map((action) => (
+                        {pdfActions.map((features) => (
                           <ListItem
-                            key={action.path}
-                            title={t(`pdf.actions.${action.titleKey}.title`)}
-                            href={action.path}
+                            key={features.path}
+                            title={t(`pdf.features.${features.titleKey}.title`)}
+                            href={features.path}
                           >
-                            {t(`pdf.actions.${action.titleKey}.description`)}
+                            {t(`pdf.features.${features.titleKey}.description`)}
                           </ListItem>
                         ))}
                       </ul>
@@ -238,9 +238,9 @@ const AppNavigation = () => {
 };
 
 const ListItem = React.forwardRef<
-  React.ComponentRef<"a">,
-  React.ComponentPropsWithoutRef<"a">
->(({ className, title, children, href, ...props }) => {
+  HTMLAnchorElement,
+  React.ComponentPropsWithoutRef<"a"> & { title: string }
+>(({ className, title, children, href, ...props }, ref) => {
   return (
     <li>
       <Link
@@ -250,6 +250,7 @@ const ListItem = React.forwardRef<
           className
         )}
         {...props}
+        ref={ref}
       >
         <div className="text-sm font-medium leading-none">{title}</div>
         <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">

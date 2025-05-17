@@ -1,39 +1,27 @@
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
+import type { IconProps } from "lucide-react";
 
-export type PdfActionProps = {
+interface PdfActionCardProps {
   title: string;
   description: string;
   path: string;
-  icon: React.ReactNode;
+  icon: React.ComponentType<IconProps>;
   onClick: (path: string) => void;
-};
+}
 
-export function PdfActionCard({
-  title,
-  description,
-  path,
-  icon,
-  onClick,
-}: PdfActionProps) {
+export function PdfActionCard({ title, description, path, icon: Icon, onClick }: PdfActionCardProps) {
   return (
     <Card
-      className="group transition-all hover:shadow-md hover:border-primary/50 cursor-pointer h-full flex flex-col"
+      className="relative p-6 cursor-pointer hover:bg-accent transition-colors"
       onClick={() => onClick(path)}
     >
-      <CardHeader className="text-center py-6">
-        <div className="mb-4 p-3 rounded-full bg-primary/10 w-fit mx-auto">
-          <div className="w-10 h-10 flex items-center justify-center">
-            {icon}
-          </div>
+      <div className="flex items-start space-x-4">
+        <Icon className="h-6 w-6 shrink-0" />
+        <div>
+          <h3 className="font-semibold">{title}</h3>
+          <p className="text-sm text-muted-foreground">{description}</p>
         </div>
-        <CardTitle className="text-center text-xl mb-2">{title}</CardTitle>
-        <CardDescription className="text-center text-base">{description}</CardDescription>
-      </CardHeader>
+      </div>
     </Card>
   );
 }
