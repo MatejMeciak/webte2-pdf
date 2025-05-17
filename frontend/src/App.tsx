@@ -17,12 +17,19 @@ import PdfToImagesPage from "./features/pdf/pages/PdfToImagesPage";
 import PdfAddWatermarkPage from "./features/pdf/pages/PdfAddWatermarkPage";
 import PdfRotatePagesPage from "./features/pdf/pages/PdfRotatePagesPage";
 import AdminHistoryPage from "./features/history/pages/AdminHistoryPage";
+import UserGuidePage from "./features/guide/pages/UserGuidePage";
 
 function App() {
   return (
     <AuthProvider>
       <Routes>
         <Route path="/" element={<Layout />}>
+          {/* Public routes */}
+          <Route path="guide" element={<UserGuidePage />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="register" element={<RegisterPage />} />
+
+          {/* Protected routes */}
           <Route element={<ProtectedRoute />}>
             <Route index element={<DashboardPage />} />
             <Route path="merge" element={<PdfMergePage />} />
@@ -36,11 +43,6 @@ function App() {
             <Route path="add-watermark" element={<PdfAddWatermarkPage />} />
             <Route path="rotate-pages" element={<PdfRotatePagesPage />} />
             <Route path="admin/history" element={<AdminHistoryPage />} />
-          </Route>
-          
-          <Route element={<RedirectIfAuthenticated />}>
-            <Route path="login" element={<LoginPage />} />
-            <Route path="register" element={<RegisterPage />} />
           </Route>
         </Route>
       </Routes>

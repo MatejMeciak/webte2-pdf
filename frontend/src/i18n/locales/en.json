@@ -4,7 +4,8 @@
     "login": "Login",
     "register": "Register",
     "logout": "Logout",
-    "adminHistory": "Admin History"
+    "adminHistory": "Admin History",
+    "guide": "User Guide"
   },
   "common": {
     "processing": "Processing...",
@@ -41,7 +42,8 @@
         "mergeAndDownload": "Merge & Download",
         "dragDrop": "Drag & drop PDF files here, or click to select",
         "chooseFile": "Choose files",
-        "outputFilename": "Output Filename"
+        "outputFilename": "Output Filename",
+        "instructions": "To merge PDF files, upload two or more files. After uploading, you can change their order and set the output filename."
       },
       "split": {
         "title": "Split PDF",
@@ -64,7 +66,8 @@
         "step1": "1. Select PDF File",
         "step2": "2. Split Configuration",
         "dragDrop": "Drag & drop a PDF file here, or click to select",
-        "chooseFile": "Choose file"
+        "chooseFile": "Choose file",
+        "instructions": "Choose where to split the PDF. Enter the page number and optionally set names for both parts of the document."
       },
       "removePage": {
         "title": "Remove Page",
@@ -72,7 +75,8 @@
         "pageNumber": "Page number",
         "removeAndDownload": "Remove & Download",
         "dragDrop": "Drag & drop a PDF file here, or click to select",
-        "chooseFile": "Choose file"
+        "chooseFile": "Choose file",
+        "instructions": "Select the page number you want to remove from the document. You can also set a custom name for the output file."
       },
       "extractPages": {
         "title": "Extract Pages",
@@ -82,7 +86,8 @@
         "extractAndDownload": "Extract & Download",
         "dragDrop": "Drag & drop a PDF file here, or click to select",
         "chooseFile": "Choose file",
-        "summary": "Pages {{startPage}} to {{endPage}} will be extracted from the PDF into a new document"
+        "summary": "Pages {{startPage}} to {{endPage}} will be extracted from the PDF into a new document",
+        "instructions": "Enter the range of pages (from-to) you want to extract to a new document. You can set a custom name for the new file."
       },
       "reorderPages": {
         "title": "Reorder PDF Pages",
@@ -269,5 +274,127 @@
       "extractPagesFailed": "Error extracting pages from PDF. Please try again.",
       "addWatermarkFailed": "Error adding watermark to PDF. Please try again.",
       "addPasswordFailed": "Error adding password to PDF. Please try again."
+    },
+  "guide": {
+    "title": "User Guide",
+    "exportPdf": "Export as PDF",
+    "overview": {
+      "title": "About PDFMaster",
+      "description": "PDFMaster is a comprehensive PDF manipulation tool. The application provides numerous features for working with PDF documents, from simple merging and splitting to advanced operations like adding watermarks or password protection.",
+      "features": {
+        "title": "Available Features",
+        "list": [
+          "Merge multiple PDF files into one document",
+          "Split PDF at a specific page",
+          "Remove selected pages from document",
+          "Extract range of pages to new document",
+          "Reorder pages in document",
+          "Add or remove password protection",
+          "Convert PDF pages to images",
+          "Add watermark to document pages",
+          "Rotate selected pages in document"
+        ]
+      }
+    },
+    "api": {
+      "title": "API Documentation",
+      "auth": {
+        "title": "Authentication",
+        "description": "All API endpoints require a JWT token in the request header",
+        "example": "Authorization: Bearer your_jwt_token"
+      },
+      "endpoints": {
+        "title": "Available Endpoints",
+        "base": "Base URL",
+        "merge": {
+          "title": "Merge PDFs",
+          "url": "POST /pdf/merge",
+          "description": "Combines multiple PDF files into one document",
+          "request": "Content-Type: multipart/form-data\n\nPDF files: files[]\nOutput filename: outputName (optional)",
+          "response": "Content-Type: application/pdf\nThe resulting merged PDF file"
+        },
+        "split": {
+          "title": "Split PDF",
+          "url": "POST /pdf/split",
+          "description": "Splits a PDF document into two parts",
+          "request": "Content-Type: multipart/form-data\n\nPDF file: pdf\nPage number: splitAtPage\nFirst part name: firstOutputName (optional)\nSecond part name: secondOutputName (optional)",
+          "response": "Content-Type: application/zip\nArchive containing both PDF parts"
+        },
+        "removePage": {
+          "title": "Remove Page",
+          "url": "POST /pdf/remove-page",
+          "description": "Removes a specific page from the PDF document",
+          "request": "Content-Type: multipart/form-data\n\nPDF file: pdf\nPage number: pageToRemove\nOutput filename: outputName (optional)",
+          "response": "Content-Type: application/pdf\nThe resulting PDF file without the removed page"
+        },
+        "extractPages": {
+          "title": "Extract Pages",
+          "url": "POST /pdf/extract",
+          "description": "Extracts selected pages from the PDF document",
+          "request": "Content-Type: multipart/form-data\n\nPDF file: pdf\nStart page: startPage\nEnd page: endPage\nOutput filename: outputName (optional)",
+          "response": "Content-Type: application/pdf\nThe resulting PDF file with extracted pages"
+        },
+        "reorderPages": {
+          "title": "Reorder Pages",
+          "url": "POST /pdf/reorder",
+          "description": "Rearranges pages in a PDF document",
+          "request": "Content-Type: multipart/form-data\n\nPDF file: pdf\nPage order: pageOrder (comma-separated page numbers)\nOutput filename: outputName (optional)",
+          "response": "Content-Type: application/pdf\nPDF file with reordered pages"
+        },
+        "addPassword": {
+          "title": "Add Password",
+          "url": "POST /pdf/add-password",
+          "description": "Adds password protection to a PDF document",
+          "request": "Content-Type: multipart/form-data\n\nPDF file: pdf\nPassword: password\nOutput filename: outputName (optional)",
+          "response": "Content-Type: application/pdf\nPassword-protected PDF file"
+        },
+        "removePassword": {
+          "title": "Remove Password",
+          "url": "POST /pdf/remove-password",
+          "description": "Removes password protection from a PDF document",
+          "request": "Content-Type: multipart/form-data\n\nPDF file: pdf\nCurrent password: password\nOutput filename: outputName (optional)",
+          "response": "Content-Type: application/pdf\nUnprotected PDF file"
+        },
+        "addWatermark": {
+          "title": "Add Watermark",
+          "url": "POST /pdf/add-watermark",
+          "description": "Adds a watermark to a PDF document",
+          "request": "Content-Type: multipart/form-data\n\nPDF file: pdf\nWatermark text: text\nOpacity: opacity (0-1)\nFont size: fontSize\nColor: color (hex)\nRotation angle: rotation\nOutput filename: outputName (optional)",
+          "response": "Content-Type: application/pdf\nPDF file with watermark"
+        },
+        "toImages": {
+          "title": "Convert to Images",
+          "url": "POST /pdf/to-images",
+          "description": "Converts PDF pages to PNG images",
+          "request": "Content-Type: multipart/form-data\n\nPDF file: pdf\nResolution: dpi (optional)",
+          "response": "Content-Type: application/zip\nArchive containing PNG images"
+        },
+        "rotatePages": {
+          "title": "Rotate Pages",
+          "url": "POST /pdf/rotate",
+          "description": "Rotates specified pages in a PDF document",
+          "request": "Content-Type: multipart/form-data\n\nPDF file: pdf\nPages: pages[]\nDegrees: degrees[]\nOutput filename: outputName (optional)",
+          "response": "Content-Type: application/pdf\nPDF with rotated pages"
+        }
+      },
+      "common": {
+        "request": "Request",
+        "response": "Response"
+      }
+    },
+    "features": {
+      "title": "Usage Guide",
+      "howTo": "How to Use",
+      "general": {
+        "title": "General Steps",
+        "steps": [
+          "Select a tool from the PDF tools menu",
+          "Upload PDF file(s) via drag & drop or file selection",
+          "Configure the settings for your chosen tool",
+          "Click the action button (e.g. 'Merge & Download')",
+          "Download your processed PDF file"
+        ]
+      }
     }
+  }
 }
