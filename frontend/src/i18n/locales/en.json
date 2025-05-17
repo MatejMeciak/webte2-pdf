@@ -4,7 +4,8 @@
     "login": "Login",
     "register": "Register",
     "logout": "Logout",
-    "adminHistory": "Admin History"
+    "adminHistory": "Admin History",
+    "guide": "User Guide"
   },
   "common": {
     "processing": "Processing...",
@@ -269,5 +270,35 @@
       "extractPagesFailed": "Error extracting pages from PDF. Please try again.",
       "addWatermarkFailed": "Error adding watermark to PDF. Please try again.",
       "addPasswordFailed": "Error adding password to PDF. Please try again."
+    },
+  "guide": {
+    "title": "User Guide",
+    "exportPdf": "Export as PDF",
+    "overview": {
+      "title": "About PDFMaster",
+      "description": "PDFMaster is a comprehensive PDF manipulation tool. The application provides numerous features for working with PDF documents, from simple merging and splitting to advanced operations like adding watermarks or password protection.",
+      "features": {
+        "title": "Available Features",
+        "list": [
+          "Merge multiple PDF files into one document",
+          "Split PDF at a specific page",
+          "Remove selected pages from document",
+          "Extract range of pages to new document",
+          "Reorder pages in document",
+          "Add or remove password protection",
+          "Convert PDF pages to images",
+          "Add watermark to document pages",
+          "Rotate selected pages in document"
+        ]
+      }
+    },
+    "api": {
+      "title": "API Documentation",
+      "merge": {
+        "description": "Endpoint for merging multiple PDF files",
+        "request": "curl -X POST https://api.example.com/pdf/merge \n-F 'files=@file1.pdf' \n-F 'files=@file2.pdf'",
+        "response": "{\n  \"url\": \"https://api.example.com/downloads/merged.pdf\"\n}"
+      }
     }
+  }
 }

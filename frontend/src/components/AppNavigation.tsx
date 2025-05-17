@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 import { pdfActions } from "@/features/pdf/data/pdfActions";
-import { LogOut, Menu, UserCircle } from "lucide-react";
+import { LogOut, Menu, UserCircle, Book } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -111,6 +111,14 @@ const AppNavigation = () => {
                         ))}
                       </ul>
                     </NavigationMenuContent>
+                  </NavigationMenuItem>
+                  <NavigationMenuItem>
+                    <Button variant="ghost" asChild>
+                      <Link to="/guide" className="flex items-center">
+                        <Book className="mr-2 h-4 w-4" />
+                        {t('nav.guide')}
+                      </Link>
+                    </Button>
                   </NavigationMenuItem>
                 </NavigationMenuList>
               </NavigationMenu>

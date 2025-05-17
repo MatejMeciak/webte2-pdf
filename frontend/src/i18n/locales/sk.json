@@ -4,7 +4,8 @@
     "login": "Prihlásiť sa",
     "register": "Registrovať sa",
     "logout": "Odhlásiť sa",
-    "adminHistory": "História správcu"
+    "adminHistory": "História správcu",
+    "guide": "Príručka"
   },
   "common": {
     "processing": "Spracúvam...",
@@ -255,5 +256,57 @@
       "extractPagesFailed": "Chyba pri extrakcii strán. Skúste to znova.",
       "addWatermarkFailed": "Chyba pri pridávaní vodoznaku. Skúste to znova.",
       "addPasswordFailed": "Chyba pri pridávaní hesla. Skúste to znova."
+    },
+  "guide": {
+    "title": "Používateľská príručka",
+    "exportPdf": "Exportovať ako PDF",
+    "overview": {
+      "title": "O aplikácii PDFMaster",
+      "description": "PDFMaster je komplexný nástroj pre prácu s PDF súbormi. Aplikácia poskytuje množstvo funkcií pre manipuláciu s PDF dokumentami, od jednoduchého spájania a rozdeľovania súborov až po pokročilé úpravy ako pridanie vodoznaku či ochrana heslom.",
+      "features": {
+        "title": "Dostupné funkcie",
+        "list": [
+          "Spájanie viacerých PDF súborov do jedného dokumentu",
+          "Rozdelenie PDF na dve časti na zvolenej strane",
+          "Odstránenie vybraných strán z dokumentu",
+          "Extrahovanie rozsahu strán do nového dokumentu",
+          "Zmena poradia strán v dokumente",
+          "Pridanie alebo odstránenie hesla",
+          "Konverzia strán PDF na obrázky",
+          "Pridanie vodoznaku na strany dokumentu",
+          "Otáčanie vybraných strán dokumentu"
+        ]
+      }
+    },
+    "api": {
+      "title": "API Dokumentácia",
+      "auth": {
+        "title": "Autentifikácia",
+        "description": "Všetky API endpointy vyžadujú autentifikáciu pomocou JWT tokenu v hlavičke požiadavky."
+      },
+      "endpoints": {
+        "title": "Dostupné endpointy",
+        "merge": {
+          "description": "Spojí viacero PDF súborov do jedného dokumentu."
+        },
+        "split": {
+          "description": "Rozdelí PDF dokument na dve časti na zadanej strane."
+        }
+      }
+    },
+    "features": {
+      "title": "Návod na použitie",
+      "howTo": "Ako používať nástroje",
+      "general": {
+        "title": "Všeobecné pokyny",
+        "steps": [
+          "Vyberte nástroj z menu PDF Nástroje",
+          "Nahrajte PDF súbor(y) pretiahnutím alebo kliknutím na tlačidlo",
+          "Nastavte požadované parametre",
+          "Kliknite na tlačidlo akcie (napr. Spojiť & Stiahnuť)",
+          "Stiahnite si výsledný súbor"
+        ]
+      }
     }
+  }
 }
