@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Download, ChevronRight } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { pdfActions } from "@/features/pdf/data/pdfActions";
+import ApiDocs from "../components/ApiDocs";
 
 export default function UserGuidePage() {
   const { t } = useTranslation();
@@ -126,6 +127,9 @@ export default function UserGuidePage() {
           </div>
         </CardContent>
       </Card>
+
+      {/* API Documentation */}
+      <ApiDocs />
     </div>
   );
 }
