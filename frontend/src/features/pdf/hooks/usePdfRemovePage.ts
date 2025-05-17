@@ -22,10 +22,10 @@ export function usePdfRemovePage() {
       // Create form data with file and form values
       const formData = new FormData();
       formData.append("pdf", file);
-      formData.append("pageToRemove", values.pageToRemove.toString());
+      formData.append("page_to_remove", values.pageToRemove.toString());
       
       if (values.outputName) {
-        formData.append("outputName", values.outputName);
+        formData.append("output_name", values.outputName);
       }
 
       // Send request to remove page from the PDF

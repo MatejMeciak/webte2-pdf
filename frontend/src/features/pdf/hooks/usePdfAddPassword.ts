@@ -24,7 +24,7 @@ export function usePdfAddPassword() {
       formData.append("pdf", file);
       formData.append("password", values.password);
       if (values.outputName) {
-        formData.append("outputName", values.outputName);
+        formData.append("output_name", values.outputName);
       }
 
       // Send request to add password to the PDF

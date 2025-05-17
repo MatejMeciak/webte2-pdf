@@ -30,14 +30,5 @@ api.interceptors.request.use(
   }
 );
 
-api.interceptors.response.use(
-  (response) => {
-    if (response.data && typeof response.data === 'object') {
-      response.data = camelcaseKeys(response.data, { deep: true });
-    }
-    return response;
-  },
-  (error) => Promise.reject(error)
-);
 
 export default api;

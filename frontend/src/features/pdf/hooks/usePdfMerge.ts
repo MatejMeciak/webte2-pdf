@@ -21,11 +21,11 @@ export function usePdfMerge() {
     try {
       // Create form data with files and form values
       const formData = new FormData();
-      formData.append("firstPdf", files[0]);
-      formData.append("secondPdf", files[1]);
+      formData.append("first_pdf", files[0]);
+      formData.append("second_pdf", files[1]);
       
       if (values.outputName) {
-        formData.append("outputName", values.outputName);
+        formData.append("output_name", values.outputName);
       }
 
       // Send request to merge the PDFs

@@ -26,11 +26,11 @@ export function usePdfReorder() {
       
       // Add each page number as a separate parameter with the same name
       pageOrder.forEach(pageNum => {
-        formData.append("pageOrder", pageNum.toString());
+        formData.append("page_order", pageNum.toString());
       });
       
       if (values.outputName) {
-        formData.append("outputName", values.outputName);
+        formData.append("output_name", values.outputName);
       }
 
       // Send request to reorder pages in the PDF

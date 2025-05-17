@@ -6,15 +6,15 @@ export interface LoginCredentials {
 }
 
 export interface RegisterCredentials {
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   email: string;
   password: string;
 }
 
 export interface AuthResponse {
-  accessToken: string;
-  refreshToken: string;
+  access_token: string;
+  refresh_token: string;
   email: string;
   role: UserRole;
 }

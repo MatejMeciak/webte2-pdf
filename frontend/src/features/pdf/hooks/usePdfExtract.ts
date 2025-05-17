@@ -20,11 +20,11 @@ export function usePdfExtract() {
       // Create form data with file and form values
       const formData = new FormData();
       formData.append("pdf", file);
-      formData.append("startPage", values.startPage.toString());
-      formData.append("endPage", values.endPage.toString());
+      formData.append("start_page", values.startPage.toString());
+      formData.append("end_page", values.endPage.toString());
       
       if (values.outputName) {
-        formData.append("outputName", values.outputName);
+        formData.append("output_name", values.outputName);
       }
 
       // Send request to extract pages from the PDF
