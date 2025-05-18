@@ -8,30 +8,36 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
-import { LogOut, Menu, UserCircle, Book } from "lucide-react";
+import { LogOut, Menu, UserCircle, Book, FileText, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
+  SheetHeader,
+  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
 import React from "react";
 import { useAuth } from "@/features/auth/context/AuthContext";
 import { useTranslation } from 'react-i18next';
 import { usePdfActions } from "@/features/pdf/data/pdfActions";
+import { 
+  DropdownMenu, 
+  DropdownMenuContent, 
+  DropdownMenuItem, 
+  DropdownMenuTrigger 
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 const FlagSK = () => (
   <svg width="24" height="16" viewBox="0 0 32 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <rect width="32" height="8" fill="#FFFFFF"/>
     <rect y="8" width="32" height="8" fill="#0B4EA2"/>
     <rect y="16" width="32" height="8" fill="#EE1C25"/>
-    {/* State emblem background */}
     <path d="M2 4V20H12V4H2Z" fill="#EE1C25"/>
-    {/* Double cross */}
     <path d="M4 7H10V8H8V17H10V18H4V17H6V8H4V7Z" fill="#FFFFFF"/>
     <path d="M5 10H9V11H5V10Z" fill="#FFFFFF"/>
     <path d="M5 14H9V15H5V14Z" fill="#FFFFFF"/>
-    {/* Three hills */}
     <path d="M3 17C3 17 5 15 7 15C9 15 11 17 11 17V20H3V17Z" fill="#0B4EA2"/>
   </svg>
 );
@@ -51,6 +57,7 @@ const AppNavigation = () => {
   const { isAuthenticated, logout, user, isAdmin } = useAuth();
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
+  const pdfActions = usePdfActions();
 
   const handleLanguageChange = (lang: 'en' | 'sk') => {
     i18n.changeLanguage(lang);
@@ -62,89 +69,94 @@ const AppNavigation = () => {
     navigate('/login');
   };
 
-  const pdfActions = usePdfActions();
-
   return (
-    <div className="border-b shadow-sm bg-white sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-        <div className="flex items-center justify-between">
-          {/* Logo and Language Selection */}
-          <div className="flex items-center space-x-8">
-            <div className="flex items-center space-x-4">
-              <Link to="/" className="flex-shrink-0">
-                <h1 className="text-2xl font-bold text-primary tracking-tight">PDFMaster</h1>
-              </Link>
-              <div className="flex items-center space-x-2">
-                <Button 
-                  variant="ghost" 
-                  size="icon" 
-                  className="w-8 h-8 p-0" 
-                  onClick={() => handleLanguageChange('sk')}
-                >
-                  <FlagSK />
-                </Button>
-                <Button 
-                  variant="ghost" 
-                  size="icon" 
-                  className="w-8 h-8 p-0"
-                  onClick={() => handleLanguageChange('en')}
-                >
-                  <FlagEN />
-                </Button>
-              </div>
-            </div>
+    <div className="border-b shadow-sm bg-white dark:bg-card sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <div className="flex items-center">
+            <Link to="/" className="flex-shrink-0">
+              <h1 className="text-2xl font-bold text-primary tracking-tight">PDFMaster</h1>
+            </Link>
+          </div>
 
-            {/* Desktop navigation */}
-            <div className="hidden md:block">
-              <NavigationMenu>
-                <NavigationMenuList>
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex space-x-1">
+            {/* Main nav items - always visible */}
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="text-foreground">{t('nav.pdfTools')}</NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                      {pdfActions.map((action) => (
+                        <ListItem
+                          key={action.path}
+                          title={action.title}
+                          href={action.path}
+                        >
+                          {action.description}
+                        </ListItem>
+                      ))}
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+                
+                <NavigationMenuItem>
+                  <Button variant="ghost" asChild className="text-foreground">
+                    <Link to="/guide" className="flex items-center">
+                      <Book className="mr-2 h-4 w-4" />
+                      {t('nav.guide')}
+                    </Link>
+                  </Button>
+                </NavigationMenuItem>
+                
+                {isAuthenticated && isAdmin && (
                   <NavigationMenuItem>
-                    <NavigationMenuTrigger>{t('nav.pdfTools')}</NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                      <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                        {pdfActions.map((features) => (
-                          <ListItem
-                            key={features.path}
-                            title={features.title}
-                            href={features.path}
-                          >
-                            {features.description}
-                          </ListItem>
-                        ))}
-                      </ul>
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
-                  <NavigationMenuItem>
-                    <Button variant="ghost" asChild>
-                      <Link to="/guide" className="flex items-center">
-                        <Book className="mr-2 h-4 w-4" />
-                        {t('nav.guide')}
+                    <Button variant="ghost" asChild className="text-foreground">
+                      <Link to="/admin/history" className="flex items-center">
+                        <FileText className="mr-2 h-4 w-4" />
+                        {t('nav.adminHistory')}
                       </Link>
                     </Button>
                   </NavigationMenuItem>
-                </NavigationMenuList>
-              </NavigationMenu>
-            </div>
+                )}
+              </NavigationMenuList>
+            </NavigationMenu>
           </div>
 
-          {/* Auth actions - Desktop */}
+          {/* Right side: Language + Auth */}
           <div className="hidden md:flex items-center space-x-4">
+            {/* Language Switcher */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm" className="h-9 px-2 border-dashed">
+                  {i18n.language === 'sk' ? <FlagSK /> : <FlagEN />}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={() => handleLanguageChange('sk')} className="cursor-pointer">
+                  <div className="flex items-center">
+                    <FlagSK />
+                    <span className="ml-2">Slovenčina</span>
+                  </div>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleLanguageChange('en')} className="cursor-pointer">
+                  <div className="flex items-center">
+                    <FlagEN />
+                    <span className="ml-2">English</span>
+                  </div>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            
+            {/* Auth Buttons */}
             {isAuthenticated ? (
-              <div className="flex items-center space-x-4">
-                <div className="flex items-center text-sm">
-                  <UserCircle className="h-5 w-5 mr-1.5 text-primary" />
-                  <span>{user?.email}</span>
+              <div className="flex items-center space-x-3">
+                <div className="flex items-center text-sm bg-muted px-3 py-1.5 rounded-md">
+                  <UserCircle className="h-4 w-4 mr-1.5 text-primary" />
+                  <span className="max-w-[150px] truncate">{user?.email}</span>
                 </div>
-                {isAdmin && (
-                  <Button
-                    variant="default"
-                    size="sm"
-                    onClick={() => navigate('/admin/history')}
-                    className="flex items-center"
-                  >
-                    {t('nav.adminHistory')}
-                  </Button>
-                )}
                 <Button 
                   variant="outline" 
                   size="sm" 
@@ -156,86 +168,137 @@ const AppNavigation = () => {
                 </Button>
               </div>
             ) : (
-              <>
+              <div className="flex items-center space-x-2">
                 <Link to="/login">
                   <Button variant="ghost" size="sm">{t('nav.login')}</Button>
                 </Link>
                 <Link to="/register">
                   <Button variant="default" size="sm">{t('nav.register')}</Button>
                 </Link>
-              </>
+              </div>
             )}
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center space-x-2">
+            {/* Language toggle for mobile */}
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="w-8 h-8 p-0" 
+              onClick={() => handleLanguageChange(i18n.language === 'sk' ? 'en' : 'sk')}
+            >
+              {i18n.language === 'sk' ? <FlagEN /> : <FlagSK />}
+            </Button>
+            
             <Sheet open={open} onOpenChange={setOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" aria-label="Menu">
                   <Menu className="h-6 w-6" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[80%] sm:w-[350px]">
-                <div className="flex flex-col space-y-4 mt-6">
-                  {isAuthenticated && (
-                    <div className="flex items-center mb-4 p-3 bg-muted rounded-md">
-                      <UserCircle className="h-5 w-5 mr-2 text-primary" />
-                      <span className="text-sm font-medium">{user?.email}</span>
-                    </div>
-                  )}
-                  
-                  <h2 className="text-lg font-medium mb-2">PDF Tools</h2>
-                  <div className="space-y-3">
-                    {pdfActions.map((action) => (
-                      <Link 
-                        key={action.path} 
-                        to={action.path}
-                        className="block px-3 py-2 rounded-md hover:bg-accent"
-                        onClick={() => setOpen(false)}
-                      >
-                        <div className="font-medium">{action.title}</div>
-                        <p className="text-sm text-muted-foreground mt-1">{action.description}</p>
-                      </Link>
-                    ))}
-                  </div>
-                  
-                  <div className="pt-4 mt-4 border-t">
-                    {isAuthenticated ? (
-                      <>
-                        {isAdmin && (
-                          <Button
-                            variant="default"
-                            className="w-full flex items-center justify-center mb-2"
-                            onClick={() => {
-                              navigate('/admin/history');
-                              setOpen(false);
-                            }}
-                          >
-                            {t('nav.adminHistory')}
-                          </Button>
-                        )}
+              <SheetContent side="right" className="w-[85%] sm:w-[350px] overflow-y-auto">
+                <SheetHeader className="text-left pb-2">
+                  <SheetTitle>PDFMaster</SheetTitle>
+                </SheetHeader>
+                
+                {/* Mobile menu content - restructured */}
+                <div className="flex flex-col space-y-5 mt-2">
+                  {/* User Account Section - At top */}
+                  {isAuthenticated ? (
+                    <div className="rounded-lg border bg-card p-3">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+                        <div className="flex items-center flex-1 min-w-0">
+                          <Avatar className="h-9 w-9 flex-shrink-0 bg-primary/10 text-primary">
+                            <AvatarFallback>
+                              {user?.email?.charAt(0).toUpperCase() || "U"}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="ml-3 overflow-hidden">
+                            <p className="text-sm font-medium truncate">{user?.email}</p>
+                            {isAdmin && <span className="text-xs text-primary">{t('common.admin')}</span>}
+                          </div>
+                        </div>
                         <Button 
                           variant="outline" 
-                          className="w-full flex items-center justify-center"
+                          size="sm" 
                           onClick={() => {
                             handleLogout();
                             setOpen(false);
                           }}
+                          className="w-full sm:w-auto flex items-center justify-center h-8 mt-2 sm:mt-0"
                         >
-                          <LogOut className="h-4 w-4 mr-2" />
+                          <LogOut className="h-3.5 w-3.5 mr-1.5" />
                           {t('nav.logout')}
                         </Button>
-                      </>
-                    ) : (
-                      <div className="flex flex-col space-y-2">
-                        <Link to="/login" onClick={() => setOpen(false)}>
-                          <Button variant="outline" className="w-full">{t('nav.login')}</Button>
-                        </Link>
-                        <Link to="/register" onClick={() => setOpen(false)}>
-                          <Button variant="default" className="w-full">{t('nav.register')}</Button>
-                        </Link>
                       </div>
+                    </div>
+                  ) : (
+                    <div className="rounded-lg border bg-card p-4 flex flex-col space-y-2">
+                      <Link to="/login" onClick={() => setOpen(false)}>
+                        <Button variant="outline" className="w-full justify-start">
+                          {t('nav.login')}
+                        </Button>
+                      </Link>
+                      <Link to="/register" onClick={() => setOpen(false)}>
+                        <Button variant="default" className="w-full justify-start">
+                          {t('nav.register')}
+                        </Button>
+                      </Link>
+                    </div>
+                  )}
+                  
+                  {/* Guide and History Section */}
+                  <div className="rounded-lg border bg-card p-4 space-y-2">
+                    <Link 
+                      to="/guide" 
+                      className="flex items-center justify-between p-2 rounded-md hover:bg-accent transition-colors"
+                      onClick={() => setOpen(false)}
+                    >
+                      <div className="flex items-center">
+                        <Book className="h-4 w-4 mr-3 text-primary" />
+                        <span className="font-medium">{t('nav.guide')}</span>
+                      </div>
+                      <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                    </Link>
+                    
+                    {isAuthenticated && isAdmin && (
+                      <Link 
+                        to="/admin/history" 
+                        className="flex items-center justify-between p-2 rounded-md hover:bg-accent transition-colors"
+                        onClick={() => setOpen(false)}
+                      >
+                        <div className="flex items-center">
+                          <FileText className="h-4 w-4 mr-3 text-primary" />
+                          <span className="font-medium">{t('nav.adminHistory')}</span>
+                        </div>
+                        <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                      </Link>
                     )}
+                  </div>
+                  
+                  {/* PDF Actions Section */}
+                  <div className="rounded-lg border bg-card p-4">
+                    <h2 className="font-medium mb-3 px-2">{t('nav.pdfTools')}</h2>
+                    <div className="space-y-1">
+                      {pdfActions.map((action) => (
+                        <Link 
+                          key={action.path} 
+                          to={action.path}
+                          className="flex items-center justify-between p-2 rounded-md hover:bg-accent transition-colors"
+                          onClick={() => setOpen(false)}
+                        >
+                          <div className="flex items-center">
+                            {React.createElement(
+                              typeof action.icon === "function" ? action.icon : "div", 
+                              { className: "h-4 w-4 mr-3 text-primary" }
+                            )}
+                            <span>{action.title}</span>
+                          </div>
+                          <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                        </Link>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </SheetContent>
@@ -247,6 +310,7 @@ const AppNavigation = () => {
   );
 };
 
+// List item component for navigation menu
 const ListItem = React.forwardRef<
   HTMLAnchorElement,
   React.ComponentPropsWithoutRef<"a"> & { title: string }
