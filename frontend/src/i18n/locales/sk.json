@@ -121,8 +121,7 @@
   },
   "dashboard": {
     "title": "PDF Nástroje",
-    "description": "Vyberte si nástroj na úpravu vašich PDF dokumentov",
-    "welcome": "Vitajte späť"
+    "description": "Vyberte si nástroj na úpravu vašich PDF dokumentov"
   },
   "auth": {
     "login": {

@@ -121,8 +121,7 @@
   },
   "dashboard": {
     "title": "PDF Tools",
-    "description": "Choose a tool to modify your PDF documents",
-    "welcome": "Welcome back"
+    "description": "Choose a tool to modify your PDF documents"
   },
   "auth": {
     "login": {

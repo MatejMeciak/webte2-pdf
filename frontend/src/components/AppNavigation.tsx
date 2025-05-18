@@ -105,10 +105,10 @@ const AppNavigation = () => {
                         {pdfActions.map((features) => (
                           <ListItem
                             key={features.path}
-                            title={t(`pdf.features.${features.titleKey}.title`)}
+                            title={features.title}
                             href={features.path}
                           >
-                            {t(`pdf.features.${features.titleKey}.description`)}
+                            {features.description}
                           </ListItem>
                         ))}
                       </ul>
