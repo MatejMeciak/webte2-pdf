@@ -22,14 +22,14 @@ export function usePdfSplit() {
       // Create form data with file and form values
       const formData = new FormData();
       formData.append("pdf", file);
-      formData.append("splitAtPage", values.splitAtPage.toString());
+      formData.append("split_at_page", values.splitAtPage.toString());
       
       if (values.firstOutputName) {
-        formData.append("firstOutputName", values.firstOutputName);
+        formData.append("first_output_name", values.firstOutputName);
       }
       
       if (values.secondOutputName) {
-        formData.append("secondOutputName", values.secondOutputName);
+        formData.append("second_output_name", values.secondOutputName);
       }
 
       // Send request to split the PDF
