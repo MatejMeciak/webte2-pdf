@@ -147,17 +147,9 @@
         "title": "Pridať vodoznak",
         "description": "Pridajte textový vodoznak na každú stranu PDF",
         "text": "Text vodoznaku",
-        "opacity": "Priehľadnosť (0-1)",
-        "fontSize": "Veľkosť písma",
-        "color": "Farba (Hex)",
-        "rotation": "Uhol otočenia",
         "addAndDownload": "Pridať vodoznak & Stiahnuť",
         "placeholders": {
-          "text": "Zadajte text vodoznaku",
-          "opacity": "0.5",
-          "fontSize": "48",
-          "color": "#000000",
-          "rotation": "45"
+          "text": "Zadajte text vodoznaku"
         },
         "instructions": "Vodoznak bude pridaný na každú stranu PDF.",
         "outputFilename": "Názov výstupného súboru",
@@ -352,7 +344,7 @@
           "title": "Pridanie vodoznaku",
           "url": "POST /pdf/add-watermark",
           "description": "Pridá vodoznak do PDF dokumentu",
-          "request": "Content-Type: multipart/form-data\n\nPDF súbor: pdf\nText vodoznaku: text\nPriehľadnosť: opacity (0-1)\nVeľkosť písma: fontSize\nFarba: color (hex)\nUhol otočenia: rotation\nNázov výstupného súboru: outputName (voliteľné)",
+          "request": "Content-Type: multipart/form-data\n\nPDF súbor: pdf\nText vodoznaku: text\nNázov výstupného súboru: outputName (voliteľné)",
           "response": "Content-Type: application/pdf\nPDF súbor s vodoznakom"
         },
         "toImages": {

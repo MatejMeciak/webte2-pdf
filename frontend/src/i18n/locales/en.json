@@ -131,14 +131,6 @@
         "instructions": "The uploaded PDF will have its password protection removed.",
         "outputFilename": "Output filename"
       },
-      "toImages": {
-        "title": "PDF to Images",
-        "description": "Convert each page of your PDF to PNG images",
-        "dpi": "DPI (resolution)",
-        "convertAndDownload": "Convert & Download",
-        "dragDrop": "Drag & drop a PDF file here, or click to select",
-        "chooseFile": "Choose file"
-      },
       "rotatePages": {
         "title": "Rotate Pages",
         "description": "Rotate specific pages in your PDF document",
@@ -154,17 +146,9 @@
         "title": "Add Watermark",
         "description": "Add a text watermark to every page of PDF",
         "text": "Watermark text",
-        "opacity": "Opacity (0-1)",
-        "fontSize": "Font size",
-        "color": "Color (Hex)",
-        "rotation": "Rotation angle",
         "addAndDownload": "Add Watermark & Download",
         "placeholders": {
-          "text": "Enter watermark text",
-          "opacity": "0.5",
-          "fontSize": "48",
-          "color": "#000000",
-          "rotation": "45"
+          "text": "Enter watermark text"
         },
         "dragDrop": "Drag & drop a PDF file here, or click to select",
         "chooseFile": "Choose file",
@@ -369,7 +353,7 @@
           "title": "Add Watermark",
           "url": "POST /pdf/add-watermark",
           "description": "Adds a watermark to a PDF document",
-          "request": "Content-Type: multipart/form-data\n\nPDF file: pdf\nWatermark text: text\nOpacity: opacity (0-1)\nFont size: fontSize\nColor: color (hex)\nRotation angle: rotation\nOutput filename: outputName (optional)",
+          "request": "Content-Type: multipart/form-data\n\nPDF file: pdf\nWatermark text: text\nOutput filename: outputName (optional)",
           "response": "Content-Type: application/pdf\nPDF file with watermark"
         },
         "toImages": {

@@ -20,10 +20,6 @@ export function AddWatermarkConfigForm({ onSubmit, file, isLoading, error }: Add
     resolver: zodResolver(addWatermarkFormSchema),
     defaultValues: {
       watermarkText: "",
-      opacity: 0.3,
-      fontSize: 40,
-      color: "#888888",
-      rotation: 45,
       outputName: "",
     },
   });
@@ -56,84 +52,6 @@ export function AddWatermarkConfigForm({ onSubmit, file, isLoading, error }: Add
               </FormItem>
             )}
           />
-
-          <div className="grid grid-cols-2 gap-4">
-            <FormField
-              control={form.control}
-              name="opacity"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('pdf.features.addWatermark.opacity')}</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="number"
-                      step="0.01"
-                      min={0}
-                      max={1}
-                      placeholder={t('pdf.features.addWatermark.placeholders.opacity')}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="fontSize"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('pdf.features.addWatermark.fontSize')}</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="number"
-                      min={1}
-                      placeholder={t('pdf.features.addWatermark.placeholders.fontSize')}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <FormField
-              control={form.control}
-              name="color"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('pdf.features.addWatermark.color')}</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="text"
-                      placeholder={t('pdf.features.addWatermark.placeholders.color')}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="rotation"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('pdf.features.addWatermark.rotation')}</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="number"
-                      placeholder={t('pdf.features.addWatermark.placeholders.rotation')}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
 
           <FormField
             control={form.control}

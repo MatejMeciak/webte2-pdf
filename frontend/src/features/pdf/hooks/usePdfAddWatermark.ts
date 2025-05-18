@@ -22,21 +22,9 @@ export function usePdfAddWatermark() {
       // Create form data with file and form values
       const formData = new FormData();
       formData.append("pdf", file);
-      formData.append("watermarkText", values.watermarkText);
-      if (values.opacity !== undefined) {
-        formData.append("opacity", values.opacity.toString());
-      }
-      if (values.fontSize !== undefined) {
-        formData.append("fontSize", values.fontSize.toString());
-      }
-      if (values.color) {
-        formData.append("color", values.color);
-      }
-      if (values.rotation !== undefined) {
-        formData.append("rotation", values.rotation.toString());
-      }
+      formData.append("watermark_text", values.watermarkText);
       if (values.outputName) {
-        formData.append("outputName", values.outputName);
+        formData.append("output_name", values.outputName);
       }
 
       // Send request to add watermark to the PDF
