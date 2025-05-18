@@ -1,8 +1,8 @@
 export interface HistoryResponse {
   id: number;
   user_id: number;
-  userName: string;
-  userEmail: string;
+  user_name: string;
+  user_email: string;
   operation_type: string;
   timestamp: string;
   source_type: string;
@@ -10,11 +10,6 @@ export interface HistoryResponse {
   country: string;
   state: string;
   user_agent: string;
-  // legacy/compat fields
-  username?: string;
-  operation?: string;
-  details?: string;
-  createdAt?: string;
 }
 
 export interface HistorySearchRequest {
@@ -26,14 +21,10 @@ export interface HistorySearchRequest {
   sourceType?: string;
 }
 
-export interface HistoryExportRequest {
-  // Placeholder if needed in the future
-}
-
 export interface PaginatedHistoryResponse {
-  content: HistoryResponse[];
-  totalElements: number;
-  totalPages: number;
-  number: number; // current page
+  items: HistoryResponse[];
+  total: number;
+  pages: number;
+  page: number;
   size: number;
 } 

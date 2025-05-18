@@ -6,7 +6,7 @@ import {
   deleteHistoryEntry,
   deleteAllHistory,
 } from "../api/historyApi";
-import type { HistoryResponse, HistorySearchRequest, PaginatedHistoryResponse } from "../types/history";
+import type { HistorySearchRequest, PaginatedHistoryResponse } from "../types/history";
 
 export function useAdminHistory() {
   const [history, setHistory] = useState<PaginatedHistoryResponse | null>(null);
@@ -24,7 +24,7 @@ export function useAdminHistory() {
         ? await searchHistory(searchParams, pageOverride ?? page, sizeOverride ?? size)
         : await getHistory(pageOverride ?? page, sizeOverride ?? size);
       setHistory(data);
-      setPage(data.number);
+      setPage(data.page);
       setSize(data.size);
     } catch (e: any) {
       setError(e?.response?.data || "Failed to fetch history");

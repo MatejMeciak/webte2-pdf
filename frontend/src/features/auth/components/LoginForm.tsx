@@ -33,8 +33,8 @@ export function LoginForm() {
       const response = await authService.login({ email, password });
       
       login(
-        response.accessToken,
-        response.refreshToken,
+        response.access_token,
+        response.refresh_token,
         response.email,
         response.role
       );

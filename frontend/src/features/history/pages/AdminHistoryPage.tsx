@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAdminHistory } from "../hooks/useAdminHistory";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { PageHeader } from "@/components/ui/page-header";
 
@@ -61,19 +60,19 @@ export default function AdminHistoryPage() {
             <tbody>
               {loading ? (
                 <tr><td colSpan={11} className="text-center p-4">Načítavam...</td></tr>
-              ) : history && history.content.length > 0 ? (
-                history.content.map((h) => (
+              ) : history && history.items.length > 0 ? (
+                history.items.map((h) => (
                   <tr key={h.id} className="border-b">
                     <td className="p-2 border text-center">{h.id}</td>
-                    <td className="p-2 border">{h.userName || h.username}</td>
-                    <td className="p-2 border">{h.userEmail}</td>
-                    <td className="p-2 border">{h.operationType || h.operation}</td>
-                    <td className="p-2 border">{h.sourceType}</td>
-                    <td className="p-2 border">{h.ipAddress}</td>
+                    <td className="p-2 border">{h.user_name}</td>
+                    <td className="p-2 border">{h.user_email}</td>
+                    <td className="p-2 border">{h.operation_type}</td>
+                    <td className="p-2 border">{h.source_type}</td>
+                    <td className="p-2 border">{h.ip_address}</td>
                     <td className="p-2 border">{h.country}</td>
                     <td className="p-2 border">{h.state}</td>
-                    <td className="p-2 border max-w-xs truncate" title={h.userAgent}>{h.userAgent}</td>
-                    <td className="p-2 border">{h.timestamp ? new Date(h.timestamp).toLocaleString() : (h.createdAt ? new Date(h.createdAt).toLocaleString() : "")}</td>
+                    <td className="p-2 border max-w-xs truncate" title={h.user_agent}>{h.user_agent}</td>
+                    <td className="p-2 border">{h.timestamp}</td>
                     <td className="p-2 border text-center">
                       <Button variant="destructive" size="sm" onClick={() => doDeleteEntry(h.id)} disabled={loading}>
                         Vymazať
@@ -88,13 +87,13 @@ export default function AdminHistoryPage() {
           </table>
         </div>
         {/* Pagination */}
-        {history && history.totalPages > 1 && (
+        {history && history.pages > 1 && (
           <div className="flex justify-center items-center gap-2 mt-4">
             <Button variant="outline" size="sm" disabled={page === 0 || loading} onClick={() => fetchHistory(page - 1)}>
               Predchádzajúca
             </Button>
-            <span>Strana {page + 1} z {history.totalPages}</span>
-            <Button variant="outline" size="sm" disabled={page === history.totalPages - 1 || loading} onClick={() => fetchHistory(page + 1)}>
+            <span>Strana {page + 1} z {history.pages}</span>
+            <Button variant="outline" size="sm" disabled={page === history.pages - 1 || loading} onClick={() => fetchHistory(page + 1)}>
               Ďalšia
             </Button>
           </div>
