@@ -1,7 +1,6 @@
 import { useState } from "react";
 import api from "@/api/axios";
 import type { PdfToImagesFormValues } from "../types/pdf";
-import { isAxiosError } from "axios";
 import { useTranslation } from "react-i18next";
 
 export function usePdfToImages() {
@@ -11,7 +10,7 @@ export function usePdfToImages() {
 
   const convertPdfToImages = async (values: PdfToImagesFormValues, file: File) => {
     if (!file) {
-      setError(t('errors.uploadFirst'));
+      setError(t("errors.uploadFirst"));
       return;
     }
 
@@ -36,17 +35,8 @@ export function usePdfToImages() {
       });
 
       // Check for error status
-      if (response.status && response.status >= 400) {
-        let errorMsg = "Error converting PDF to images. Please try again.";
-        if (response.data instanceof Blob) {
-          try {
-            const text = await response.data.text();
-            errorMsg = text || errorMsg;
-          } catch {
-            // fallback to default
-          }
-        }
-        setError(errorMsg);
+      if (response.status >= 400) {
+        setError(t("errors.toImagesFailed"));
         return;
       }
 
@@ -54,11 +44,8 @@ export function usePdfToImages() {
       handleFileDownload(response);
       
     } catch (err) {
-      if (isAxiosError(err)) {
-        setError(t('errors.toImagesFailed'));
-      } else {
-        setError(t('errors.unexpected'));
-      }
+      setError(t("errors.unexpected"));
+      console.error("Error converting PDF to images:", err);
     } finally {
       setIsLoading(false);
     }

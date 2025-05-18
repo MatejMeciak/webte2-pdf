@@ -25,7 +25,7 @@ export function MergeConfigForm({ onSubmit, files, isLoading, error }: MergeConf
   const form = useForm<MergeFormValues>({
     resolver: zodResolver(mergeFormSchema),
     defaultValues: {
-      outputName: "merged.pdf",
+      outputName: "",
     },
   });
 
@@ -48,7 +48,7 @@ export function MergeConfigForm({ onSubmit, files, isLoading, error }: MergeConf
               <FormLabel>{t("common.outputName")}</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="merged.pdf"
+                  placeholder={t("pdf.merge.outputPlaceholder")}
                   {...field}
                   disabled={isLoading}
                 />

@@ -28,7 +28,8 @@
     "merge": {
       "title": "Spojiť PDF",
       "description": "Spojte 2 PDF súbory do jedného dokumentu",
-      "action": "Spojiť"
+      "action": "Spojiť",
+      "outputPlaceholder": "spojene.pdf"
     },
     "split": {
       "title": "Rozdeliť PDF",
@@ -48,7 +49,8 @@
       "action": "Odstrániť",
       "pageToRemove": "Číslo strany na odstránenie",
       "explanation": "Strana {{page}} bude odstránená z PDF dokumentu.",
-      "enterPageNumber": "Zadajte číslo strany"
+      "enterPageNumber": "Zadajte číslo strany",
+      "outputPlaceholder": "bez_strany.pdf"
     },
     "extract": {
       "title": "Extrahovať strany",
@@ -58,7 +60,8 @@
       "endPage": "Koncová strana",
       "explanation": "Strany {{start}} až {{end}} budú extrahované z PDF do nového dokumentu.",
       "enterStartPage": "Zadajte počiatočnú stranu",
-      "enterEndPage": "Zadajte koncovú stranu"
+      "enterEndPage": "Zadajte koncovú stranu",
+      "outputPlaceholder": "extrahovane_strany.pdf"
     },
     "reorder": {
       "title": "Zmena poradia strán PDF",
@@ -68,6 +71,52 @@
       "pageOrderPlaceholder": "napr., 2,1,4,3",
       "outputPlaceholder": "preuporiadane.pdf",
       "explanation": "Zadajte čísla strán v poradí, v akom ich chcete mať vo výstupnom PDF. Napríklad, 2,1,4,3 zmení poradie 4-stranového dokumentu tak, že druhá strana bude prvá, prvá strana bude druhá, atď."
+    },
+    "password": {
+      "title": "Pridať heslo do PDF",
+      "description": "Zabezpečte svoje PDF dokumenty heslom",
+      "action": "Pridať heslo",
+      "password": "Heslo",
+      "passwordPlaceholder": "Zadajte heslo na ochranu PDF",
+      "outputPlaceholder": "zabezpecene.pdf",
+      "explanation": "Nahraný PDF súbor bude zašifrovaný zadaným heslom."
+    },
+    "removePassword": {
+      "title": "Odstrániť heslo z PDF",
+      "description": "Odstráňte ochranu heslom z vášho PDF dokumentu",
+      "action": "Odstrániť heslo",
+      "password": "Aktuálne heslo",
+      "passwordPlaceholder": "Zadajte aktuálne heslo PDF",
+      "outputPlaceholder": "nezabezpecene.pdf",
+      "explanation": "Z nahraného PDF súboru bude odstránená ochrana heslom."
+    },
+    "toImages": {
+      "title": "PDF na obrázky",
+      "description": "Konvertujte každú stranu vášho PDF do PNG obrázkov",
+      "action": "Konvertovať na obrázky",
+      "dpi": "DPI (Rozlíšenie)",
+      "dpiPlaceholder": "150",
+      "explanation": "Každá strana vášho PDF bude konvertovaná na PNG obrázok a stiahnutá ako ZIP súbor."
+    },
+    "rotate": {
+      "title": "Otočiť strany PDF",
+      "description": "Otočte konkrétne strany vášho PDF dokumentu",
+      "action": "Otočiť strany",
+      "pages": "Strany (oddelené čiarkou)",
+      "rotations": "Otočenia (stupne, oddelené čiarkou)",
+      "pagesPlaceholder": "napr. 1,2,3",
+      "rotationsPlaceholder": "napr. 90,180,270",
+      "outputPlaceholder": "otocene.pdf",
+      "explanation": "Zadajte čísla strán a zodpovedajúce uhly otáčania (v stupňoch). Ak zadáte iba jednu hodnotu otáčania, bude použitá pre všetky vybrané strany."
+    },
+    "watermark": {
+      "title": "Pridať vodoznak do PDF",
+      "description": "Pridajte textový vodoznak na každú stranu vášho PDF dokumentu.",
+      "action": "Pridať vodoznak",
+      "watermarkText": "Text vodoznaku",
+      "watermarkTextPlaceholder": "Zadajte text vodoznaku",
+      "outputPlaceholder": "s_vodoznakom.pdf",
+      "explanation": "Vodoznak bude pridaný na každú stranu vášho PDF dokumentu."
     }
   },
   "dashboard": {
@@ -126,7 +175,12 @@
     "splitFailed": "Chyba pri rozdeľovaní PDF súboru. Skontrolujte vaše PDF súbory alebo nastavenia.",
     "removeFailed": "Chyba pri odstraňovaní strany. Skontrolujte vaše PDF súbory alebo nastavenia.",
     "extractPagesFailed": "Chyba pri extrahovaní strán. Skontrolujte vaše PDF súbory alebo nastavenia.",
-    "reorderPagesFailed": "Chyba pri zmene poradia strán. Skontrolujte vaše PDF súbory alebo nastavenia."
+    "reorderPagesFailed": "Chyba pri zmene poradia strán. Skontrolujte vaše PDF súbory alebo nastavenia.",
+    "addPasswordFailed": "Chyba pri pridávaní hesla. Skontrolujte váš PDF súbor alebo nastavenia.",
+    "removePasswordFailed": "Chyba pri odstraňovaní hesla z PDF. Skontrolujte váš PDF súbor alebo nastavenia.",
+    "toImagesFailed": "Chyba pri konverzii PDF na obrázky. Skontrolujte váš PDF súbor alebo nastavenia.",
+    "rotatePagesFailed": "Chyba pri otáčaní strán PDF. Skontrolujte váš PDF súbor alebo nastavenia.",
+    "addWatermarkFailed": "Chyba pri pridávaní vodoznaku do PDF. Skontrolujte váš PDF súbor alebo nastavenia."
   },
   "guide": {
     "title": "Používateľská príručka",

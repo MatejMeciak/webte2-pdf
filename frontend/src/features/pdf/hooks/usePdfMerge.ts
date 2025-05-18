@@ -23,9 +23,8 @@ export function usePdfMerge() {
       formData.append("first_pdf", files[0]);
       formData.append("second_pdf", files[1]);
 
-      if (values.outputName) {
-        formData.append("output_name", values.outputName);
-      }
+      const outputName = values.outputName || t("pdf.merge.outputPlaceholder");
+      formData.append("output_name", outputName);
 
       // Send request to merge the PDFs
       const response = await api.post("/pdf/merge", formData, {
@@ -43,7 +42,7 @@ export function usePdfMerge() {
       }
 
       // Handle the download only if status is OK
-      handleFileDownload(response);
+      handleFileDownload(response, outputName);
     } catch (err) {
       setError(t("errors.unexpected"));
       console.error("Error merging PDFs:", err);
@@ -56,20 +55,15 @@ export function usePdfMerge() {
 }
 
 // Helper function to handle file download
-function handleFileDownload(response: any) {
-  const downloadUrl = window.URL.createObjectURL(new Blob([response.data]));
-  const link = document.createElement("a");
-
-  // Extract filename from Content-Disposition header or use default
-  const contentDisposition = response.headers["content-disposition"];
-  const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
-  const matches = filenameRegex.exec(contentDisposition || "");
-  const filename =
-    matches && matches[1] ? matches[1].replace(/['"]/g, "") : "merged.pdf";
-
-  link.href = downloadUrl;
-  link.setAttribute("download", filename);
+function handleFileDownload(response: any, filename: string) {
+  // Create blob URL and trigger download
+  const blob = new Blob([response.data], { type: 'application/pdf' });
+  const url = window.URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.setAttribute('download', filename);
   document.body.appendChild(link);
   link.click();
-  document.body.removeChild(link);
+  link.remove();
+  window.URL.revokeObjectURL(url);
 }

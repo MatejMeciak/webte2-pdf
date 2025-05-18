@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
 import { rotatePagesFormSchema, type RotatePagesFormValues } from "../types/pdf";
-import { RotateCw } from "lucide-react";
-import { z } from "zod";
+import { AlertCircle, Loader2 } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { useTranslation } from "react-i18next";
 
 interface RotatePagesConfigFormProps {
   onSubmit: (values: RotatePagesFormValues, file: File) => Promise<void>;
@@ -15,22 +15,14 @@ interface RotatePagesConfigFormProps {
   error: string | null;
 }
 
-// Simple schema for outputName only
-const outputNameSchema = z.object({
-  outputName: z.string()
-    .optional()
-    .refine(name => !name || name.endsWith('.pdf'), {
-      message: "Filename must end with .pdf"
-    }),
-});
-
 export function RotatePagesConfigForm({ onSubmit, file, isLoading, error }: RotatePagesConfigFormProps) {
+  const { t } = useTranslation();
   const [pagesInput, setPagesInput] = useState("");
   const [rotationsInput, setRotationsInput] = useState("");
   const [localError, setLocalError] = useState<string | null>(null);
 
+  // Initialize the form with just the outputName field from the full schema
   const form = useForm<{ outputName?: string }>({
-    resolver: zodResolver(outputNameSchema),
     defaultValues: { outputName: "" },
   });
 
@@ -53,7 +45,7 @@ export function RotatePagesConfigForm({ onSubmit, file, isLoading, error }: Rota
       rotations = Array(pages.length).fill(rotations[0]);
     }
 
-    // Validate with Zod
+    // Validate with the full schema
     const result = rotatePagesFormSchema.safeParse({
       pages,
       rotations,
@@ -76,24 +68,28 @@ export function RotatePagesConfigForm({ onSubmit, file, isLoading, error }: Rota
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-1">Pages (comma-separated)</label>
+            <FormLabel className="block text-sm font-medium mb-1">
+              {t("pdf.rotate.pages")}
+            </FormLabel>
             <Input
               type="text"
               value={pagesInput}
               onChange={e => setPagesInput(e.target.value)}
-              placeholder="e.g., 1,2,3"
+              placeholder={t("pdf.rotate.pagesPlaceholder")}
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Rotations (degrees, comma-separated)</label>
+            <FormLabel className="block text-sm font-medium mb-1">
+              {t("pdf.rotate.rotations")}
+            </FormLabel>
             <Input
               type="text"
               value={rotationsInput}
               onChange={e => setRotationsInput(e.target.value)}
-              placeholder="e.g., 90,180,270"
+              placeholder={t("pdf.rotate.rotationsPlaceholder")}
             />
             <span className="text-xs text-muted-foreground">
-              If you enter only one value, it will be used for all pages.
+              {t("pdf.rotate.explanation")}
             </span>
           </div>
           <FormField
@@ -101,10 +97,10 @@ export function RotatePagesConfigForm({ onSubmit, file, isLoading, error }: Rota
             name="outputName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Output Filename (Optional)</FormLabel>
+                <FormLabel>{t("common.outputName")}</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="rotated.pdf"
+                    placeholder={t("pdf.rotate.outputPlaceholder")}
                     {...field}
                   />
                 </FormControl>
@@ -115,19 +111,19 @@ export function RotatePagesConfigForm({ onSubmit, file, isLoading, error }: Rota
         </div>
 
         <div className="flex flex-col space-y-4">
-          <div className="flex items-center justify-center py-4 px-3 rounded-md bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 text-sm">
-            <div className="flex items-center">
-              <RotateCw className="h-5 w-5 mr-2" />
-              <p>
-                Enter the pages and their corresponding rotation angles (degrees). The number of pages and rotations must match.
-              </p>
-            </div>
-          </div>
+          <Alert className="bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-800">
+            <AlertDescription>
+              {t("pdf.rotate.explanation")}
+            </AlertDescription>
+          </Alert>
 
           {(localError || error) && (
-            <div className="p-3 rounded-md bg-destructive/10 text-destructive text-sm">
-              {localError || error}
-            </div>
+            <Alert variant="destructive">
+              <AlertCircle className="h-4 w-4" />
+              <AlertDescription>
+                {localError || error}
+              </AlertDescription>
+            </Alert>
           )}
 
           <Button
@@ -135,10 +131,17 @@ export function RotatePagesConfigForm({ onSubmit, file, isLoading, error }: Rota
             disabled={!canSubmit || isLoading}
             className="w-full"
           >
-            {isLoading ? "Processing..." : "Rotate Pages & Download"}
+            {isLoading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                {t("common.processing")}
+              </>
+            ) : (
+              t("pdf.rotate.action")
+            )}
           </Button>
         </div>
       </form>
     </Form>
   );
-} 
+}

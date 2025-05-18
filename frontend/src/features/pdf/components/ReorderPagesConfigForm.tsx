@@ -73,7 +73,6 @@ export function ReorderPagesConfigForm({ onSubmit, file, isLoading, error }: Reo
 
         <div className="flex flex-col space-y-4">
           <Alert className="bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-800">
-            <LayoutList className="h-5 w-5 mr-2" />
             <AlertDescription>
               <p>{t("pdf.reorder.explanation")}</p>
             </AlertDescription>

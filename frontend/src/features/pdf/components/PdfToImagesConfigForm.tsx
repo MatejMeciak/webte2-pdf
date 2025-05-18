@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { type PdfToImagesFormValues, pdfToImagesFormSchema } from "../types/pdf";
-import { Image } from "lucide-react";
+import { Loader2, AlertCircle } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useTranslation } from "react-i18next";
 
 interface PdfToImagesConfigFormProps {
@@ -15,14 +16,14 @@ interface PdfToImagesConfigFormProps {
 }
 
 export function PdfToImagesConfigForm({ onSubmit, file, isLoading, error }: PdfToImagesConfigFormProps) {
+  const { t } = useTranslation();
+  
   const form = useForm<PdfToImagesFormValues>({
     resolver: zodResolver(pdfToImagesFormSchema),
     defaultValues: {
       dpi: 150,
     },
   });
-
-  const { t } = useTranslation();
 
   const handleSubmit = async (values: PdfToImagesFormValues) => {
     if (file) {
@@ -34,18 +35,19 @@ export function PdfToImagesConfigForm({ onSubmit, file, isLoading, error }: PdfT
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
         <div className="space-y-4">
           <FormField
             control={form.control}
             name="dpi"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t('pdf.features.toImages.dpi')}</FormLabel>
+                <FormLabel>{t("pdf.toImages.dpi")}</FormLabel>
                 <FormControl>
                   <Input
                     type="number"
-                    placeholder={t('pdf.features.toImages.placeholders.dpi')}
+                    placeholder={t("pdf.toImages.dpiPlaceholder")}
+                    min={1}
                     {...field}
                   />
                 </FormControl>
@@ -56,17 +58,19 @@ export function PdfToImagesConfigForm({ onSubmit, file, isLoading, error }: PdfT
         </div>
 
         <div className="flex flex-col space-y-4">
-          <div className="flex items-center justify-center py-4 px-3 rounded-md bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 text-sm">
-            <div className="flex items-center">
-              <Image className="h-5 w-5 mr-2" />
-              <p>{t('pdf.features.toImages.instructions')}</p>
-            </div>
-          </div>
+          <Alert className="bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-800">
+            <AlertDescription>
+              <p>{t("pdf.toImages.explanation")}</p>
+            </AlertDescription>
+          </Alert>
 
           {error && (
-            <div className="p-3 rounded-md bg-destructive/10 text-destructive text-sm">
-              {error}
-            </div>
+            <Alert variant="destructive">
+              <AlertCircle className="h-4 w-4" />
+              <AlertDescription>
+                {error}
+              </AlertDescription>
+            </Alert>
           )}
 
           <Button
@@ -74,7 +78,16 @@ export function PdfToImagesConfigForm({ onSubmit, file, isLoading, error }: PdfT
             disabled={!canSubmit || isLoading}
             className="w-full"
           >
-            {isLoading ? t('common.processing') : t('pdf.features.toImages.convertAndDownload')}
+            {isLoading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                {t("common.processing")}
+              </>
+            ) : (
+              <>
+                {t("pdf.toImages.action")}
+              </>
+            )}
           </Button>
         </div>
       </form>

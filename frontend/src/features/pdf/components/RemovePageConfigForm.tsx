@@ -68,7 +68,7 @@ export function RemovePageConfigForm({ onSubmit, file, isLoading, error }: Remov
                 <FormLabel>{t("common.outputName")}</FormLabel>
                 <FormControl>
                   <Input 
-                    placeholder="modified.pdf" 
+                    placeholder={t("pdf.remove.outputPlaceholder")}
                     {...field} 
                     disabled={!file || isLoading}
                   />

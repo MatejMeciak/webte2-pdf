@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { type RemovePasswordFormValues, removePasswordFormSchema } from "../types/pdf";
-import { Unlock } from "lucide-react";
+import { Loader2, AlertCircle } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useTranslation } from "react-i18next";
 
 interface RemovePasswordConfigFormProps {
@@ -16,6 +17,7 @@ interface RemovePasswordConfigFormProps {
 
 export function RemovePasswordConfigForm({ onSubmit, file, isLoading, error }: RemovePasswordConfigFormProps) {
   const { t } = useTranslation();
+  
   const form = useForm<RemovePasswordFormValues>({
     resolver: zodResolver(removePasswordFormSchema),
     defaultValues: {
@@ -34,18 +36,18 @@ export function RemovePasswordConfigForm({ onSubmit, file, isLoading, error }: R
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
         <div className="space-y-4">
           <FormField
             control={form.control}
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t('pdf.features.removePassword.currentPassword')}</FormLabel>
+                <FormLabel>{t("pdf.removePassword.password")}</FormLabel>
                 <FormControl>
                   <Input
                     type="password"
-                    placeholder={t('pdf.features.removePassword.placeholders.password')}
+                    placeholder={t("pdf.removePassword.passwordPlaceholder")}
                     {...field}
                   />
                 </FormControl>
@@ -59,10 +61,10 @@ export function RemovePasswordConfigForm({ onSubmit, file, isLoading, error }: R
             name="outputName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t('pdf.features.removePassword.outputFilename')}</FormLabel>
+                <FormLabel>{t("common.outputName")}</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="unprotected.pdf"
+                    placeholder={t("pdf.removePassword.outputPlaceholder")}
                     {...field}
                   />
                 </FormControl>
@@ -73,17 +75,19 @@ export function RemovePasswordConfigForm({ onSubmit, file, isLoading, error }: R
         </div>
 
         <div className="flex flex-col space-y-4">
-          <div className="flex items-center justify-center py-4 px-3 rounded-md bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 text-sm">
-            <div className="flex items-center">
-              <Unlock className="h-5 w-5 mr-2" />
-              <p>{t('pdf.features.removePassword.instructions')}</p>
-            </div>
-          </div>
+          <Alert className="bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-800">
+            <AlertDescription>
+              <p>{t("pdf.removePassword.explanation")}</p>
+            </AlertDescription>
+          </Alert>
 
           {error && (
-            <div className="p-3 rounded-md bg-destructive/10 text-destructive text-sm">
-              {error}
-            </div>
+            <Alert variant="destructive">
+              <AlertCircle className="h-4 w-4" />
+              <AlertDescription>
+                {error}
+              </AlertDescription>
+            </Alert>
           )}
 
           <Button
@@ -91,7 +95,16 @@ export function RemovePasswordConfigForm({ onSubmit, file, isLoading, error }: R
             disabled={!canSubmit || isLoading}
             className="w-full"
           >
-            {isLoading ? t('common.processing') : t('pdf.features.removePassword.unlockAndDownload')}
+            {isLoading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                {t("common.processing")}
+              </>
+            ) : (
+              <>
+                {t("pdf.removePassword.action")}
+              </>
+            )}
           </Button>
         </div>
       </form>

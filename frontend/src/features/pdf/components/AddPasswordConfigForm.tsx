@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { type AddPasswordFormValues, addPasswordFormSchema } from "../types/pdf";
-import { Lock } from "lucide-react";
+import { Loader2, Lock, AlertCircle } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useTranslation } from "react-i18next";
 
 interface AddPasswordConfigFormProps {
@@ -16,6 +17,7 @@ interface AddPasswordConfigFormProps {
 
 export function AddPasswordConfigForm({ onSubmit, file, isLoading, error }: AddPasswordConfigFormProps) {
   const { t } = useTranslation();
+  
   const form = useForm<AddPasswordFormValues>({
     resolver: zodResolver(addPasswordFormSchema),
     defaultValues: {
@@ -30,22 +32,20 @@ export function AddPasswordConfigForm({ onSubmit, file, isLoading, error }: AddP
     }
   };
 
-  const canSubmit = !!file && form.watch("password").length > 0;
-
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
         <div className="space-y-4">
           <FormField
             control={form.control}
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t('pdf.features.addPassword.password')}</FormLabel>
+                <FormLabel>{t("pdf.password.password")}</FormLabel>
                 <FormControl>
                   <Input
                     type="password"
-                    placeholder={t('pdf.features.addPassword.placeholders.password')}
+                    placeholder={t("pdf.password.passwordPlaceholder")}
                     {...field}
                   />
                 </FormControl>
@@ -59,10 +59,10 @@ export function AddPasswordConfigForm({ onSubmit, file, isLoading, error }: AddP
             name="outputName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t('pdf.features.addPassword.outputFilename')}</FormLabel>
+                <FormLabel>{t("common.outputName")}</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="protected.pdf"
+                    placeholder={t("pdf.password.outputPlaceholder")}
                     {...field}
                   />
                 </FormControl>
@@ -73,25 +73,36 @@ export function AddPasswordConfigForm({ onSubmit, file, isLoading, error }: AddP
         </div>
 
         <div className="flex flex-col space-y-4">
-          <div className="flex items-center justify-center py-4 px-3 rounded-md bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 text-sm">
-            <div className="flex items-center">
-              <Lock className="h-5 w-5 mr-2" />
-              <p>{t('pdf.features.addPassword.instructions')}</p>
-            </div>
-          </div>
+          <Alert className="bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-800">
+            <AlertDescription>
+              <p>{t("pdf.password.explanation")}</p>
+            </AlertDescription>
+          </Alert>
 
           {error && (
-            <div className="p-3 rounded-md bg-destructive/10 text-destructive text-sm">
-              {error}
-            </div>
+            <Alert variant="destructive">
+              <AlertCircle className="h-4 w-4" />
+              <AlertDescription>
+                {error}
+              </AlertDescription>
+            </Alert>
           )}
 
-          <Button
-            type="submit"
-            disabled={!canSubmit || isLoading}
+          <Button 
+            type="submit" 
+            disabled={isLoading || !file}
             className="w-full"
           >
-            {isLoading ? t('common.processing') : t('pdf.features.addPassword.protectAndDownload')}
+            {isLoading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                {t("common.processing")}
+              </>
+            ) : (
+              <>
+                {t("pdf.password.action")}
+              </>
+            )}
           </Button>
         </div>
       </form>

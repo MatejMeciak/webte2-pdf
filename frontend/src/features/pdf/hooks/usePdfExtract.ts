@@ -24,9 +24,8 @@ export function usePdfExtract() {
       formData.append("start_page", values.startPage.toString());
       formData.append("end_page", values.endPage.toString());
       
-      if (values.outputName) {
-        formData.append("output_name", values.outputName);
-      }
+      const outputName = values.outputName || t("pdf.extract.outputPlaceholder");
+      formData.append("output_name", outputName);
 
       // Send request to extract pages from the PDF
       const response = await api.post("/pdf/extract", formData, {
@@ -44,7 +43,7 @@ export function usePdfExtract() {
       }
 
       // Handle the download
-      handleFileDownload(response);
+      handleFileDownload(response, outputName);
       
     } catch (err) {
       setError(t("errors.unexpected"));
@@ -58,18 +57,7 @@ export function usePdfExtract() {
 }
 
 // Helper function to handle file download
-function handleFileDownload(response: any) {
-  // Get filename from Content-Disposition header
-  const contentDisposition = response.headers['content-disposition'];
-  let filename = 'extracted.pdf';
-  
-  if (contentDisposition) {
-    const filenameMatch = contentDisposition.match(/filename="?([^"]*)"?/);
-    if (filenameMatch && filenameMatch[1]) {
-      filename = filenameMatch[1];
-    }
-  }
-
+function handleFileDownload(response: any, filename: string) {
   // Create blob URL and trigger download
   const blob = new Blob([response.data], { type: 'application/pdf' });
   const url = window.URL.createObjectURL(blob);

@@ -28,7 +28,8 @@
     "merge": {
       "title": "PDF Merge",
       "description": "Combine 2 PDF files into a single document",
-      "action": "Merge"
+      "action": "Merge",
+      "outputPlaceholder": "merged.pdf"
     },
     "split": {
       "title": "PDF Split",
@@ -48,7 +49,8 @@
       "action": "Remove",
       "pageToRemove": "Page to remove",
       "explanation": " Page {{page}} will be removed from the PDF.",
-      "enterPageNumber": "Enter page number"
+      "enterPageNumber": "Enter page number",
+      "outputPlaceholder": "removed.pdf"
     },
     "extract": {
       "title": "Extract Pages",
@@ -58,7 +60,8 @@
       "endPage": "End page",
       "explanation": "Pages {{start}} to {{end}} will be extracted from the PDF into a new document.",
       "enterStartPage": "Enter start page",
-      "enterEndPage": "Enter end page"
+      "enterEndPage": "Enter end page",
+      "outputPlaceholder": "extracted.pdf"
     },
     "reorder": {
       "title": "PDF Page Reorder",
@@ -68,6 +71,52 @@
       "pageOrderPlaceholder": "e.g., 2,1,4,3",
       "outputPlaceholder": "reordered.pdf",
       "explanation": "Enter the page numbers in the order you want them to appear in the output PDF. For example, 2,1,4,3 will reorder a 4-page document so that the second page becomes first, the first page becomes second, and so on."
+    },
+    "password": {
+      "title": "Add Password to PDF",
+      "description": "Encrypt your PDF document with a password",
+      "action": "Add Password",
+      "password": "Password",
+      "passwordPlaceholder": "Enter password to protect PDF",
+      "outputPlaceholder": "protected.pdf",
+      "explanation": "The uploaded PDF will be encrypted with the password you provide."
+    },
+    "removePassword": {
+      "title": "Remove Password from PDF",
+      "description": "Remove password protection from your PDF document",
+      "action": "Remove Password",
+      "password": "Current Password",
+      "passwordPlaceholder": "Enter current PDF password",
+      "outputPlaceholder": "unprotected.pdf",
+      "explanation": "The uploaded PDF will have its password protection removed."
+    },
+    "toImages": {
+      "title": "PDF to Images",
+      "description": "Convert each page of your PDF to PNG images",
+      "action": "Convert to Images",
+      "dpi": "DPI (Resolution)",
+      "dpiPlaceholder": "150",
+      "explanation": "Each page of your PDF will be converted to a PNG image and downloaded as a ZIP file."
+    },
+    "rotate": {
+      "title": "Rotate PDF Pages",
+      "description": "Rotate specific pages in your PDF document",
+      "action": "Rotate Pages",
+      "pages": "Pages (comma-separated)",
+      "rotations": "Rotations (degrees, comma-separated)",
+      "pagesPlaceholder": "e.g., 1,2,3",
+      "rotationsPlaceholder": "e.g., 90,180,270",
+      "outputPlaceholder": "rotated.pdf",
+      "explanation": "Enter the page numbers and their corresponding rotation angles (in degrees). If you enter only one rotation value, it will be applied to all selected pages."
+    },
+    "watermark": {
+      "title": "Add Watermark to PDF",
+      "description": "Add a text watermark to every page of your PDF document",
+      "action": "Add Watermark",
+      "watermarkText": "Watermark Text",
+      "watermarkTextPlaceholder": "Enter watermark text",
+      "outputPlaceholder": "watermarked.pdf",
+      "explanation": "The watermark will be added to every page of your PDF."
     }
   },
   "dashboard": {
@@ -123,7 +172,12 @@
     "splitFailed": "Error splitting PDF file. Please check your PDF file or settings.",
     "removeFailed": "Error removing page from PDF. Please check your PDF file or settings.",
     "extractPagesFailed": "Error extracting pages from PDF. Please check your PDF file or settings.",
-    "reorderPagesFailed": "Error reordering PDF pages. Please check your PDF file or settings."
+    "reorderPagesFailed": "Error reordering PDF pages. Please check your PDF file or settings.",
+    "addPasswordFailed": "Error adding password to PDF. Please check your PDF file or settings.",
+    "removePasswordFailed": "Error removing password from PDF. Please check your PDF file or settings.",
+    "toImagesFailed": "Error converting PDF to images. Please check your PDF file or settings.",
+    "rotatePagesFailed": "Error rotating PDF pages. Please check your PDF file or settings.",
+    "addWatermarkFailed": "Error adding watermark to PDF. Please check your PDF file or settings."
   },
   "guide": {
     "title": "User Guide",

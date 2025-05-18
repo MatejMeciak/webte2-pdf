@@ -88,7 +88,7 @@ export function ExtractPagesConfigForm({ onSubmit, file, isLoading, error }: Ext
                 <FormLabel>{t("common.outputName")}</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="extracted.pdf"
+                    placeholder={t("pdf.extract.outputPlaceholder")}
                     {...field}
                   />
                 </FormControl>
