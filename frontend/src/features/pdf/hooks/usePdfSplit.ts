@@ -2,8 +2,10 @@ import { useState } from "react";
 import api from "@/api/axios";
 import type { SplitFormValues } from "../types/pdf";
 import { isAxiosError } from "axios";
+import { useTranslation } from "react-i18next";
 
 export function usePdfSplit() {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -20,14 +22,14 @@ export function usePdfSplit() {
       // Create form data with file and form values
       const formData = new FormData();
       formData.append("pdf", file);
-      formData.append("splitAtPage", values.splitAtPage.toString());
+      formData.append("split_at_page", values.splitAtPage.toString());
       
       if (values.firstOutputName) {
-        formData.append("firstOutputName", values.firstOutputName);
+        formData.append("first_output_name", values.firstOutputName);
       }
       
       if (values.secondOutputName) {
-        formData.append("secondOutputName", values.secondOutputName);
+        formData.append("second_output_name", values.secondOutputName);
       }
 
       // Send request to split the PDF
@@ -43,9 +45,9 @@ export function usePdfSplit() {
       
     } catch (err) {
       if (isAxiosError(err)) {
-        setError(err.response?.data || "Error splitting PDF. Please try again.");
+        setError(t('pdf.features.split.errors.splitFailed'));
       } else {
-        setError("An unexpected error occurred. Please try again.");
+        setError(t('pdf.features.split.errors.unexpected'));
       }
     } finally {
       setIsLoading(false);

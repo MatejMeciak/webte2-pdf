@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { type ExtractPagesFormValues, extractPagesFormSchema } from "../types/pdf";
 import { Scissors } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface ExtractPagesConfigFormProps {
   onSubmit: (values: ExtractPagesFormValues, file: File) => Promise<void>;
@@ -14,6 +15,7 @@ interface ExtractPagesConfigFormProps {
 }
 
 export function ExtractPagesConfigForm({ onSubmit, file, isLoading, error }: ExtractPagesConfigFormProps) {
+  const { t } = useTranslation();
   const form = useForm<ExtractPagesFormValues>({
     resolver: zodResolver(extractPagesFormSchema),
     defaultValues: {
@@ -43,7 +45,7 @@ export function ExtractPagesConfigForm({ onSubmit, file, isLoading, error }: Ext
               name="startPage"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Start Page</FormLabel>
+                  <FormLabel>{t('pdf.features.extractPages.startPage')}</FormLabel>
                   <FormControl>
                     <Input
                       type="number"
@@ -62,11 +64,11 @@ export function ExtractPagesConfigForm({ onSubmit, file, isLoading, error }: Ext
               name="endPage"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>End Page</FormLabel>
+                  <FormLabel>{t('pdf.features.extractPages.endPage')}</FormLabel>
                   <FormControl>
                     <Input
                       type="number"
-                      placeholder="e.g., 5"
+                      placeholder={t('pdf.features.extractPages.endPagePlaceholder')}
                       min={form.watch("startPage")}
                       {...field}
                     />
@@ -82,10 +84,10 @@ export function ExtractPagesConfigForm({ onSubmit, file, isLoading, error }: Ext
             name="outputName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Output Filename (Optional)</FormLabel>
+                <FormLabel>{t('pdf.tools.extractPages.outputFilename')}</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="extracted.pdf"
+                    placeholder={t('pdf.tools.extractPages.outputFilenamePlaceholder')}
                     {...field}
                   />
                 </FormControl>
@@ -100,7 +102,10 @@ export function ExtractPagesConfigForm({ onSubmit, file, isLoading, error }: Ext
             <div className="flex items-center">
               <Scissors className="h-5 w-5 mr-2" />
               <p>
-                Pages <strong>{form.watch("startPage")}</strong> to <strong>{form.watch("endPage")}</strong> will be extracted from the PDF into a new document.
+                {t('pdf.features.extractPages.summary', {
+                  startPage: form.watch("startPage"),
+                  endPage: form.watch("endPage")
+                })}
               </p>
             </div>
           </div>
@@ -116,7 +121,7 @@ export function ExtractPagesConfigForm({ onSubmit, file, isLoading, error }: Ext
             disabled={!canSubmit || isLoading}
             className="w-full"
           >
-            {isLoading ? "Processing..." : "Extract Pages & Download"}
+            {isLoading ? t('common.processing') : t('pdf.features.extractPages.extractAndDownload')}
           </Button>
         </div>
       </form>

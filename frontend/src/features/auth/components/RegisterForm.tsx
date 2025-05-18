@@ -6,8 +6,11 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { authService } from '../api/authService';
 import { useAuth } from '../context/AuthContext';
+import { useTranslation } from 'react-i18next';
 
 export function RegisterForm() {
+  const { t } = useTranslation();
+  
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -21,31 +24,31 @@ export function RegisterForm() {
 
   const validateForm = () => {
     if (!firstName.trim()) {
-      setError('First name is required');
+      setError(t('auth.register.errors.firstNameRequired'));
       return false;
     }
     if (!lastName.trim()) {
-      setError('Last name is required');
+      setError(t('auth.register.errors.lastNameRequired'));
       return false;
     }
     if (!email.trim()) {
-      setError('Email is required');
+      setError(t('auth.register.errors.emailRequired'));
       return false;
     }
     if (!/\S+@\S+\.\S+/.test(email)) {
-      setError('Please enter a valid email address');
+      setError(t('auth.register.errors.emailInvalid'));
       return false;
     }
     if (!password) {
-      setError('Password is required');
+      setError(t('auth.register.errors.passwordRequired'));
       return false;
     }
     if (password.length < 8) {
-      setError('Password must be at least 8 characters long');
+      setError(t('auth.register.errors.passwordLength'));
       return false;
     }
     if (password !== confirmPassword) {
-      setError('Passwords do not match');
+      setError(t('auth.register.errors.passwordsMatch'));
       return false;
     }
     return true;
@@ -79,7 +82,7 @@ export function RegisterForm() {
       navigate('/');
     } catch (err: any) {
       console.error('Registration failed:', err);
-      setError(err.response?.data?.message || 'Registration failed. Please try again.');
+      setError(err.response?.data?.message || t('auth.register.errors.registrationFailed'));
     } finally {
       setIsLoading(false);
     }
@@ -88,9 +91,9 @@ export function RegisterForm() {
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
-        <CardTitle className="text-2xl text-center">Create an Account</CardTitle>
+        <CardTitle className="text-2xl text-center">{t('auth.register.title')}</CardTitle>
         <CardDescription className="text-center">
-          Enter your details to create a new account
+          {t('auth.register.description')}
         </CardDescription>
       </CardHeader>
       
@@ -104,7 +107,7 @@ export function RegisterForm() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="firstName">First Name</Label>
+              <Label htmlFor="firstName">{t('auth.register.firstName')}</Label>
               <Input
                 id="firstName"
                 type="text"
@@ -116,7 +119,7 @@ export function RegisterForm() {
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="lastName">Last Name</Label>
+              <Label htmlFor="lastName">{t('auth.register.lastName')}</Label>
               <Input
                 id="lastName"
                 type="text"
@@ -129,7 +132,7 @@ export function RegisterForm() {
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email">{t('auth.register.email')}</Label>
             <Input
               id="email"
               type="email"
@@ -141,11 +144,11 @@ export function RegisterForm() {
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password">{t('auth.register.password')}</Label>
             <Input
               id="password"
               type="password"
-              placeholder="Create a password"
+              placeholder="*********"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -153,11 +156,11 @@ export function RegisterForm() {
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="confirmPassword">Confirm Password</Label>
+            <Label htmlFor="confirmPassword">{t('auth.register.confirmPassword')}</Label>
             <Input
               id="confirmPassword"
               type="password"
-              placeholder="Confirm your password"
+              placeholder="*********"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
@@ -169,16 +172,16 @@ export function RegisterForm() {
             className="w-full"
             disabled={isLoading}
           >
-            {isLoading ? 'Creating Account...' : 'Register'}
+            {isLoading ? t('auth.register.creating') : t('auth.register.submit')}
           </Button>
         </form>
       </CardContent>
       
       <CardFooter>
         <p className="text-center w-full text-sm">
-          Already have an account?{' '}
+          {t('auth.register.haveAccount')}{' '}
           <a href="/login" className="text-blue-600 hover:underline">
-            Login
+            {t('auth.register.login')}
           </a>
         </p>
       </CardFooter>

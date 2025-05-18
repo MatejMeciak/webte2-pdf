@@ -1,15 +1,15 @@
 export interface HistoryResponse {
   id: number;
-  userId: number;
+  user_id: number;
   userName: string;
   userEmail: string;
-  operationType: string;
+  operation_type: string;
   timestamp: string;
-  sourceType: string;
-  ipAddress: string;
+  source_type: string;
+  ip_address: string;
   country: string;
   state: string;
-  userAgent: string;
+  user_agent: string;
   // legacy/compat fields
   username?: string;
   operation?: string;

@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/form";
 import { Loader2, Scissors, ArrowRightLeft } from "lucide-react";
 import { type SplitFormValues, splitFormSchema } from "../types/pdf";
+import { useTranslation } from "react-i18next";
 
 interface SplitConfigFormProps {
   onSubmit: (values: SplitFormValues, file: File) => Promise<void>;
@@ -22,13 +23,15 @@ interface SplitConfigFormProps {
 }
 
 export function SplitConfigForm({ onSubmit, file, isLoading, error }: SplitConfigFormProps) {
+  const { t } = useTranslation();
+
   // Initialize form with default values and validation schema
   const form = useForm<SplitFormValues>({
     resolver: zodResolver(splitFormSchema),
     defaultValues: {
       splitAtPage: 1,
-      firstOutputName: "part1.pdf",
-      secondOutputName: "part2.pdf",
+      firstOutputName: t('pdf.features.split.placeholders.firstPart'),
+      secondOutputName: t('pdf.features.split.placeholders.secondPart'),
     },
   });
 
@@ -41,80 +44,77 @@ export function SplitConfigForm({ onSubmit, file, isLoading, error }: SplitConfi
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
-        <div className="grid grid-cols-1 gap-4">
+        <FormField
+          control={form.control}
+          name="splitAtPage"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{t('pdf.features.split.splitAtPage')}</FormLabel>
+              <FormControl>
+                <Input
+                  type="number"
+                  placeholder={t('pdf.features.split.placeholders.pageNumber')}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <FormField
             control={form.control}
-            name="splitAtPage"
+            name="firstOutputName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Split at page</FormLabel>
+                <FormLabel>{t('pdf.features.split.firstPartFilename')}</FormLabel>
                 <FormControl>
-                  <Input
-                    type="number"
-                    placeholder="Enter page number"
-                    {...field}
-                    min={1}
+                  <Input 
+                    placeholder={t('pdf.features.split.placeholders.firstPart')} 
+                    {...field} 
                   />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-            <div className="space-y-1.5">
-              <Label htmlFor="firstOutputName">First part filename</Label>
-              <Input
-                id="firstOutputName"
-                {...form.register("firstOutputName")}
-                placeholder="part1.pdf"
-              />
-            </div>
-            <div className="space-y-1.5">
-              <Label htmlFor="secondOutputName">Second part filename</Label>
-              <Input
-                id="secondOutputName"
-                {...form.register("secondOutputName")}
-                placeholder="part2.pdf"
-              />
-            </div>
-          </div>
-        </div>
 
-        <div className="flex flex-col space-y-4">
-          <div className="flex items-center justify-center py-4 px-3 rounded-md bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 text-sm">
-            <div className="flex items-center">
-              <ArrowRightLeft className="h-5 w-5 mr-2" />
-              <p>
-                The PDF will be split into two parts. Pages 1 to <strong>{form.watch("splitAtPage")}</strong> will be in the first part, and the remaining pages will be in the second part.
-              </p>
-            </div>
-          </div>
-
-          {error && (
-            <div className="p-3 rounded-md bg-destructive/10 text-destructive text-sm">
-              {error}
-            </div>
-          )}
-
-          <Button
-            type="submit"
-            className="w-full"
-            disabled={!file || isLoading}
-          >
-            {isLoading ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Processing...
-              </>
-            ) : (
-              <>
-                <Scissors className="mr-2 h-4 w-4" />
-                Split PDF
-              </>
+          <FormField
+            control={form.control}
+            name="secondOutputName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t('pdf.features.split.secondPartFilename')}</FormLabel>
+                <FormControl>
+                  <Input 
+                    placeholder={t('pdf.features.split.placeholders.secondPart')} 
+                    {...field} 
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
             )}
-          </Button>
+          />
         </div>
+
+        {error && (
+          <div className="p-3 rounded-md bg-destructive/10 text-destructive text-sm">
+            {error}
+          </div>
+        )}
+
+        <Button
+          type="submit"
+          className="w-full"
+          disabled={!file || isLoading}
+        >
+          {isLoading ? (
+            <>{t('pdf.common.processing')}</>
+          ) : (
+            <>{t('pdf.features.split.splitAndDownload')}</>
+          )}
+        </Button>
       </form>
     </Form>
   );

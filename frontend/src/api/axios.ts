@@ -1,4 +1,5 @@
 import axios, { AxiosError, type InternalAxiosRequestConfig } from 'axios';
+import camelcaseKeys from 'camelcase-keys';
 
 // Get base URL from environment variables
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
@@ -28,5 +29,6 @@ api.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
 
 export default api;

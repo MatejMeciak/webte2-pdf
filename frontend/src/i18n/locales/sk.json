@@ -1,0 +1,393 @@
+{
+  "nav": {
+    "pdfTools": "PDF Nástroje",
+    "login": "Prihlásiť sa",
+    "register": "Registrovať sa",
+    "logout": "Odhlásiť sa",
+    "adminHistory": "História správcu",
+    "guide": "Príručka"
+  },
+  "common": {
+    "processing": "Spracúvam...",
+    "selectPdf": "Vyberte PDF",
+    "configure": "Konfigurácia",
+    "chooseFile": "Vybrať súbor",
+    "dragDropHere": "Pretiahnite súbor sem alebo kliknite pre výber",
+    "dropFileHere": "Pustite súbor tu"
+  },
+  "pdf": {
+    "features": {
+      "merge": {
+        "title": "Spojiť PDF",
+        "description": "Spojte viacero PDF súborov do jedného dokumentu",
+        "mergeAndDownload": "Spojiť & Stiahnuť",
+        "mergeFiles": "Spojiť súbory",
+        "mergeFilesDescription": "Vyberte viacero PDF súborov na spojenie",
+        "mergeFilesPlaceholder": "Vyberte súbory",
+        "mergeFilesError": "Vyberte aspoň 2 PDF súbory",
+        "mergeFilesSuccess": "PDF súbory boli úspešne spojené",
+        "mergeFilesFailed": "Spojenie PDF súborov zlyhalo. Skúste to znova.",
+        "mergeFilesUnexpected": "Nastala neočakávaná chyba. Skúste to znova.",
+        "mergeFilesProcessing": "Spracúvam PDF súbory...",
+        "dragDrop": "Pretiahnite PDF súbory sem alebo kliknite pre výber",
+        "chooseFile": "Vybrať súbory",
+        "outputFilename": "Názov výstupného súboru",
+        "instructions": "Pre spojenie PDF súborov nahrajte dva alebo viac súborov. Po nahraní môžete zmeniť ich poradie a nastaviť názov výsledného súboru."
+      },
+      "split": {
+        "title": "Rozdeliť PDF",
+        "description": "Rozdeľte PDF dokument na dve časti",
+        "splitAtPage": "Rozdeliť na strane",
+        "firstPartFilename": "Názov prvej časti",
+        "secondPartFilename": "Názov druhej časti",
+        "splitAndDownload": "Rozdeliť & Stiahnuť",
+        "outputFilename": "Názov výstupného súboru",
+        "placeholders": {
+          "firstPart": "prva_cast.pdf",
+          "secondPart": "druha_cast.pdf",
+          "pageNumber": "Zadajte číslo strany"
+        },
+        "errors": {
+          "uploadFirst": "Najprv nahrajte PDF súbor",
+          "splitFailed": "Chyba pri rozdeľovaní PDF. Skúste to znova.",
+          "unexpected": "Nastala neočakávaná chyba. Skúste to znova."
+        },
+        "step1": "1. Vyberte PDF súbor",
+        "step2": "2. Nastavenie rozdelenia",
+        "dragDrop": "Pretiahnite PDF súbor sem alebo kliknite pre výber",
+        "chooseFile": "Vybrať súbor",
+        "instructions": "Vyberte bod, kde sa má PDF rozdeliť. Zadajte číslo strany a voliteľne názvy pre obe časti dokumentu."
+      },
+      "removePage": {
+        "title": "Odstrániť stranu",
+        "description": "Odstráňte konkrétnu stranu z vášho PDF dokumentu",
+        "pageNumber": "Číslo strany",
+        "removeAndDownload": "Odstrániť stranu & Stiahnuť",
+        "dragDrop": "Pretiahnite PDF súbor sem alebo kliknite pre výber",
+        "chooseFile": "Vybrať súbor",
+        "instructions": "Vyberte číslo strany, ktorú chcete odstrániť z dokumentu. Môžete tiež zadať vlastný názov pre výsledný súbor."
+      },
+      "extractPages": {
+        "title": "Extrahovať strany",
+        "description": "Extrahujte vybrané strany z PDF dokumentu",
+        "startPage": "Začiatočná strana",
+        "endPage": "Koncová strana",
+        "extractAndDownload": "Extrahovať & Stiahnuť",
+        "dragDrop": "Pretiahnite PDF súbor sem alebo kliknite pre výber",
+        "chooseFile": "Vybrať súbor",
+        "summary": "Strany {{startPage}} až {{endPage}} budú extrahované z PDF do nového dokumentu.",
+        "outputFilename": "Názov výstupného súboru",
+        "outputFilenamePlaceholder": "extrahovane.pdf",
+        "endPagePlaceholder": "napr. 5",
+        "instructions": "Zadajte rozsah strán (od-do), ktoré chcete extrahovať do nového dokumentu. Môžete zadať vlastný názov pre nový súbor."
+      },
+      "reorderPages": {
+        "title": "Zmeniť poradie strán",
+        "description": "Zmeňte poradie strán vo vašom PDF dokumente",
+        "instructions": "Zadajte čísla strán v poradí, v akom ich chcete mať v PDF dokumente. Napríklad: 2,1,4,3 zmení poradie 4-stranového dokumentu tak, že druhá strana bude prvá, prvá strana bude druhá, atď.",
+        "pageOrder": "Poradie strán (napr. 3,1,2,4)",
+        "reorderAndDownload": "Zmeniť poradie & Stiahnuť",
+        "dragDrop": "Pretiahnite PDF súbor sem alebo kliknite pre výber",
+        "chooseFile": "Vybrať súbor",
+        "step1": "1. Vyberte PDF",
+        "step2": "2. Nastavenie poradia strán",
+        "placeholders": {
+          "pageOrder": "napr. 1,3,2,4"
+        },
+        "outputFilename": "Názov výstupného súboru"
+      },
+      "addPassword": {
+        "title": "Pridať heslo",
+        "description": "Zabezpečte PDF dokument heslom",
+        "password": "Heslo",
+        "confirmPassword": "Potvrďte heslo",
+        "protectAndDownload": "Zabezpečiť & Stiahnuť",
+        "dragDrop": "Pretiahnite PDF súbor sem alebo kliknite pre výber",
+        "chooseFile": "Vybrať súbor",
+        "instructions": "Nahranému PDF bude pridaná ochrana heslom.",
+        "placeholders": {
+          "password": "Zadajte heslo pre ochranu PDF"
+        },
+        "outputFilename": "Názov výstupného súboru"
+      },
+      "removePassword": {
+        "title": "Odstrániť heslo",
+        "description": "Odstráňte heslo z PDF dokumentu",
+        "currentPassword": "Aktuálne heslo",
+        "unlockAndDownload": "Odomknúť & Stiahnuť",
+        "dragDrop": "Pretiahnite PDF súbor sem alebo kliknite pre výber",
+        "chooseFile": "Vybrať súbor",
+        "placeholders": {
+          "password": "Zadajte heslo"
+        },
+        "instructions": "Z nahraného PDF bude odstránená ochrana heslom.",
+        "outputFilename": "Názov výstupného súboru"
+      },
+      "toImages": {
+        "title": "PDF na obrázky",
+        "description": "Konvertujte každú stranu PDF na PNG obrázky",
+        "dpi": "DPI (rozlíšenie)",
+        "convertAndDownload": "Konvertovať & Stiahnuť",
+        "dragDrop": "Pretiahnite PDF súbor sem alebo kliknite pre výber",
+        "chooseFile": "Vybrať súbor",
+        "instructions": "Každá strana vášho PDF bude prekonvertovaná na PNG obrázok a stiahnutá ako ZIP súbor."
+      },
+      "rotatePages": {
+        "title": "Otočiť strany",
+        "description": "Otočte špecifické strany vo vašom PDF dokumente",
+        "pages": "Strany (oddelené čiarkou)",
+        "degrees": "Stupne otočenia",
+        "rotateAndDownload": "Otočiť & Stiahnuť",
+        "instructions": "Zadajte čísla strán (napr. 1,3,5) a uhol otočenia (90, 180, 270)",
+        "outputFilename": "Názov výstupného súboru",
+        "dragDrop": "Pretiahnite PDF súbor sem alebo kliknite pre výber",
+        "chooseFile": "Vybrať súbor"
+      },
+      "addWatermark": {
+        "title": "Pridať vodoznak",
+        "description": "Pridajte textový vodoznak na každú stranu PDF",
+        "text": "Text vodoznaku",
+        "opacity": "Priehľadnosť (0-1)",
+        "fontSize": "Veľkosť písma",
+        "color": "Farba (Hex)",
+        "rotation": "Uhol otočenia",
+        "addAndDownload": "Pridať vodoznak & Stiahnuť",
+        "placeholders": {
+          "text": "Zadajte text vodoznaku",
+          "opacity": "0.5",
+          "fontSize": "48",
+          "color": "#000000",
+          "rotation": "45"
+        },
+        "instructions": "Vodoznak bude pridaný na každú stranu PDF.",
+        "outputFilename": "Názov výstupného súboru",
+        "dragDrop": "Pretiahnite PDF súbor sem alebo kliknite pre výber",
+        "chooseFile": "Vybrať súbor"
+      }
+    },
+    "common": {
+      "step1": "1. Vyberte PDF súbor",
+      "step2": "2. Nastavenie rozdelenia",
+      "noFile": "Nie je vybraný žiadny súbor",
+      "dragDrop": "Pretiahnite PDF súbor sem alebo kliknite pre výber",
+      "chooseFile": "Vybrať súbor",
+      "processing": "Spracúvam...",
+      "download": "Stiahnuť",
+      "downloadAll": "Stiahnuť všetko",
+      "downloadZip": "Stiahnuť ZIP",
+      "downloadPdf": "Stiahnuť PDF",
+      "remove": "Odstrániť",
+      "errors": {
+        "uploadFirst": "Najprv nahrajte PDF súbor",
+        "processingFailed": "Spracovanie zlyhalo. Skúste to znova.",
+        "unexpected": "Nastala neočakávaná chyba. Skúste to znova."
+      }
+    },
+    "merge": {
+      "title": "Spájanie PDF",
+      "description": "Spojte 2 PDF súbory do jedného dokumentu"
+    },
+    "tools": {
+      "extractPages": {
+        "title": "Extrahovať strany",
+        "description": "Extrahujte vybrané strany z PDF dokumentu",
+        "summary": "Strany {{startPage}} až {{endPage}} budú extrahované z PDF do nového dokumentu.",
+        "outputFilename": "Názov výstupného súboru",
+        "outputFilenamePlaceholder": "extrahovane.pdf",
+        "endPagePlaceholder": "napr. 5"
+      },
+      "removePage": {
+        "title": "Odstrániť stranu",
+        "description": "Odstráňte konkrétnu stranu z vášho PDF dokumentu",
+        "pageNumber": "Strana na odstránenie",
+        "outputFilename": "Názov výstupného súboru (voliteľné)",
+        "outputFilenamePlaceholder": "upravene.pdf",
+        "summary": "Strana {{page}} bude odstránená z PDF.",
+        "removeAndDownload": "Odstrániť stranu & Stiahnuť"
+      }
+    }
+  },
+  "dashboard": {
+    "title": "PDF Nástroje",
+    "description": "Vyberte si nástroj na úpravu vašich PDF dokumentov",
+    "welcome": "Vitajte späť"
+  },
+  "auth": {
+    "login": {
+      "title": "Prihlásenie",
+      "description": "Zadajte svoje prihlasovacie údaje",
+      "email": "Email",
+      "password": "Heslo",
+      "submit": "Prihlásiť sa",
+      "loggingIn": "Prihlasujem...",
+      "noAccount": "Nemáte účet?",
+      "register": "Registrovať sa",
+      "placeholders": {
+        "email": "Zadajte svoj email",
+        "password": "Zadajte svoje heslo"
+      },
+      "errors": {
+        "credentials": "Zadajte email aj heslo",
+        "invalid": "Nesprávny email alebo heslo",
+        "failed": "Prihlásenie zlyhalo. Skúste to znova."
+      }
+    },
+    "register": {
+      "title": "Registrácia",
+      "description": "Vytvorte si nový účet",
+      "firstName": "Meno",
+      "lastName": "Priezvisko",
+      "email": "Email",
+      "password": "Heslo",
+      "confirmPassword": "Potvrďte heslo",
+      "submit": "Registrovať sa",
+      "haveAccount": "Už máte účet?",
+      "login": "Prihláste sa",
+      "creating": "Vytvára sa účet...",
+      "errors": {
+        "firstNameRequired": "Meno je povinné",
+        "lastNameRequired": "Priezvisko je povinné",
+        "emailRequired": "Email je povinný",
+        "emailInvalid": "Zadajte platný email",
+        "passwordRequired": "Heslo je povinné",
+        "passwordLength": "Heslo musí mať aspoň 8 znakov",
+        "passwordsMatch": "Heslá sa nezhodujú",
+        "registrationFailed": "Registrácia zlyhala. Skúste to znova."
+      }
+    }
+  },
+  "errors": {
+      "uploadFirst": "Najprv nahrajte PDF súbor",
+      "unexpected": "Nastala neočakávaná chyba. Skúste to znova.",
+      "toImagesFailed": "Chyba pri konverzii PDF na obrázky. Skúste to znova.",
+      "rotatePagesFailed": "Chyba pri otáčaní strán. Skúste to znova.",
+      "reorderPagesFailed": "Chyba pri zmene poradia strán. Skúste to znova.",
+      "removePasswordFailed": "Chyba pri odstraňovaní hesla. Skúste to znova.",
+      "removePageFailed": "Chyba pri odstraňovaní strany. Skúste to znova.",
+      "extractPagesFailed": "Chyba pri extrakcii strán. Skúste to znova.",
+      "addWatermarkFailed": "Chyba pri pridávaní vodoznaku. Skúste to znova.",
+      "addPasswordFailed": "Chyba pri pridávaní hesla. Skúste to znova."
+    },
+  "guide": {
+    "title": "Používateľská príručka",
+    "exportPdf": "Exportovať ako PDF",
+    "overview": {
+      "title": "O aplikácii PDFMaster",
+      "description": "PDFMaster je komplexný nástroj pre prácu s PDF súbormi. Aplikácia poskytuje množstvo funkcií pre manipuláciu s PDF dokumentami, od jednoduchého spájania a rozdeľovania súborov až po pokročilé úpravy ako pridanie vodoznaku či ochrana heslom.",
+      "features": {
+        "title": "Dostupné funkcie",
+        "list": [
+          "Spájanie viacerých PDF súborov do jedného dokumentu",
+          "Rozdelenie PDF na dve časti na zvolenej strane",
+          "Odstránenie vybraných strán z dokumentu",
+          "Extrahovanie rozsahu strán do nového dokumentu",
+          "Zmena poradia strán v dokumente",
+          "Pridanie alebo odstránenie hesla",
+          "Konverzia strán PDF na obrázky",
+          "Pridanie vodoznaku na strany dokumentu",
+          "Otáčanie vybraných strán dokumentu"
+        ]
+      }
+    },
+    "api": {
+      "title": "API Dokumentácia",
+      "auth": {
+        "title": "Autentifikácia",
+        "description": "Všetky API endpointy vyžadujú JWT token v hlavičke požiadavky",
+        "example": "Authorization: Bearer váš_jwt_token"
+      },
+      "endpoints": {
+        "title": "Dostupné endpointy",
+        "base": "Základná URL",
+        "merge": {
+          "title": "Spojenie PDF súborov",
+          "url": "POST /pdf/merge",
+          "description": "Spojí viacero PDF súborov do jedného dokumentu",
+          "request": "Content-Type: multipart/form-data\n\nPDF súbory: files[]\nNázov výstupného súboru: outputName (voliteľné)",
+          "response": "Content-Type: application/pdf\nVýsledný spojený PDF súbor"
+        },
+        "split": {
+          "title": "Rozdelenie PDF",
+          "url": "POST /pdf/split",
+          "description": "Rozdelí PDF dokument na dve časti",
+          "request": "Content-Type: multipart/form-data\n\nPDF súbor: pdf\nČíslo strany: splitAtPage\nNázov prvej časti: firstOutputName (voliteľné)\nNázov druhej časti: secondOutputName (voliteľné)",
+          "response": "Content-Type: application/zip\nArchív obsahujúci dve časti PDF"
+        },
+        "removePage": {
+          "title": "Odstránenie strany",
+          "url": "POST /pdf/remove-page",
+          "description": "Odstráni konkrétnu stranu z PDF dokumentu",
+          "request": "Content-Type: multipart/form-data\n\nPDF súbor: pdf\nČíslo strany: pageToRemove\nNázov výstupného súboru: outputName (voliteľné)",
+          "response": "Content-Type: application/pdf\nVýsledný PDF súbor bez odstránenej strany"
+        },
+        "extractPages": {
+          "title": "Extrahovanie strán",
+          "url": "POST /pdf/extract",
+          "description": "Extrahuje vybrané strany z PDF dokumentu",
+          "request": "Content-Type: multipart/form-data\n\nPDF súbor: pdf\nPočiatočná strana: startPage\nKoncová strana: endPage\nNázov výstupného súboru: outputName (voliteľné)",
+          "response": "Content-Type: application/pdf\nVýsledný PDF súbor s extrahovanými stranami"
+        },
+        "reorderPages": {
+          "title": "Zmena poradia strán",
+          "url": "POST /pdf/reorder",
+          "description": "Zmení poradie strán v PDF dokumente",
+          "request": "Content-Type: multipart/form-data\n\nPDF súbor: pdf\nPoradie strán: pageOrder (čísla strán oddelené čiarkou)\nNázov výstupného súboru: outputName (voliteľné)",
+          "response": "Content-Type: application/pdf\nPDF súbor so zmeneným poradím strán"
+        },
+        "addPassword": {
+          "title": "Pridanie hesla",
+          "url": "POST /pdf/add-password",
+          "description": "Pridá heslo do PDF dokumentu",
+          "request": "Content-Type: multipart/form-data\n\nPDF súbor: pdf\nHeslo: password\nNázov výstupného súboru: outputName (voliteľné)",
+          "response": "Content-Type: application/pdf\nZabezpečený PDF súbor"
+        },
+        "removePassword": {
+          "title": "Odstránenie hesla",
+          "url": "POST /pdf/remove-password",
+          "description": "Odstráni heslo z PDF dokumentu",
+          "request": "Content-Type: multipart/form-data\n\nPDF súbor: pdf\nAktuálne heslo: password\nNázov výstupného súboru: outputName (voliteľné)",
+          "response": "Content-Type: application/pdf\nOdomknutý PDF súbor"
+        },
+        "addWatermark": {
+          "title": "Pridanie vodoznaku",
+          "url": "POST /pdf/add-watermark",
+          "description": "Pridá vodoznak do PDF dokumentu",
+          "request": "Content-Type: multipart/form-data\n\nPDF súbor: pdf\nText vodoznaku: text\nPriehľadnosť: opacity (0-1)\nVeľkosť písma: fontSize\nFarba: color (hex)\nUhol otočenia: rotation\nNázov výstupného súboru: outputName (voliteľné)",
+          "response": "Content-Type: application/pdf\nPDF súbor s vodoznakom"
+        },
+        "toImages": {
+          "title": "Konverzia na obrázky",
+          "url": "POST /pdf/to-images",
+          "description": "Konvertuje strany PDF na PNG obrázky",
+          "request": "Content-Type: multipart/form-data\n\nPDF súbor: pdf\nRozlíšenie: dpi (voliteľné)",
+          "response": "Content-Type: application/zip\nArchív obsahujúci PNG obrázky"
+        },
+        "rotatePages": {
+          "title": "Otočenie strán",
+          "url": "POST /pdf/rotate",
+          "description": "Otočí vybrané strany v PDF dokumente",
+          "request": "Content-Type: multipart/form-data\n\nPDF súbor: pdf\nStrany: pages[]\nUhly: degrees[]\nNázov výstupného súboru: outputName (voliteľné)",
+          "response": "Content-Type: application/pdf\nPDF s otočenými stranami"
+        }
+      },
+      "common": {
+        "request": "Požiadavka",
+        "response": "Odpoveď"
+      }
+    },
+    "features": {
+      "title": "Návod na použitie",
+      "howTo": "Ako používať aplikáciu",
+      "general": {
+        "title": "Všeobecný postup",
+        "steps": [
+          "Vyberte si nástroj z menu PDF nástrojov",
+          "Nahrajte PDF súbor/y pomocou drag & drop alebo výberom súboru",
+          "Nastavte požadované parametre pre zvolený nástroj",
+          "Kliknite na tlačidlo akcie (napr. 'Spojiť & Stiahnuť')",
+          "Stiahnite si upravený PDF súbor"
+        ]
+      }
+    }
+  }
+}

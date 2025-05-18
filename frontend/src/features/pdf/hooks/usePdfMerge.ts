@@ -2,14 +2,16 @@ import { useState } from "react";
 import api from "@/api/axios";
 import type { MergeFormValues } from "../types/pdf";
 import { isAxiosError } from "axios";
+import { useTranslation } from "react-i18next";
 
 export function usePdfMerge() {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const mergePdf = async (values: MergeFormValues, files: File[]) => {
     if (files.length < 2) {
-      setError("Please upload at least two PDF files");
+      setError(t('pdf.merge.errors.needTwoFiles'));
       return;
     }
 
@@ -19,11 +21,11 @@ export function usePdfMerge() {
     try {
       // Create form data with files and form values
       const formData = new FormData();
-      formData.append("firstPdf", files[0]);
-      formData.append("secondPdf", files[1]);
+      formData.append("first_pdf", files[0]);
+      formData.append("second_pdf", files[1]);
       
       if (values.outputName) {
-        formData.append("outputName", values.outputName);
+        formData.append("output_name", values.outputName);
       }
 
       // Send request to merge the PDFs
@@ -39,9 +41,9 @@ export function usePdfMerge() {
       
     } catch (err) {
       if (isAxiosError(err)) {
-        setError(err.response?.data || "Error merging PDFs. Please try again.");
+        setError(err.response?.data || t('pdf.merge.errors.mergeFailed'));
       } else {
-        setError("An unexpected error occurred. Please try again.");
+        setError(t('pdf.common.errors.unexpected'));
       }
     } finally {
       setIsLoading(false);

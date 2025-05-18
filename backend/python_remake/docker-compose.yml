@@ -29,7 +29,7 @@ services:
     image: postgres:16
     container_name: pdf-postgres-python
     ports:
-      - "5433:5432"  # Changed to 5433 to avoid conflict with Java version
+      - "5432:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres

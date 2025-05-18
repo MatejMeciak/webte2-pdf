@@ -2,14 +2,16 @@ import { useState } from "react";
 import api from "@/api/axios";
 import type { PdfToImagesFormValues } from "../types/pdf";
 import { isAxiosError } from "axios";
+import { useTranslation } from "react-i18next";
 
 export function usePdfToImages() {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const convertPdfToImages = async (values: PdfToImagesFormValues, file: File) => {
     if (!file) {
-      setError("Please upload a PDF file first");
+      setError(t('errors.uploadFirst'));
       return;
     }
 
@@ -53,20 +55,9 @@ export function usePdfToImages() {
       
     } catch (err) {
       if (isAxiosError(err)) {
-        let errorMsg = "Error converting PDF to images. Please try again.";
-        if (err.response?.data instanceof Blob) {
-          try {
-            const text = await err.response.data.text();
-            errorMsg = text || errorMsg;
-          } catch {
-            // fallback to default
-          }
-        } else if (typeof err.response?.data === "string") {
-          errorMsg = err.response.data;
-        }
-        setError(errorMsg);
+        setError(t('errors.toImagesFailed'));
       } else {
-        setError("An unexpected error occurred. Please try again.");
+        setError(t('errors.unexpected'));
       }
     } finally {
       setIsLoading(false);
@@ -99,4 +90,4 @@ function handleFileDownload(response: any) {
   link.click();
   link.remove();
   window.URL.revokeObjectURL(url);
-} 
+}

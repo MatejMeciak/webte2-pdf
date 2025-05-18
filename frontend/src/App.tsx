@@ -17,30 +17,32 @@ import PdfToImagesPage from "./features/pdf/pages/PdfToImagesPage";
 import PdfAddWatermarkPage from "./features/pdf/pages/PdfAddWatermarkPage";
 import PdfRotatePagesPage from "./features/pdf/pages/PdfRotatePagesPage";
 import AdminHistoryPage from "./features/history/pages/AdminHistoryPage";
+import UserGuidePage from "./features/guide/pages/UserGuidePage";
 
 function App() {
   return (
     <AuthProvider>
       <Routes>
         <Route path="/" element={<Layout />}>
+          {/* Public routes */}
+          <Route path="guide" element={<UserGuidePage />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="register" element={<RegisterPage />} />
+
+          {/* Protected routes */}
           <Route element={<ProtectedRoute />}>
             <Route index element={<DashboardPage />} />
             <Route path="merge" element={<PdfMergePage />} />
             <Route path="split" element={<PdfSplitPage />} />
-            <Route path="remove" element={<PdfRemovePage />} />
-            <Route path="extract" element={<PdfExtractPage />} />
-            <Route path="reorder" element={<PdfReorderPage />} />
+            <Route path="remove-page" element={<PdfRemovePage />} />
+            <Route path="extract-pages" element={<PdfExtractPage />} />
+            <Route path="reorder-pages" element={<PdfReorderPage />} />
             <Route path="add-password" element={<PdfAddPasswordPage />} />
             <Route path="remove-password" element={<PdfRemovePasswordPage />} />
             <Route path="to-images" element={<PdfToImagesPage />} />
             <Route path="add-watermark" element={<PdfAddWatermarkPage />} />
-            <Route path="rotate" element={<PdfRotatePagesPage />} />
+            <Route path="rotate-pages" element={<PdfRotatePagesPage />} />
             <Route path="admin/history" element={<AdminHistoryPage />} />
-          </Route>
-          
-          <Route element={<RedirectIfAuthenticated />}>
-            <Route path="login" element={<LoginPage />} />
-            <Route path="register" element={<RegisterPage />} />
           </Route>
         </Route>
       </Routes>

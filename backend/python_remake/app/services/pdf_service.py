@@ -463,7 +463,8 @@ class PdfService:
                     point=(x, y),
                     text=request.watermark_text,
                     fontsize=40,
-                    color=(0.5, 0.5, 0.5)  # Gray color
+                    color=(0.5, 0.5, 0.5),  # Gray color
+                    fill_opacity=0.3,       # 30% opacity for transparency
                     )
             
             # Save the document to a BytesIO buffer

@@ -2,14 +2,16 @@ import { useState } from "react";
 import api from "@/api/axios";
 import type { RemovePasswordFormValues } from "../types/pdf";
 import { isAxiosError } from "axios";
+import { useTranslation } from "react-i18next";
 
 export function usePdfRemovePassword() {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const removePasswordFromPdf = async (values: RemovePasswordFormValues, file: File) => {
     if (!file) {
-      setError("Please upload a PDF file first");
+      setError(t('errors.uploadFirst'));
       return;
     }
 
@@ -22,7 +24,7 @@ export function usePdfRemovePassword() {
       formData.append("pdf", file);
       formData.append("password", values.password);
       if (values.outputName) {
-        formData.append("outputName", values.outputName);
+        formData.append("output_name", values.outputName);
       }
 
       // Send request to remove password from the PDF
@@ -54,9 +56,9 @@ export function usePdfRemovePassword() {
       
     } catch (err) {
       if (isAxiosError(err)) {
-        setError(err.response?.data || "Error removing password from PDF. Please try again.");
+        setError(t('errors.removePasswordFailed'));
       } else {
-        setError("An unexpected error occurred. Please try again.");
+        setError(t('errors.unexpected'));
       }
     } finally {
       setIsLoading(false);
@@ -89,4 +91,4 @@ function handleFileDownload(response: any) {
   link.click();
   link.remove();
   window.URL.revokeObjectURL(url);
-} 
+}
