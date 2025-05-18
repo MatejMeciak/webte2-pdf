@@ -22,7 +22,11 @@
     "step1": "1. Vyberte PDF súbor",
     "multiStep1": "1. Vyberte PDF súbory",
     "step2": "2. Nastavenia",
-    "outputName": "Názov výstupného súboru"
+    "outputName": "Názov výstupného súboru",
+    "refresh": "Obnoviť",
+    "delete": "Odstrániť",
+    "deleteAll": "Odstrániť všetko",
+    "cancel": "Zrušiť"
   },
   "pdf": {
     "merge": {
@@ -301,6 +305,33 @@
           "Stiahnite si upravený PDF súbor"
         ]
       }
+    }
+  },
+  "admin": {
+    "history": {
+      "title": "História operácií",
+      "description": "Zobrazte a spravujte históriu operácií vykonaných v aplikácii",
+      "operations": "História operácií",
+      "operation": "Operácia",
+      "source": "Zdroj",
+      "details": "Detaily",
+      "user": "Používateľ",
+      "location": "Lokalita",
+      "timestamp": "Časová značka",
+      "unknownLocation": "Neznáma lokalita",
+      "noRecords": "Neboli nájdené žiadne záznamy histórie",
+      "deleteEntryTitle": "Odstrániť záznam histórie",
+      "deleteEntryDescription": "Naozaj chcete odstrániť tento záznam histórie? Túto akciu nemožno vrátiť späť.",
+      "deleteAllTitle": "Odstrániť celú históriu",
+      "deleteAllDescription": "Naozaj chcete odstrániť všetky záznamy histórie? Túto akciu nemožno vrátiť späť.",
+      "export": "Exportovať CSV",
+      "exportSuccess": "História bola úspešne exportovaná",
+      "exportError": "Nepodarilo sa exportovať históriu",
+      "entryDeleted": "Záznam histórie bol odstránený",
+      "deleteError": "Nepodarilo sa odstrániť záznam histórie",
+      "allEntriesDeleted": "Všetky záznamy histórie boli odstránené",
+      "deleteAllError": "Nepodarilo sa odstrániť záznamy histórie",
+      "fetchError": "Nepodarilo sa načítať údaje histórie"
     }
   }
 }
