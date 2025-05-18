@@ -49,6 +49,25 @@
       "pageToRemove": "Page to remove",
       "explanation": " Page {{page}} will be removed from the PDF.",
       "enterPageNumber": "Enter page number"
+    },
+    "extract": {
+      "title": "Extract Pages",
+      "description": "Extract specific pages from your PDF document into a new file",
+      "action": "Extract",
+      "startPage": "Start page",
+      "endPage": "End page",
+      "explanation": "Pages {{start}} to {{end}} will be extracted from the PDF into a new document.",
+      "enterStartPage": "Enter start page",
+      "enterEndPage": "Enter end page"
+    },
+    "reorder": {
+      "title": "PDF Page Reorder",
+      "description": "Rearrange the order of pages in your PDF document",
+      "action": "Reorder Pages",
+      "pageOrder": "Page Order",
+      "pageOrderPlaceholder": "e.g., 2,1,4,3",
+      "outputPlaceholder": "reordered.pdf",
+      "explanation": "Enter the page numbers in the order you want them to appear in the output PDF. For example, 2,1,4,3 will reorder a 4-page document so that the second page becomes first, the first page becomes second, and so on."
     }
   },
   "dashboard": {
@@ -100,16 +119,11 @@
   "errors": {
     "uploadFirst": "Please upload a PDF file first",
     "unexpected": "An unexpected error occurred. Please try again.",
-    "toImagesFailed": "Error converting PDF to images. Please try again.",
-    "rotatePagesFailed": "Error rotating PDF pages. Please try again.",
-    "reorderPagesFailed": "Error reordering PDF pages. Please try again.",
-    "removePasswordFailed": "Error removing password from PDF. Please try again.",
-    "extractPagesFailed": "Error extracting pages from PDF. Please try again.",
-    "addWatermarkFailed": "Error adding watermark to PDF. Please try again.",
-    "addPasswordFailed": "Error adding password to PDF. Please try again.",
     "mergeFailed": "Error merging PDF files. Please check your PDF files or settings.",
     "splitFailed": "Error splitting PDF file. Please check your PDF file or settings.",
-    "removeFailed": "Error removing page from PDF. Please check your PDF file or settings."
+    "removeFailed": "Error removing page from PDF. Please check your PDF file or settings.",
+    "extractPagesFailed": "Error extracting pages from PDF. Please check your PDF file or settings.",
+    "reorderPagesFailed": "Error reordering PDF pages. Please check your PDF file or settings."
   },
   "guide": {
     "title": "User Guide",

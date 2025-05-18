@@ -1,15 +1,16 @@
 import { useState } from "react";
 import api from "@/api/axios";
 import type { ExtractPagesFormValues } from "../types/pdf";
-import { isAxiosError } from "axios";
+import { useTranslation } from "react-i18next";
 
 export function usePdfExtract() {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const extractPagesFromPdf = async (values: ExtractPagesFormValues, file: File) => {
     if (!file) {
-      setError("Please upload a PDF file first");
+      setError(t("errors.uploadFirst"));
       return;
     }
 
@@ -33,17 +34,21 @@ export function usePdfExtract() {
         headers: {
           "Content-Type": "multipart/form-data"
         },
+        validateStatus: () => true,
       });
+      
+      // Check for error status
+      if (response.status >= 400) {
+        setError(t("errors.extractPagesFailed"));
+        return;
+      }
 
       // Handle the download
       handleFileDownload(response);
       
     } catch (err) {
-      if (isAxiosError(err)) {
-        setError(err.response?.data || "Error extracting pages from PDF. Please try again.");
-      } else {
-        setError("An unexpected error occurred. Please try again.");
-      }
+      setError(t("errors.unexpected"));
+      console.error("Error extracting pages:", err);
     } finally {
       setIsLoading(false);
     }

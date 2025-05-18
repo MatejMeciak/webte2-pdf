@@ -1,15 +1,16 @@
 import { useState } from "react";
 import api from "@/api/axios";
 import type { ReorderPagesFormValues } from "../types/pdf";
-import { isAxiosError } from "axios";
+import { useTranslation } from "react-i18next";
 
 export function usePdfReorder() {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const reorderPdfPages = async (values: ReorderPagesFormValues, file: File) => {
     if (!file) {
-      setError("Please upload a PDF file first");
+      setError(t("errors.uploadFirst"));
       return;
     }
 
@@ -39,17 +40,21 @@ export function usePdfReorder() {
         headers: {
           "Content-Type": "multipart/form-data",
         },
+        validateStatus: () => true,
       });
+
+      // Check for error status
+      if (response.status >= 400) {
+        setError(t("errors.reorderFailed"));
+        return;
+      }
 
       // Handle the download
       handleFileDownload(response);
       
     } catch (err) {
-      if (isAxiosError(err)) {
-        setError(err.response?.data || "Error reordering PDF pages. Please try again.");
-      } else {
-        setError("An unexpected error occurred. Please try again.");
-      }
+      setError(t("errors.unexpected"));
+      console.error("Error reordering PDF pages:", err);
     } finally {
       setIsLoading(false);
     }

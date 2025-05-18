@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { type ExtractPagesFormValues, extractPagesFormSchema } from "../types/pdf";
-import { Scissors } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 interface ExtractPagesConfigFormProps {
@@ -16,6 +16,7 @@ interface ExtractPagesConfigFormProps {
 
 export function ExtractPagesConfigForm({ onSubmit, file, isLoading, error }: ExtractPagesConfigFormProps) {
   const { t } = useTranslation();
+  
   const form = useForm<ExtractPagesFormValues>({
     resolver: zodResolver(extractPagesFormSchema),
     defaultValues: {
@@ -45,11 +46,11 @@ export function ExtractPagesConfigForm({ onSubmit, file, isLoading, error }: Ext
               name="startPage"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t('pdf.features.extractPages.startPage')}</FormLabel>
+                  <FormLabel>{t("pdf.extract.startPage")}</FormLabel>
                   <FormControl>
                     <Input
                       type="number"
-                      placeholder="1"
+                      placeholder={t("pdf.extract.enterStartPage")}
                       min={1}
                       {...field}
                     />
@@ -64,11 +65,11 @@ export function ExtractPagesConfigForm({ onSubmit, file, isLoading, error }: Ext
               name="endPage"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t('pdf.features.extractPages.endPage')}</FormLabel>
+                  <FormLabel>{t("pdf.extract.endPage")}</FormLabel>
                   <FormControl>
                     <Input
                       type="number"
-                      placeholder={t('pdf.features.extractPages.endPagePlaceholder')}
+                      placeholder={t("pdf.extract.enterEndPage")}
                       min={form.watch("startPage")}
                       {...field}
                     />
@@ -84,10 +85,10 @@ export function ExtractPagesConfigForm({ onSubmit, file, isLoading, error }: Ext
             name="outputName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t('pdf.tools.extractPages.outputFilename')}</FormLabel>
+                <FormLabel>{t("common.outputName")}</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder={t('pdf.tools.extractPages.outputFilenamePlaceholder')}
+                    placeholder="extracted.pdf"
                     {...field}
                   />
                 </FormControl>
@@ -100,11 +101,10 @@ export function ExtractPagesConfigForm({ onSubmit, file, isLoading, error }: Ext
         <div className="flex flex-col space-y-4">
           <div className="flex items-center justify-center py-4 px-3 rounded-md bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 text-sm">
             <div className="flex items-center">
-              <Scissors className="h-5 w-5 mr-2" />
               <p>
-                {t('pdf.features.extractPages.summary', {
-                  startPage: form.watch("startPage"),
-                  endPage: form.watch("endPage")
+                {t("pdf.extract.explanation", {
+                  start: form.watch("startPage"),
+                  end: form.watch("endPage")
                 })}
               </p>
             </div>
@@ -121,7 +121,16 @@ export function ExtractPagesConfigForm({ onSubmit, file, isLoading, error }: Ext
             disabled={!canSubmit || isLoading}
             className="w-full"
           >
-            {isLoading ? t('common.processing') : t('pdf.features.extractPages.extractAndDownload')}
+            {isLoading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                {t("common.processing")}
+              </>
+            ) : (
+              <>
+                {t("pdf.extract.action")}
+              </>
+            )}
           </Button>
         </div>
       </form>

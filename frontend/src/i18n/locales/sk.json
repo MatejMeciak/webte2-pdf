@@ -49,6 +49,25 @@
       "pageToRemove": "Číslo strany na odstránenie",
       "explanation": "Strana {{page}} bude odstránená z PDF dokumentu.",
       "enterPageNumber": "Zadajte číslo strany"
+    },
+    "extract": {
+      "title": "Extrahovať strany",
+      "description": "Extrahujte vybrané strany z vášho PDF dokumentu do nového súboru",
+      "action": "Extrahovať",
+      "startPage": "Počiatočná strana",
+      "endPage": "Koncová strana",
+      "explanation": "Strany {{start}} až {{end}} budú extrahované z PDF do nového dokumentu.",
+      "enterStartPage": "Zadajte počiatočnú stranu",
+      "enterEndPage": "Zadajte koncovú stranu"
+    },
+    "reorder": {
+      "title": "Zmena poradia strán PDF",
+      "description": "Zmeňte poradie strán vo vašom PDF dokumente",
+      "action": "Zmeniť poradie strán",
+      "pageOrder": "Poradie strán",
+      "pageOrderPlaceholder": "napr., 2,1,4,3",
+      "outputPlaceholder": "preuporiadane.pdf",
+      "explanation": "Zadajte čísla strán v poradí, v akom ich chcete mať vo výstupnom PDF. Napríklad, 2,1,4,3 zmení poradie 4-stranového dokumentu tak, že druhá strana bude prvá, prvá strana bude druhá, atď."
     }
   },
   "dashboard": {
@@ -101,12 +120,14 @@
     }
   },
   "errors": {
-      "uploadFirst": "Najprv nahrajte PDF súbor",
-      "unexpected": "Nastala neočakávaná chyba. Skúste to znova.",
-      "mergeFailed": "Chyba pri spájaní PDF súborov. Skontrolujte vaše PDF súbory alebo nastavenia.",
-      "splitFailed": "Chyba pri rozdeľovaní PDF súboru. Skontrolujte vaše PDF súbory alebo nastavenia.",
-      "removeFailed": "Chyba pri odstraňovaní strany. Skontrolujte vaše PDF súbory alebo nastavenia."
-    },
+    "uploadFirst": "Najprv nahrajte PDF súbor",
+    "unexpected": "Nastala neočakávaná chyba. Skúste to znova.",
+    "mergeFailed": "Chyba pri spájaní PDF súborov. Skontrolujte vaše PDF súbory alebo nastavenia.",
+    "splitFailed": "Chyba pri rozdeľovaní PDF súboru. Skontrolujte vaše PDF súbory alebo nastavenia.",
+    "removeFailed": "Chyba pri odstraňovaní strany. Skontrolujte vaše PDF súbory alebo nastavenia.",
+    "extractPagesFailed": "Chyba pri extrahovaní strán. Skontrolujte vaše PDF súbory alebo nastavenia.",
+    "reorderPagesFailed": "Chyba pri zmene poradia strán. Skontrolujte vaše PDF súbory alebo nastavenia."
+  },
   "guide": {
     "title": "Používateľská príručka",
     "exportPdf": "Exportovať ako PDF",

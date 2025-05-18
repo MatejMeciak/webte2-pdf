@@ -1,13 +1,12 @@
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { type ReorderPagesFormValues, reorderPagesFormSchema } from "../types/pdf";
-import { LayoutList } from "lucide-react";
+import { Loader2, LayoutList, AlertCircle } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { AlertCircle } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { useForm } from "react-hook-form";
 
 interface ReorderPagesConfigFormProps {
   onSubmit: (values: ReorderPagesFormValues, file: File) => void;
@@ -18,6 +17,7 @@ interface ReorderPagesConfigFormProps {
 
 export function ReorderPagesConfigForm({ onSubmit, file, isLoading, error }: ReorderPagesConfigFormProps) {
   const { t } = useTranslation();
+  
   const form = useForm<ReorderPagesFormValues>({
     resolver: zodResolver(reorderPagesFormSchema),
     defaultValues: {
@@ -41,10 +41,10 @@ export function ReorderPagesConfigForm({ onSubmit, file, isLoading, error }: Reo
             name="pageOrder"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t('pdf.features.reorderPages.pageOrder')}</FormLabel>
+                <FormLabel>{t("pdf.reorder.pageOrder")}</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder={t('pdf.features.reorderPages.placeholders.pageOrder')}
+                    placeholder={t("pdf.reorder.pageOrderPlaceholder")}
                     {...field}
                   />
                 </FormControl>
@@ -58,10 +58,10 @@ export function ReorderPagesConfigForm({ onSubmit, file, isLoading, error }: Reo
             name="outputName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t('pdf.features.reorderPages.outputFilename')}</FormLabel>
+                <FormLabel>{t("common.outputName")}</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="reordered.pdf"
+                    placeholder={t("pdf.reorder.outputPlaceholder")}
                     {...field}
                   />
                 </FormControl>
@@ -75,7 +75,7 @@ export function ReorderPagesConfigForm({ onSubmit, file, isLoading, error }: Reo
           <Alert className="bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-800">
             <LayoutList className="h-5 w-5 mr-2" />
             <AlertDescription>
-              <p>{t('pdf.features.reorderPages.instructions')}</p>
+              <p>{t("pdf.reorder.explanation")}</p>
             </AlertDescription>
           </Alert>
 
@@ -88,12 +88,21 @@ export function ReorderPagesConfigForm({ onSubmit, file, isLoading, error }: Reo
             </Alert>
           )}
 
-          <Button
-            type="submit"
-            disabled={!file || isLoading}
+          <Button 
+            type="submit" 
+            disabled={isLoading || !file}
             className="w-full"
           >
-            {isLoading ? t('common.processing') : t('pdf.features.reorderPages.reorderAndDownload')}
+            {isLoading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                {t("common.processing")}
+              </>
+            ) : (
+              <>
+                {t("pdf.reorder.action")}
+              </>
+            )}
           </Button>
         </div>
       </form>
