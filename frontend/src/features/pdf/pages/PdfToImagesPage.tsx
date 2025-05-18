@@ -23,7 +23,7 @@ export default function PdfToImagesPage() {
           <h2 className="text-xl font-semibold mb-4">
             {t("pdf.common.step1")}
           </h2>
-          <PdfUploader file={file} setFile={setFile} feature="toImages" />
+          <PdfUploader file={file} setFile={setFile} />
         </Card>
 
         {/* PDF to Images configuration */}

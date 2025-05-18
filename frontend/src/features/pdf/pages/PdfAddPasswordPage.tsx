@@ -24,7 +24,7 @@ export default function PdfAddPasswordPage() {
           <h2 className="text-xl font-semibold mb-4">
             {t("pdf.common.step1")}
           </h2>
-          <PdfUploader file={file} setFile={setFile} feature="addPassword" />
+          <PdfUploader file={file} setFile={setFile} />
         </Card>
 
         {/* Add password configuration */}

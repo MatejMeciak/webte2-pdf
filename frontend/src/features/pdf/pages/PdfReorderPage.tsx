@@ -22,7 +22,7 @@ export default function PdfReorderPage() {
         {/* Upload section */}
         <Card className="p-6 shadow-sm col-span-1 lg:col-span-1">
           <h2 className="text-xl font-semibold mb-4">{t('pdf.features.reorderPages.step1')}</h2>
-          <PdfUploader file={file} setFile={setFile} feature="reorderPages" />
+          <PdfUploader file={file} setFile={setFile} />
         </Card>
 
         {/* Reorder configuration */}

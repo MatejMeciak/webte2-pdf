@@ -20,7 +20,7 @@ export default function PdfExtractPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <Card className="p-6 shadow-sm col-span-1">
           <h2 className="text-xl font-semibold mb-4">{t('pdf.common.step1')}</h2>
-          <PdfUploader file={file} setFile={setFile} feature="extractPages" />
+          <PdfUploader file={file} setFile={setFile} />
         </Card>
         <Card className="p-6 shadow-sm col-span-2">
           <h2 className="text-xl font-semibold mb-4">{t('pdf.common.step2')}</h2>

@@ -24,7 +24,7 @@ export default function PdfAddWatermarkPage() {
           <h2 className="text-xl font-semibold mb-4">
             {t("pdf.common.step1")}
           </h2>
-          <PdfUploader file={file} setFile={setFile} feature="addWatermark" />
+          <PdfUploader file={file} setFile={setFile} />
         </Card>
 
         {/* Add watermark configuration */}

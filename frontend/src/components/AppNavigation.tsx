@@ -8,7 +8,6 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
-import { pdfActions } from "@/features/pdf/data/pdfActions";
 import { LogOut, Menu, UserCircle, Book } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,6 +18,7 @@ import {
 import React from "react";
 import { useAuth } from "@/features/auth/context/AuthContext";
 import { useTranslation } from 'react-i18next';
+import { usePdfActions } from "@/features/pdf/data/pdfActions";
 
 const FlagSK = () => (
   <svg width="24" height="16" viewBox="0 0 32 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -58,9 +58,11 @@ const AppNavigation = () => {
   };
 
   const handleLogout = async () => {
-    await logout();
+    await logout(); 
     navigate('/login');
   };
+
+  const pdfActions = usePdfActions();
 
   return (
     <div className="border-b shadow-sm bg-white sticky top-0 z-50">

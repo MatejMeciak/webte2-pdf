@@ -15,7 +15,6 @@ export function MultiPdfUploader({
   maxFiles = 10 
 }: MultiPdfUploaderProps) {
   const { t } = useTranslation();
-
   // Handle file drop with react-dropzone
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
@@ -46,19 +45,21 @@ export function MultiPdfUploader({
         <input {...getInputProps()} />
         <FileType className="h-10 w-10 text-muted-foreground mb-2" />
         <p className="text-sm text-center text-muted-foreground">
-          {isDragActive 
-            ? t('common.dropFileHere') 
-            : t('pdf.features.merge.dragDrop')}
+            {isDragActive
+            ? t("common.dropFileHere")
+            : t("common.multiDragDropHere", { maxFiles })}
         </p>
         <Button variant="outline" size="sm" className="mt-4">
           <Upload className="h-4 w-4 mr-2" />
-          {t('pdf.features.merge.chooseFile')}
+          {t("common.multiChooseFiles")}
         </Button>
       </div>
       
       {files.length > 0 && (
         <div className="space-y-2">
-          <p className="text-sm font-medium">{t('pdf.features.merge.selectedFiles', { count: files.length })}</p>
+           <p className="text-sm font-medium">
+            {t("common.selectedFiles", { count: files.length })}
+            </p>
           {files.map((file, index) => (
             <div 
               key={`${file.name}-${index}`}
@@ -89,7 +90,7 @@ export function MultiPdfUploader({
                 onClick={() => setFiles([])}
                 className="mt-2"
               >
-                {t('pdf.common.removeAll')}
+                {t("common.removeAll")}
               </Button>
             </div>
           )}

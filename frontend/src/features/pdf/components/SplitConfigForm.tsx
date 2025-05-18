@@ -24,14 +24,13 @@ interface SplitConfigFormProps {
 
 export function SplitConfigForm({ onSubmit, file, isLoading, error }: SplitConfigFormProps) {
   const { t } = useTranslation();
-
   // Initialize form with default values and validation schema
   const form = useForm<SplitFormValues>({
     resolver: zodResolver(splitFormSchema),
     defaultValues: {
       splitAtPage: 1,
-      firstOutputName: t('pdf.features.split.placeholders.firstPart'),
-      secondOutputName: t('pdf.features.split.placeholders.secondPart'),
+      firstOutputName: "part1.pdf",
+      secondOutputName: "part2.pdf",
     },
   });
 
@@ -44,77 +43,80 @@ export function SplitConfigForm({ onSubmit, file, isLoading, error }: SplitConfi
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
-        <FormField
-          control={form.control}
-          name="splitAtPage"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('pdf.features.split.splitAtPage')}</FormLabel>
-              <FormControl>
-                <Input
-                  type="number"
-                  placeholder={t('pdf.features.split.placeholders.pageNumber')}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4">
           <FormField
             control={form.control}
-            name="firstOutputName"
+            name="splitAtPage"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t('pdf.features.split.firstPartFilename')}</FormLabel>
+                <FormLabel>{t("pdf.split.splitAtPage")}</FormLabel>
                 <FormControl>
-                  <Input 
-                    placeholder={t('pdf.features.split.placeholders.firstPart')} 
-                    {...field} 
+                  <Input
+                    type="number"
+                    placeholder={t("pdf.split.enterPageNumber")}
+                    {...field}
+                    min={1}
                   />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-
-          <FormField
-            control={form.control}
-            name="secondOutputName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t('pdf.features.split.secondPartFilename')}</FormLabel>
-                <FormControl>
-                  <Input 
-                    placeholder={t('pdf.features.split.placeholders.secondPart')} 
-                    {...field} 
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+            <div className="space-y-1.5">
+              <Label htmlFor="firstOutputName">{t("pdf.split.firstPartFilename")}</Label>
+              <Input
+                id="firstOutputName"
+                {...form.register("firstOutputName")}
+                placeholder={t("pdf.split.part1Placeholder")}
+              />
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="secondOutputName">{t("pdf.split.secondPartFilename")}</Label>
+              <Input
+                id="secondOutputName"
+                {...form.register("secondOutputName")}
+                placeholder={t("pdf.split.part2Placeholder")}
+              />
+            </div>
+          </div>
         </div>
 
-        {error && (
-          <div className="p-3 rounded-md bg-destructive/10 text-destructive text-sm">
-            {error}
+        <div className="flex flex-col space-y-4">
+          <div className="flex items-center justify-center py-4 px-3 rounded-md bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 text-sm">
+            <div className="flex items-center">
+              <ArrowRightLeft className="h-5 w-5 mr-2" />
+              <p>
+                {t("pdf.split.explanation", { page: form.watch("splitAtPage") })}
+              </p>
+            </div>
           </div>
-        )}
 
-        <Button
-          type="submit"
-          className="w-full"
-          disabled={!file || isLoading}
-        >
-          {isLoading ? (
-            <>{t('pdf.common.processing')}</>
-          ) : (
-            <>{t('pdf.features.split.splitAndDownload')}</>
+          {error && (
+            <div className="p-3 rounded-md bg-destructive/10 text-destructive text-sm">
+              {error}
+            </div>
           )}
-        </Button>
+
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={!file || isLoading}
+          >
+            {isLoading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                {t("common.processing")}
+              </>
+            ) : (
+              <>
+                <Scissors className="mr-2 h-4 w-4" />
+                {t("pdf.split.action")}
+              </>
+            )}
+          </Button>
+        </div>
       </form>
     </Form>
   );

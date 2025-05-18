@@ -22,15 +22,14 @@ interface MergeConfigFormProps {
 }
 
 export function MergeConfigForm({ onSubmit, files, isLoading, error }: MergeConfigFormProps) {
-  const { t } = useTranslation();
-  
-  // Initialize form with default values and validation schema
   const form = useForm<MergeFormValues>({
     resolver: zodResolver(mergeFormSchema),
     defaultValues: {
       outputName: "merged.pdf",
     },
   });
+
+  const { t } = useTranslation();
 
   const handleSubmit = (values: MergeFormValues) => {
     if (files.length >= 2) {
@@ -46,7 +45,7 @@ export function MergeConfigForm({ onSubmit, files, isLoading, error }: MergeConf
           name="outputName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t('pdf.features.merge.outputFilename')}</FormLabel>
+              <FormLabel>{t("common.outputName")}</FormLabel>
               <FormControl>
                 <Input
                   placeholder="merged.pdf"
@@ -74,12 +73,12 @@ export function MergeConfigForm({ onSubmit, files, isLoading, error }: MergeConf
             {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                {t('pdf.common.processing')}
+                {t("common.processing")}
               </>
             ) : (
               <>
                 <Combine className="mr-2 h-4 w-4" />
-                {t('pdf.features.merge.mergeAndDownload')}
+                {t("pdf.merge.action")}
               </>
             )}
           </Button>

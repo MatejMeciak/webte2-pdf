@@ -1,7 +1,6 @@
 import { useState } from "react";
 import api from "@/api/axios";
 import type { RemovePageFormValues } from "../types/pdf";
-import { isAxiosError } from "axios";
 import { useTranslation } from "react-i18next";
 
 export function usePdfRemovePage() {
@@ -34,17 +33,21 @@ export function usePdfRemovePage() {
         headers: {
           "Content-Type": "multipart/form-data"
         },
+        validateStatus: () => true,
       });
 
-      // Handle the download
+      // Check for error status
+      if (response.status && response.status >= 400) {
+        setError(t('errors.removeFailed'));
+        return;
+      }
+
+      // Only handle download if status is OK
       handleFileDownload(response);
       
     } catch (err) {
-      if (isAxiosError(err)) {
-        setError(t('errors.removePageFailed'));
-      } else {
-        setError(t('errors.unexpected'));
-      }
+      setError(t('errors.unexpected'));
+      console.error("Error removing page from PDF:", err);
     } finally {
       setIsLoading(false);
     }

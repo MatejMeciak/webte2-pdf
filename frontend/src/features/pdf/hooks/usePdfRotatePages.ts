@@ -2,16 +2,14 @@ import { useState } from "react";
 import api from "@/api/axios";
 import type { RotatePagesFormValues } from "../types/pdf";
 import { isAxiosError } from "axios";
-import { useTranslation } from "react-i18next";
 
 export function usePdfRotatePages() {
-  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const rotatePdfPages = async (values: RotatePagesFormValues, file: File) => {
     if (!file) {
-      setError(t('errors.uploadFirst'));
+      setError("Please upload a PDF file first");
       return;
     }
 
@@ -57,9 +55,20 @@ export function usePdfRotatePages() {
       
     } catch (err) {
       if (isAxiosError(err)) {
-        setError(t('errors.rotatePagesFailed'));
+        let errorMsg = "Error rotating PDF pages. Please try again.";
+        if (err.response?.data instanceof Blob) {
+          try {
+            const text = await err.response.data.text();
+            errorMsg = text || errorMsg;
+          } catch {
+            // fallback to default
+          }
+        } else if (typeof err.response?.data === "string") {
+          errorMsg = err.response.data;
+        }
+        setError(errorMsg);
       } else {
-        setError(t('errors.unexpected'));
+        setError("An unexpected error occurred. Please try again.");
       }
     } finally {
       setIsLoading(false);
@@ -92,4 +101,4 @@ function handleFileDownload(response: any) {
   link.click();
   link.remove();
   window.URL.revokeObjectURL(url);
-}
+} 

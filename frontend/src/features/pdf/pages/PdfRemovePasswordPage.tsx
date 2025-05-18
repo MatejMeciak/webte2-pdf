@@ -24,7 +24,7 @@ export default function PdfRemovePasswordPage() {
           <h2 className="text-xl font-semibold mb-4">
             {t("pdf.common.step1")}
           </h2>
-          <PdfUploader file={file} setFile={setFile} feature="removePassword" />
+          <PdfUploader file={file} setFile={setFile} />
         </Card>
 
         {/* Remove password configuration */}

@@ -2,11 +2,12 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Download, ChevronRight } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { pdfActions } from "@/features/pdf/data/pdfActions";
 import ApiDocs from "../components/ApiDocs";
+import { usePdfActions } from "@/features/pdf/data/pdfActions";
 
 export default function UserGuidePage() {
   const { t } = useTranslation();
+  const pdfActions = usePdfActions();
 
   const handleExportPdf = async () => {
     try {
