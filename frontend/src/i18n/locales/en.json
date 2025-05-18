@@ -209,7 +209,7 @@
           "title": "Add Watermark",
           "url": "POST /pdf/add-watermark",
           "description": "Adds a watermark to a PDF document",
-          "request": "Content-Type: multipart/form-data\n\nPDF file: pdf\nWatermark text: text\nOpacity: opacity (0-1)\nFont size: fontSize\nColor: color (hex)\nRotation angle: rotation\nOutput filename: outputName (optional)",
+          "request": "Content-Type: multipart/form-data\n\nPDF file: pdf\nWatermark text: text\nOutput filename: outputName (optional)",
           "response": "Content-Type: application/pdf\nPDF file with watermark"
         },
         "toImages": {

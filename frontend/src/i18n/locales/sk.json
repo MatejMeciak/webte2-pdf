@@ -212,7 +212,7 @@
           "title": "Pridanie vodoznaku",
           "url": "POST /pdf/add-watermark",
           "description": "Pridá vodoznak do PDF dokumentu",
-          "request": "Content-Type: multipart/form-data\n\nPDF súbor: pdf\nText vodoznaku: text\nPriehľadnosť: opacity (0-1)\nVeľkosť písma: fontSize\nFarba: color (hex)\nUhol otočenia: rotation\nNázov výstupného súboru: outputName (voliteľné)",
+          "request": "Content-Type: multipart/form-data\n\nPDF súbor: pdf\nText vodoznaku: text\nNázov výstupného súboru: outputName (voliteľné)",
           "response": "Content-Type: application/pdf\nPDF súbor s vodoznakom"
         },
         "toImages": {

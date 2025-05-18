@@ -1,12 +1,13 @@
-from typing import Optional, List
+from typing import Optional, List, Dict, Any
 import os
 from sqlalchemy.orm import Session
 from fastapi import Request
 import geoip2.database
 from geoip2.errors import AddressNotFoundError
+from math import ceil
 
 from app.models.history import PdfOperationHistory
-from app.schemas.history import HistoryCreate, HistoryResponse
+from app.schemas.history import HistoryCreate, HistoryResponse, PaginatedHistoryResponse
 from app.models.user import User
 
 class HistoryService:
@@ -97,15 +98,58 @@ class HistoryService:
         
         return history_entry
     
-    def get_all_history(self, db: Session) -> List[HistoryResponse]:
+    def get_all_history(self, db: Session, page: int = 0, size: int = 20) -> PaginatedHistoryResponse:
         """
-        Get all operation history (admin only)
-        """
-        history = db.query(PdfOperationHistory).order_by(
-            PdfOperationHistory.timestamp.desc()
-        ).all()
+        Get operation history with pagination (admin only)
         
-        return history
+        Args:
+            db: Database session
+            page: Page number (0-based)
+            size: Number of items per page
+        """
+        # Calculate total count for pagination info
+        total_items = db.query(PdfOperationHistory).count()
+        
+        # Get paginated results
+        history_items = db.query(PdfOperationHistory).order_by(
+            PdfOperationHistory.timestamp.desc()
+        ).offset(page * size).limit(size).all()
+        
+        # Prepare response items with user details
+        response_items = []
+        for item in history_items:
+            history_dict = {
+                "id": item.id,
+                "user_id": item.user_id,
+                "operation_type": item.operation_type,
+                "timestamp": item.timestamp,
+                "source_type": item.source_type,
+                "ip_address": item.ip_address,
+                "country": item.country,
+                "state": item.state,
+                "request_details": item.request_details,
+                "user_agent": item.user_agent,
+                "user_name": None,
+                "user_email": None,
+            }
+            
+            # Add user details if user exists
+            if item.user:
+                history_dict["user_name"] = f"{item.user.first_name} {item.user.last_name}"
+                history_dict["user_email"] = item.user.email
+                
+            response_items.append(history_dict)
+        
+        # Calculate total pages
+        total_pages = ceil(total_items / size) if size > 0 else 0
+        
+        return {
+            "items": response_items,
+            "total": total_items,
+            "page": page,
+            "size": size,
+            "pages": total_pages
+        }
     
     def delete_all_history(self, db: Session) -> None:
         """
