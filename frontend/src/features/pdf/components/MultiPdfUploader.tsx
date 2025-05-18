@@ -23,7 +23,8 @@ export function MultiPdfUploader({
     maxFiles,
     onDrop: (acceptedFiles) => {
       if (acceptedFiles.length > 0) {
-        setFiles([...files, ...acceptedFiles]);
+        const newFiles = [...files, ...acceptedFiles];
+        setFiles(newFiles.slice(0, maxFiles));
       }
     },
   });
