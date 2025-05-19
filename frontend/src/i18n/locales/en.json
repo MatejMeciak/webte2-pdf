@@ -228,7 +228,7 @@
     "api": {
       "title": "API Documentation",
       "description": "Our application provides a RESTful API that allows you to programmatically access all PDF manipulation features. The API is documented using Swagger/OpenAPI specification.",
-      "swagger": "Access our API documentation at /api/docs",
+      "swagger": "Access our API documentation",
       "openSwagger": "Open Swagger Documentation"
     }
   },

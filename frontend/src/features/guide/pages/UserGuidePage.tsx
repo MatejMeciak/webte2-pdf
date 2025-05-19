@@ -186,7 +186,7 @@ export default function UserGuidePage() {
             <Button
               variant="outline"
               className="mt-4"
-              onClick={() => window.open("/api/docs", "_blank")}
+              onClick={() => window.open("/pdfmaster/docs", "_blank")}
             >
               {t("guide.api.openSwagger")}
             </Button>

@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import DashboardPage from "./features/pdf/pages/DashboardPage";
 import PdfMergePage from "./features/pdf/pages/PdfMergePage";
 import PdfSplitPage from "./features/pdf/pages/PdfSplitPage";
@@ -44,6 +44,8 @@ function App() {
             <Route path="login" element={<LoginPage />} />
             <Route path="register" element={<RegisterPage />} />
           </Route>
+
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
     </AuthProvider>

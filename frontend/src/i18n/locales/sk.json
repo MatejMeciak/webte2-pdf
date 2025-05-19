@@ -229,7 +229,7 @@
     "api": {
       "title": "API Dokumentácia",
       "description": "Naša aplikácia poskytuje RESTful API, ktoré vám umožňuje programovo pristupovať ku všetkým funkciám na úpravu PDF. API je dokumentované pomocou špecifikácie Swagger/OpenAPI.",
-      "swagger": "Prístup k API dokumentácii na /api/docs",
+      "swagger": "Prístup k API dokumentácii",
       "openSwagger": "Otvoriť Swagger dokumentáciu"
     }
   },
