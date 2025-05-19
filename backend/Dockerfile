@@ -1,18 +1,21 @@
-FROM eclipse-temurin:21-jdk as build
-WORKDIR /workspace/app
+# Start with Python base image
+FROM python:3.11-slim
 
-COPY mvnw .
-COPY .mvn .mvn
-COPY pom.xml .
-COPY src src
+# Set working directory
+WORKDIR /app
 
-RUN ./mvnw package -DskipTests
-RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
+# Copy requirements and install dependencies
+COPY requirements.txt /app/
+RUN pip install --no-cache-dir -r requirements.txt
 
-FROM eclipse-temurin:21-jre
-VOLUME /tmp
-ARG DEPENDENCY=/workspace/app/target/dependency
-COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
-COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
-COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
-ENTRYPOINT ["java","-cp","app:app/lib/*","com.pdf.backend.BackendApplication"]
+# Copy the rest of the application
+COPY . /app/
+
+# Create data directory for GeoLite2 database
+RUN mkdir -p /app/data
+
+# Download the GeoLite2 database
+RUN python -m app.services.geo_lite_2 --data-dir=/app/data
+
+# Run the application
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

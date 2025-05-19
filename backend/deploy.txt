@@ -1,19 +1,17 @@
-// Start only database in the background
-docker-compose up -d postgres
+// Swagger docs
+http://localhost:8080/docs
 
-// Start the whole backend
+// Docker build process
+docker-compose down
+docker-compose build --no-cache
 docker-compose up -d
 
-// Start and rebuild the backend (just the app)
-docker-compose up --build app -d
 
-// Docker documentation location
-http://localhost:8080/swagger-ui.html
+// Passwords 
+admin@example.com
+admin
 
+user@example.com
+user
 
-// Notes
-- On FE use header X-Source-Type: FRONTEND for correct history creation
-- database name -> postgres
-- database password -> postgres
-- admin account name -> admin@example.com
-- admin account password -> admin123
+Execute the migration.sql on first database startup!!
