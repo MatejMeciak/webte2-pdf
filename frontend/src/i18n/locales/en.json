@@ -134,6 +134,7 @@
       "email": "Email",
       "password": "Password",
       "submit": "Sign in",
+      "loggingIn": "Signing in...",
       "noAccount": "Don't have an account?",
       "register": "Register",
       "placeholders": {
@@ -154,6 +155,7 @@
       "password": "Password",
       "confirmPassword": "Confirm password",
       "submit": "Register",
+      "creating": "Creating account...",
       "haveAccount": "Already have an account?",
       "login": "Sign in",
       "errors": {
