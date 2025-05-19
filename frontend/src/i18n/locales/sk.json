@@ -187,124 +187,50 @@
   },
   "guide": {
     "title": "Používateľská príručka",
-    "exportPdf": "Exportovať ako PDF",
-    "overview": {
-      "title": "O aplikácii PDFMaster",
-      "description": "PDFMaster je komplexný nástroj pre prácu s PDF súbormi. Aplikácia poskytuje množstvo funkcií pre manipuláciu s PDF dokumentami, od jednoduchého spájania a rozdeľovania súborov až po pokročilé úpravy ako pridanie vodoznaku či ochrana heslom.",
-      "features": {
-        "title": "Dostupné funkcie",
-        "list": [
-          "Spájanie viacerých PDF súborov do jedného dokumentu",
-          "Rozdelenie PDF na dve časti na zvolenej strane",
-          "Odstránenie vybraných strán z dokumentu",
-          "Extrahovanie rozsahu strán do nového dokumentu",
-          "Zmena poradia strán v dokumente",
-          "Pridanie alebo odstránenie hesla",
-          "Konverzia strán PDF na obrázky",
-          "Pridanie vodoznaku na strany dokumentu",
-          "Otáčanie vybraných strán dokumentu"
-        ]
+    "description": "Naučte sa efektívne používať naše nástroje na úpravu PDF",
+    "download": "Stiahnuť príručku",
+    "introduction": {
+      "title": "Úvod",
+      "description": "Vitajte v našej aplikácii na úpravu PDF. Táto príručka vám pomôže pochopiť, ako efektívne používať naše nástroje, či už prostredníctvom používateľského rozhrania alebo programovo cez naše API."
+    },
+    "features": {
+      "title": "Funkcie",
+      "merge": {
+        "steps": "Pre spojenie PDF: \n1) Nahrajte dva PDF súbory pomocou výberu súborov alebo pretiahnutím. \n2) Voliteľne zadajte názov výstupného súboru (predvolené: spojene.pdf). \n3) Kliknite na 'Spojiť' pre spojenie súborov."
+      },
+      "split": {
+        "steps": "Pre rozdelenie PDF: \n1) Nahrajte PDF súbor. \n2) Zadajte číslo strany, kde chcete dokument rozdeliť. \n3) Voliteľne zadajte názvy pre obe časti (predvolené: prva_cast.pdf a druha_cast.pdf). \n4) Kliknite na 'Rozdeliť' pre vytvorenie dvoch samostatných PDF."
+      },
+      "remove": {
+        "steps": "Pre odstránenie strany: \n1) Nahrajte PDF súbor. \n2) Zadajte číslo strany, ktorú chcete odstrániť. \n3) Voliteľne zadajte názov výstupného súboru (predvolené: bez_strany.pdf). \n4) Kliknite na 'Odstrániť' pre vytvorenie nového PDF bez zadanej strany."
+      },
+      "extract": {
+        "steps": "Pre extrahovanie strán: \n1) Nahrajte PDF súbor. \n2) Zadajte počiatočné a koncové číslo strany pre rozsah, ktorý chcete extrahovať. \n3) Voliteľne zadajte názov výstupného súboru (predvolené: extrahovane_strany.pdf). \n4) Kliknite na 'Extrahovať' pre vytvorenie nového PDF len s vybranými stranami."
+      },
+      "reorder": {
+        "steps": "Pre zmenu poradia strán: \n1) Nahrajte PDF súbor. \n2) Zadajte požadované poradie strán ako čísla oddelené čiarkami (napr. '2,1,4,3'). \n3) Voliteľne zadajte názov výstupného súboru (predvolené: preuporiadane.pdf). \n4) Kliknite na 'Zmeniť poradie strán' pre vytvorenie nového PDF so zadaným poradím strán."
+      },
+      "password": {
+        "steps": "Pre pridanie ochrany heslom: \n1) Nahrajte PDF súbor. \n2) Zadajte heslo na ochranu PDF. \n3) Voliteľne zadajte názov výstupného súboru (predvolené: zabezpecene.pdf). \n4) Kliknite na 'Pridať heslo' pre vytvorenie šifrovaného PDF."
+      },
+      "removePassword": {
+        "steps": "Pre odstránenie ochrany heslom: \n1) Nahrajte PDF súbor chránený heslom. \n2) Zadajte aktuálne heslo. \n3) Voliteľne zadajte názov výstupného súboru (predvolené: nezabezpecene.pdf). \n4) Kliknite na 'Odstrániť heslo' pre vytvorenie nešifrovaného PDF."
+      },
+      "toImages": {
+        "steps": "Pre konverziu PDF na obrázky: \n1) Nahrajte PDF súbor. \n2) Voliteľne upravte nastavenie DPI (rozlíšenie) (predvolené: 150). \n3) Kliknite na 'Konvertovať na obrázky' pre stiahnutie ZIP súboru obsahujúceho PNG obrázky každej strany."
+      },
+      "rotate": {
+        "steps": "Pre otáčanie strán: \n1) Nahrajte PDF súbor. \n2) Zadajte čísla strán na otáčanie (oddelené čiarkami). \n3) Zadajte uhly otáčania v stupňoch (oddelené čiarkami, napr. '90,180,270'). \n4) Voliteľne zadajte názov výstupného súboru (predvolené: otocene.pdf). \n5) Kliknite na 'Otočiť strany' pre vytvorenie nového PDF s otočenými stranami."
+      },
+      "watermark": {
+        "steps": "Pre pridanie vodoznaku: \n1) Nahrajte PDF súbor. \n2) Zadajte text vodoznaku. \n3) Voliteľne zadajte názov výstupného súboru (predvolené: s_vodoznakom.pdf). \n4) Kliknite na 'Pridať vodoznak' pre vytvorenie nového PDF s vodoznakom na každej strane."
       }
     },
     "api": {
       "title": "API Dokumentácia",
-      "auth": {
-        "title": "Autentifikácia",
-        "description": "Všetky API endpointy vyžadujú JWT token v hlavičke požiadavky",
-        "example": "Authorization: Bearer váš_jwt_token"
-      },
-      "endpoints": {
-        "title": "Dostupné endpointy",
-        "base": "Základná URL",
-        "merge": {
-          "title": "Spojenie PDF súborov",
-          "url": "POST /pdf/merge",
-          "description": "Spojí viacero PDF súborov do jedného dokumentu",
-          "request": "Content-Type: multipart/form-data\n\nPDF súbory: files[]\nNázov výstupného súboru: outputName (voliteľné)",
-          "response": "Content-Type: application/pdf\nVýsledný spojený PDF súbor"
-        },
-        "split": {
-          "title": "Rozdelenie PDF",
-          "url": "POST /pdf/split",
-          "description": "Rozdelí PDF dokument na dve časti",
-          "request": "Content-Type: multipart/form-data\n\nPDF súbor: pdf\nČíslo strany: splitAtPage\nNázov prvej časti: firstOutputName (voliteľné)\nNázov druhej časti: secondOutputName (voliteľné)",
-          "response": "Content-Type: application/zip\nArchív obsahujúci dve časti PDF"
-        },
-        "removePage": {
-          "title": "Odstránenie strany",
-          "url": "POST /pdf/remove-page",
-          "description": "Odstráni konkrétnu stranu z PDF dokumentu",
-          "request": "Content-Type: multipart/form-data\n\nPDF súbor: pdf\nČíslo strany: pageToRemove\nNázov výstupného súboru: outputName (voliteľné)",
-          "response": "Content-Type: application/pdf\nVýsledný PDF súbor bez odstránenej strany"
-        },
-        "extractPages": {
-          "title": "Extrahovanie strán",
-          "url": "POST /pdf/extract",
-          "description": "Extrahuje vybrané strany z PDF dokumentu",
-          "request": "Content-Type: multipart/form-data\n\nPDF súbor: pdf\nPočiatočná strana: startPage\nKoncová strana: endPage\nNázov výstupného súboru: outputName (voliteľné)",
-          "response": "Content-Type: application/pdf\nVýsledný PDF súbor s extrahovanými stranami"
-        },
-        "reorderPages": {
-          "title": "Zmena poradia strán",
-          "url": "POST /pdf/reorder",
-          "description": "Zmení poradie strán v PDF dokumente",
-          "request": "Content-Type: multipart/form-data\n\nPDF súbor: pdf\nPoradie strán: pageOrder (čísla strán oddelené čiarkou)\nNázov výstupného súboru: outputName (voliteľné)",
-          "response": "Content-Type: application/pdf\nPDF súbor so zmeneným poradím strán"
-        },
-        "addPassword": {
-          "title": "Pridanie hesla",
-          "url": "POST /pdf/add-password",
-          "description": "Pridá heslo do PDF dokumentu",
-          "request": "Content-Type: multipart/form-data\n\nPDF súbor: pdf\nHeslo: password\nNázov výstupného súboru: outputName (voliteľné)",
-          "response": "Content-Type: application/pdf\nZabezpečený PDF súbor"
-        },
-        "removePassword": {
-          "title": "Odstránenie hesla",
-          "url": "POST /pdf/remove-password",
-          "description": "Odstráni heslo z PDF dokumentu",
-          "request": "Content-Type: multipart/form-data\n\nPDF súbor: pdf\nAktuálne heslo: password\nNázov výstupného súboru: outputName (voliteľné)",
-          "response": "Content-Type: application/pdf\nOdomknutý PDF súbor"
-        },
-        "addWatermark": {
-          "title": "Pridanie vodoznaku",
-          "url": "POST /pdf/add-watermark",
-          "description": "Pridá vodoznak do PDF dokumentu",
-          "request": "Content-Type: multipart/form-data\n\nPDF súbor: pdf\nText vodoznaku: text\nNázov výstupného súboru: outputName (voliteľné)",
-          "response": "Content-Type: application/pdf\nPDF súbor s vodoznakom"
-        },
-        "toImages": {
-          "title": "Konverzia na obrázky",
-          "url": "POST /pdf/to-images",
-          "description": "Konvertuje strany PDF na PNG obrázky",
-          "request": "Content-Type: multipart/form-data\n\nPDF súbor: pdf\nRozlíšenie: dpi (voliteľné)",
-          "response": "Content-Type: application/zip\nArchív obsahujúci PNG obrázky"
-        },
-        "rotatePages": {
-          "title": "Otočenie strán",
-          "url": "POST /pdf/rotate",
-          "description": "Otočí vybrané strany v PDF dokumente",
-          "request": "Content-Type: multipart/form-data\n\nPDF súbor: pdf\nStrany: pages[]\nUhly: degrees[]\nNázov výstupného súboru: outputName (voliteľné)",
-          "response": "Content-Type: application/pdf\nPDF s otočenými stranami"
-        }
-      },
-      "common": {
-        "request": "Požiadavka",
-        "response": "Odpoveď"
-      }
-    },
-    "features": {
-      "title": "Návod na použitie",
-      "howTo": "Ako používať aplikáciu",
-      "general": {
-        "title": "Všeobecný postup",
-        "steps": [
-          "Vyberte si nástroj z menu PDF nástrojov",
-          "Nahrajte PDF súbor/y pomocou drag & drop alebo výberom súboru",
-          "Nastavte požadované parametre pre zvolený nástroj",
-          "Kliknite na tlačidlo akcie (napr. 'Spojiť & Stiahnuť')",
-          "Stiahnite si upravený PDF súbor"
-        ]
-      }
+      "description": "Naša aplikácia poskytuje RESTful API, ktoré vám umožňuje programovo pristupovať ku všetkým funkciám na úpravu PDF. API je dokumentované pomocou špecifikácie Swagger/OpenAPI.",
+      "swagger": "Prístup k API dokumentácii na /api/docs",
+      "openSwagger": "Otvoriť Swagger dokumentáciu"
     }
   },
   "admin": {

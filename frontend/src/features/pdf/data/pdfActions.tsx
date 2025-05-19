@@ -17,6 +17,7 @@ export type PdfAction = {
   description: string;
   path: string;
   icon: React.ReactNode;
+  key: string;
 };
 
 export function usePdfActions() {
@@ -28,60 +29,70 @@ export function usePdfActions() {
       description: t("pdf.merge.description"),
       path: "/merge",
       icon: <FilePlus size={24} />,
+      key: "merge",
     },
     {
       title: t("pdf.split.title"),
       description: t("pdf.split.description"),
       path: "/split",
       icon: <FileOutput size={24} />,
+      key: "split",
     },
     {
       title: t("pdf.remove.title"),
       description: t("pdf.remove.description"),
       path: "/remove",
       icon: <FileX size={24} />,
+      key: "remove",
     },
     {
       title: t("pdf.extract.title"),
       description: t("pdf.extract.description"),
       path: "/extract",
       icon: <FileDigit size={24} />,
+      key: "extract",
     },
     {
       title: t("pdf.reorder.title"),
       description: t("pdf.reorder.description"),
       path: "/reorder",
       icon: <ListRestart size={24} />,
+      key: "reorder",
     },
     {
       title: t("pdf.password.title"),
       description: t("pdf.password.description"),
       path: "/add-password",
       icon: <Lock size={24} />,
+      key: "password",
     },
     {
       title: t("pdf.removePassword.title"),
       description: t("pdf.removePassword.description"),
       path: "/remove-password",
       icon: <Unlock size={24} />,
+      key: "removePassword",
     },
     {
       title: t("pdf.toImages.title"),
       description: t("pdf.toImages.description"),
       path: "/to-images",
       icon: <Images size={24} />,
+      key: "toImages",
     },
     {
       title: t("pdf.watermark.title"),
       description: t("pdf.watermark.description"),
       path: "/add-watermark",
       icon: <Stamp size={24} />,
+      key: "watermark",
     },
     {
       title: t("pdf.rotate.title"),
       description: t("pdf.rotate.description"),
       path: "/rotate",
       icon: <RotateCw size={24} />,
+      key: "rotate",
     },
   ];
 

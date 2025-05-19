@@ -184,124 +184,50 @@
   },
   "guide": {
     "title": "User Guide",
-    "exportPdf": "Export as PDF",
-    "overview": {
-      "title": "About PDFMaster",
-      "description": "PDFMaster is a comprehensive PDF manipulation tool. The application provides numerous features for working with PDF documents, from simple merging and splitting to advanced operations like adding watermarks or password protection.",
-      "features": {
-        "title": "Available Features",
-        "list": [
-          "Merge multiple PDF files into one document",
-          "Split PDF at a specific page",
-          "Remove selected pages from document",
-          "Extract range of pages to new document",
-          "Reorder pages in document",
-          "Add or remove password protection",
-          "Convert PDF pages to images",
-          "Add watermark to document pages",
-          "Rotate selected pages in document"
-        ]
+    "description": "Learn how to use our PDF manipulation tools effectively",
+    "download": "Download Guide",
+    "introduction": {
+      "title": "Introduction",
+      "description": "Welcome to our PDF manipulation application. This guide will help you understand how to use our tools effectively, both through the user interface and programmatically via our API."
+    },
+    "features": {
+      "title": "Features",
+      "merge": {
+        "steps": "To merge PDFs:\n1) Upload two PDF files using the file selector or drag and drop.\n2) Optionally specify an output filename (default: merged.pdf).\n3) Click 'Merge' to combine the files."
+      },
+      "split": {
+        "steps": "To split a PDF:\n1) Upload a PDF file.\n2) Enter the page number where you want to split the document.\n3) Optionally specify filenames for both parts (default: part1.pdf and part2.pdf).\n4) Click 'Split' to create two separate PDFs."
+      },
+      "remove": {
+        "steps": "To remove a page:\n1) Upload a PDF file.\n2) Enter the page number you want to remove.\n3) Optionally specify an output filename (default: removed.pdf).\n4) Click 'Remove' to create a new PDF without the specified page."
+      },
+      "extract": {
+        "steps": "To extract pages:\n1) Upload a PDF file.\n2) Enter the start and end page numbers for the range you want to extract.\n3) Optionally specify an output filename (default: extracted.pdf).\n4) Click 'Extract' to create a new PDF with only the selected pages."
+      },
+      "reorder": {
+        "steps": "To reorder pages:\n1) Upload a PDF file.\n2) Enter the desired page order as comma-separated numbers (e.g., '2,1,4,3').\n3) Optionally specify an output filename (default: reordered.pdf).\n4) Click 'Reorder Pages' to create a new PDF with the specified page order."
+      },
+      "password": {
+        "steps": "To add password protection:\n1) Upload a PDF file.\n2) Enter a password to protect the PDF.\n3) Optionally specify an output filename (default: protected.pdf).\n4) Click 'Add Password' to create an encrypted PDF."
+      },
+      "removePassword": {
+        "steps": "To remove password protection:\n1) Upload a password-protected PDF file.\n2) Enter the current password.\n3) Optionally specify an output filename (default: unprotected.pdf).\n4) Click 'Remove Password' to create an unencrypted PDF."
+      },
+      "toImages": {
+        "steps": "To convert PDF to images:\n1) Upload a PDF file.\n2) Optionally adjust the DPI (resolution) setting (default: 150).\n3) Click 'Convert to Images' to download a ZIP file containing PNG images of each page."
+      },
+      "rotate": {
+        "steps": "To rotate pages:\n1) Upload a PDF file.\n2) Enter the page numbers to rotate (comma-separated).\n3) Enter the rotation angles in degrees (comma-separated, e.g., '90,180,270').\n4) Optionally specify an output filename (default: rotated.pdf).\n5) Click 'Rotate Pages' to create a new PDF with rotated pages."
+      },
+      "watermark": {
+        "steps": "To add a watermark:\n1) Upload a PDF file.\n2) Enter the watermark text.\n3) Optionally specify an output filename (default: watermarked.pdf).\n4) Click 'Add Watermark' to create a new PDF with the watermark on every page."
       }
     },
     "api": {
       "title": "API Documentation",
-      "auth": {
-        "title": "Authentication",
-        "description": "All API endpoints require a JWT token in the request header",
-        "example": "Authorization: Bearer your_jwt_token"
-      },
-      "endpoints": {
-        "title": "Available Endpoints",
-        "base": "Base URL",
-        "merge": {
-          "title": "Merge PDFs",
-          "url": "POST /pdf/merge",
-          "description": "Combines multiple PDF files into one document",
-          "request": "Content-Type: multipart/form-data\n\nPDF files: files[]\nOutput filename: outputName (optional)",
-          "response": "Content-Type: application/pdf\nThe resulting merged PDF file"
-        },
-        "split": {
-          "title": "Split PDF",
-          "url": "POST /pdf/split",
-          "description": "Splits a PDF document into two parts",
-          "request": "Content-Type: multipart/form-data\n\nPDF file: pdf\nPage number: splitAtPage\nFirst part name: firstOutputName (optional)\nSecond part name: secondOutputName (optional)",
-          "response": "Content-Type: application/zip\nArchive containing both PDF parts"
-        },
-        "removePage": {
-          "title": "Remove Page",
-          "url": "POST /pdf/remove-page",
-          "description": "Removes a specific page from the PDF document",
-          "request": "Content-Type: multipart/form-data\n\nPDF file: pdf\nPage number: pageToRemove\nOutput filename: outputName (optional)",
-          "response": "Content-Type: application/pdf\nThe resulting PDF file without the removed page"
-        },
-        "extractPages": {
-          "title": "Extract Pages",
-          "url": "POST /pdf/extract",
-          "description": "Extracts selected pages from the PDF document",
-          "request": "Content-Type: multipart/form-data\n\nPDF file: pdf\nStart page: startPage\nEnd page: endPage\nOutput filename: outputName (optional)",
-          "response": "Content-Type: application/pdf\nThe resulting PDF file with extracted pages"
-        },
-        "reorderPages": {
-          "title": "Reorder Pages",
-          "url": "POST /pdf/reorder",
-          "description": "Rearranges pages in a PDF document",
-          "request": "Content-Type: multipart/form-data\n\nPDF file: pdf\nPage order: pageOrder (comma-separated page numbers)\nOutput filename: outputName (optional)",
-          "response": "Content-Type: application/pdf\nPDF file with reordered pages"
-        },
-        "addPassword": {
-          "title": "Add Password",
-          "url": "POST /pdf/add-password",
-          "description": "Adds password protection to a PDF document",
-          "request": "Content-Type: multipart/form-data\n\nPDF file: pdf\nPassword: password\nOutput filename: outputName (optional)",
-          "response": "Content-Type: application/pdf\nPassword-protected PDF file"
-        },
-        "removePassword": {
-          "title": "Remove Password",
-          "url": "POST /pdf/remove-password",
-          "description": "Removes password protection from a PDF document",
-          "request": "Content-Type: multipart/form-data\n\nPDF file: pdf\nCurrent password: password\nOutput filename: outputName (optional)",
-          "response": "Content-Type: application/pdf\nUnprotected PDF file"
-        },
-        "addWatermark": {
-          "title": "Add Watermark",
-          "url": "POST /pdf/add-watermark",
-          "description": "Adds a watermark to a PDF document",
-          "request": "Content-Type: multipart/form-data\n\nPDF file: pdf\nWatermark text: text\nOutput filename: outputName (optional)",
-          "response": "Content-Type: application/pdf\nPDF file with watermark"
-        },
-        "toImages": {
-          "title": "Convert to Images",
-          "url": "POST /pdf/to-images",
-          "description": "Converts PDF pages to PNG images",
-          "request": "Content-Type: multipart/form-data\n\nPDF file: pdf\nResolution: dpi (optional)",
-          "response": "Content-Type: application/zip\nArchive containing PNG images"
-        },
-        "rotatePages": {
-          "title": "Rotate Pages",
-          "url": "POST /pdf/rotate",
-          "description": "Rotates specified pages in a PDF document",
-          "request": "Content-Type: multipart/form-data\n\nPDF file: pdf\nPages: pages[]\nDegrees: degrees[]\nOutput filename: outputName (optional)",
-          "response": "Content-Type: application/pdf\nPDF with rotated pages"
-        }
-      },
-      "common": {
-        "request": "Request",
-        "response": "Response"
-      }
-    },
-    "features": {
-      "title": "Usage Guide",
-      "howTo": "How to Use",
-      "general": {
-        "title": "General Steps",
-        "steps": [
-          "Select a tool from the PDF tools menu",
-          "Upload PDF file(s) via drag & drop or file selection",
-          "Configure the settings for your chosen tool",
-          "Click the action button (e.g. 'Merge & Download')",
-          "Download your processed PDF file"
-        ]
-      }
+      "description": "Our application provides a RESTful API that allows you to programmatically access all PDF manipulation features. The API is documented using Swagger/OpenAPI specification.",
+      "swagger": "Access our API documentation at /api/docs",
+      "openSwagger": "Open Swagger Documentation"
     }
   },
   "admin": {
