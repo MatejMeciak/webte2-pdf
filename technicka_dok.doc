@@ -1,0 +1,112 @@
+Predpoklady
+Docker a Docker Compose nainštalované vo vašom systéme
+Git (na klonovanie repozitára)
+
+Podrobný návod na inštaláciu
+
+1. Klonovanie repozitára
+
+git clone <url-repozitára>
+cd webte2-pdf
+
+2. Zostavenie a spustenie aplikácie
+
+Spustite príkaz Docker Compose pre zostavenie a spustenie všetkých služieb:
+
+docker-compose up -d
+
+Tento príkaz:
+Vytvorí kontajner PostgreSQL databázy
+Zostaví a spustí backend službu FastAPI
+Zostaví a spustí frontend aplikáciu React
+
+3. Inicializácia databázy
+
+Po spustení kontajnerov vykonajte migračný SQL skript:
+
+docker exec -i pdf-app-db psql -U postgres -d pdfdb < backend/migration.sql
+
+4. Overenie inštalácie
+
+Frontend by mal byť dostupný na: http://localhost:80
+Backend API by malo byť dostupné na: http://localhost:8080/api
+Dokumentácia API je dostupná na: http://localhost:8080/docs
+
+5. Predvolené používateľské účty
+
+Môžete sa prihlásiť s týmito preddefinovanými účtami:
+
+Administrátorský účet:
+Email: admin@example.com
+Heslo: admin
+
+Bežný používateľ:
+Email: user@example.com
+Heslo: user
+
+
+Ak potrebujete znovu zostaviť aplikáciu:
+
+Zastavte a odstráňte kontajnery
+docker-compose down
+
+Znovu zostavte bez použitia vyrovnávacej pamäte
+docker-compose build --no-cache
+
+Spustite služby
+docker-compose up -d
+
+
+
+
+PDF Web App – Projektová Dokumentácia
+
+Funkcionality PDF aplikácie
+
+Aplikácia podporuje nasledujúce operácie s PDF súbormi:
+
+Merge – zlúčenie viacerých PDF do jedného
+Split – rozdelenie PDF na viaceré časti
+Vymazanie strany – odstránenie zvolenej strany z PDF
+Extrahovanie strán – uloženie vybraných strán do nového PDF
+Zmena poradia strán – reorganizácia strán PDF súboru
+Pridanie hesla – ochrana PDF súboru heslom
+Konverzia na obrázky – každá strana PDF ako PNG/JPG
+Pridanie vodoznaku – pridanie vodoznaku na každú stranu PDF
+Odstránenie hesla – odomknutie chráneného PDF
+Rotácia strán – otočenie strán o 90/180/270 stupňov
+
+
+Rozdelenie úloh v tíme
+
+Martin
+Nastavenie backendu (FastAPI)
+Implementácia všetkých PDF funkcionalít
+Tvorba REST API (vrátane login/registrácie)
+Autentifikácia cez tokeny (JWT)
+Logovanie histórie použitia a jej export do CSV
+OpenAPI dokumentácia (Swagger)
+Príprava SQL skriptov a inicializácia databázy
+Príprava Dockerfile a docker-compose pre backend
+
+
+Marek
+Návrh a vývoj responzívneho frontend rozhrania (React + Tailwind)
+Prepojenie s API (tokeny, operácie nad PDF)
+Príprava Dockerfile a docker-compose pre frontend
+Deploy celej aplikácie na školský server
+Dynamické generovanie PDF používateľskej príručky
+
+
+Matiko
+Vývoj frontend rozhrania (React)
+Prepojenie s API (token, PDF operácie)
+Admin stránka pre pozeranie histórie akcií užívateľov
+
+
+Šimon
+Implementácia prihlasovania a registrácie + roly používateľ/admin
+Umiestnenie a zobrazovanie používateľskej príručky na stránke
+Dvojjazyčný režim (SK/EN) s uchovaním aktuálnej stránky
+Tvorba príručky pre používateľov (frontend + API časť)
+Natočenie a zostrih videa prezentujúceho celú funkcionalitu
