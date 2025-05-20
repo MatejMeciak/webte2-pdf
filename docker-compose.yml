@@ -6,7 +6,7 @@ services:
     image: postgres:16-alpine
     container_name: pdf-app-db
     environment:
-      - POSTGRES_DB=postgres
+      - POSTGRES_DB=pdfdb
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_USER=postgres
     volumes:
@@ -24,11 +24,22 @@ services:
     depends_on:
       - postgres
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/postgres
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=postgres
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/pdfdb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=pdfdb
+      - JWT_SECRET=4d6f1510466046735ec2c855e541668418711e42ca14d97bbc72063c7561babdc2d79646710a7d998b9214253cb70172150ab5cd2b220a152d3f1bcde3e800d1
+      - JWT_ALGORITHM=HS256
+      - JWT_ACCESS_TOKEN_EXPIRE_MINUTES=1440
+      - JWT_REFRESH_TOKEN_EXPIRE_MINUTES=10080
+      - PROJECT_NAME=PDF Processing API
+      - API_V1_STR=/api
     ports:
-      - "8080:8080"
+      - "8080:8000"
+    volumes:
+      - ./backend/app:/app/app
     restart: unless-stopped
     networks:
       - pdf-app-network

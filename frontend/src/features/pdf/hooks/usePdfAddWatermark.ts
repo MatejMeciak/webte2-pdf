@@ -1,7 +1,6 @@
 import { useState } from "react";
 import api from "@/api/axios";
 import type { AddWatermarkFormValues } from "../types/pdf";
-import { isAxiosError } from "axios";
 import { useTranslation } from "react-i18next";
 
 export function usePdfAddWatermark() {

@@ -1,10 +1,11 @@
 import axios, { AxiosError, type InternalAxiosRequestConfig } from 'axios';
 
 // Get base URL from environment variables
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+const API_PREFIX = import.meta.env.VITE_API_PREFIX || '/api';
 
 const api = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: API_BASE_URL + API_PREFIX,
 });
 
 api.interceptors.request.use(

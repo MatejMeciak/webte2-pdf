@@ -169,10 +169,10 @@ const AppNavigation = () => {
               </div>
             ) : (
               <div className="flex items-center space-x-2">
-                <Link to="/login">
+                <Link to="login">
                   <Button variant="ghost" size="sm">{t('nav.login')}</Button>
                 </Link>
-                <Link to="/register">
+                <Link to="register">
                   <Button variant="default" size="sm">{t('nav.register')}</Button>
                 </Link>
               </div>
@@ -235,12 +235,12 @@ const AppNavigation = () => {
                     </div>
                   ) : (
                     <div className="rounded-lg border bg-card p-4 flex flex-col space-y-2">
-                      <Link to="/login" onClick={() => setOpen(false)}>
+                      <Link to="login" onClick={() => setOpen(false)}>
                         <Button variant="outline" className="w-full justify-start">
                           {t('nav.login')}
                         </Button>
                       </Link>
-                      <Link to="/register" onClick={() => setOpen(false)}>
+                      <Link to="register" onClick={() => setOpen(false)}>
                         <Button variant="default" className="w-full justify-start">
                           {t('nav.register')}
                         </Button>

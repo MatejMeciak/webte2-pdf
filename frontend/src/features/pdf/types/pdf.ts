@@ -1,5 +1,4 @@
 import { z } from "zod";
-import type { IconProps } from "lucide-react";
 
 // Schema for split PDF form
 export const splitFormSchema = z.object({
@@ -146,5 +145,5 @@ export type RotatePagesFormValues = z.infer<typeof rotatePagesFormSchema>;
 export interface PdfAction {
   titleKey: string;
   path: string;
-  icon: React.ComponentType<IconProps>;
+  icon: React.ComponentType<any>;
 }

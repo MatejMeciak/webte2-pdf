@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -75,7 +74,7 @@ const renderTextWithLineBreaks = (text: string, style: any) => {
 
 // PDF Document Component
 const UserGuidePDF = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const pdfActions = usePdfActions();
 
   return (
@@ -186,7 +185,7 @@ export default function UserGuidePage() {
             <Button
               variant="outline"
               className="mt-4"
-              onClick={() => window.open("/pdfmaster/docs", "_blank")}
+              onClick={() => window.open(import.meta.env.VITE_API_URL + "/docs", "_blank")}
             >
               {t("guide.api.openSwagger")}
             </Button>

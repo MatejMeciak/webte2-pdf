@@ -22,7 +22,7 @@
     "step1": "1. Select PDF File",
     "multiStep1": "1. Select PDF Files",
     "step2": "2. Settings",
-    "outputName": "Output filename",
+    "outputName": "Output filename (optional)",
     "refresh": "Refresh",
     "delete": "Delete",
     "deleteAll": "Delete All",

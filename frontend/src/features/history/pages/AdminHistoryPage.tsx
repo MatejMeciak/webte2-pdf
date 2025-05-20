@@ -28,9 +28,7 @@ import {
   PaginationContent,
   PaginationEllipsis,
   PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
+  PaginationLink
 } from "@/components/ui/pagination";
 import { Trash2, FileDown, Loader2, RefreshCcw, ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { Alert } from "@/components/ui/alert";

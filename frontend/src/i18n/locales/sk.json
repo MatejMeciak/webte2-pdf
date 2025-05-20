@@ -22,7 +22,7 @@
     "step1": "1. Vyberte PDF súbor",
     "multiStep1": "1. Vyberte PDF súbory",
     "step2": "2. Nastavenia",
-    "outputName": "Názov výstupného súboru",
+    "outputName": "Názov výstupného súboru (voliteľné)",
     "refresh": "Obnoviť",
     "delete": "Odstrániť",
     "deleteAll": "Odstrániť všetko",

@@ -102,7 +102,7 @@ export function LoginForm() {
       <CardFooter>
         <p className="text-center w-full text-sm">
           {t('auth.login.noAccount')}{' '}
-          <a href="/register" className="text-blue-600 hover:underline">
+          <a href="register" className="text-blue-600 hover:underline">
             {t('auth.login.register')}
           </a>
         </p>
