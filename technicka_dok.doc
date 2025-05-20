@@ -1,4 +1,4 @@
-Predpoklady
+﻿Predpoklady
 Docker a Docker Compose nainštalované vo vašom systéme
 Git (na klonovanie repozitára)
 
@@ -56,7 +56,67 @@ docker-compose build --no-cache
 Spustite služby
 docker-compose up -d
 
+Konfigurácia servera
 
+sudo apt install python3.12-venv
+Nainštaluje modul venv, ktorý je potrebný pre vytváranie virtuálnych prostredí.
+
+python3 -m venv /var/www/nodeXX.webte.fei.stuba.sk/pdfmaster/venv
+Vytvorí nové virtuálne prostredie v určenom adresári projektu.
+
+source /var/www/nodeXX.webte.fei.stuba.sk/pdfmaster/venv/bin/activate
+Aktivuje virtuálne prostredie, aby sa inštalácie balíčkov a spúšťanie kódu uskutočňovali v ňom.
+
+Inštalácia Python závislostí
+pip install -r requirements.txt
+
+Inštalácia PostgreSQL databázy
+sudo apt install postgresql postgresql-contrib
+
+Spustenie a zapnutie PostgreSQL služby
+sudo systemctl start postgresql
+sudo systemctl enable postgresql
+
+Vytvorenie databázy a používateľa
+CREATE DATABASE pdfmaster;
+CREATE USER pdfmaster_user WITH PASSWORD 'your_secure_password';
+GRANT ALL PRIVILEGES ON DATABASE pdfmaster TO pdfmaster_user;
+
+Pripojenie k databáze a nastavenie práv
+\c pdfmaster
+GRANT USAGE ON SCHEMA public TO pdfmaster_user;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO pdfmaster_user;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO pdfmaster_user;
+GRANT CREATE ON SCHEMA public TO pdfmaster_user;
+ALTER SCHEMA public OWNER TO pdfmaster_user;
+\q
+
+Spustenie migrácie databázy
+psql -U pdfmaster_user -d pdfmaster -f migration.sql
+
+Úprava konfigurácie NGINX
+location /pdfmaster {
+    alias /var/www/nodeXX.webte.fei.stuba.sk/pdfmaster/frontend/dist;
+    try_files $uri $uri/ /pdfmaster/index.html;
+}
+
+location /pdfmaster/api/ {
+    proxy_pass http://127.0.0.1:8000/api/;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+}
+
+location /pdfmaster/docs {
+    proxy_pass http://127.0.0.1:8000/docs;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+}
+
+Stiahnutie GeoIP databázy a nastavenie práv
+python3 -m app.services.geo_lite_2
+sudo chown -R www-data:www-data /var/www/nodeXX.webte.fei.stuba.sk/pdfmaster/backend/data
 
 
 PDF Web App – Projektová Dokumentácia
