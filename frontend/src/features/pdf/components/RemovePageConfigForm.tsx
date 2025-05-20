@@ -16,6 +16,7 @@ interface RemovePageConfigFormProps {
 
 export function RemovePageConfigForm({ onSubmit, file, isLoading, error }: RemovePageConfigFormProps) {
   const { t } = useTranslation();
+
   const form = useForm<RemovePageFormValues>({
     resolver: zodResolver(removePageFormSchema),
     defaultValues: {
@@ -43,7 +44,7 @@ export function RemovePageConfigForm({ onSubmit, file, isLoading, error }: Remov
             name="pageToRemove"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t('pdf.tools.removePage.pageNumber')}</FormLabel>
+                <FormLabel>{t("pdf.remove.pageToRemove")}</FormLabel>
                 <FormControl>
                   <Input 
                     type="number" 
@@ -64,10 +65,10 @@ export function RemovePageConfigForm({ onSubmit, file, isLoading, error }: Remov
             name="outputName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t('pdf.tools.removePage.outputFilename')}</FormLabel>
+                <FormLabel>{t("common.outputName")}</FormLabel>
                 <FormControl>
                   <Input 
-                    placeholder={t('pdf.tools.removePage.outputFilenamePlaceholder')}
+                    placeholder={t("pdf.remove.outputPlaceholder")}
                     {...field} 
                     disabled={!file || isLoading}
                   />
@@ -83,9 +84,7 @@ export function RemovePageConfigForm({ onSubmit, file, isLoading, error }: Remov
             <div className="flex items-center">
               <Trash2 className="h-5 w-5 mr-2" />
               <p>
-                {t('pdf.tools.removePage.summary', {
-                  page: form.watch("pageToRemove")
-                })}
+                {t("pdf.remove.explanation", { page: form.watch("pageToRemove") })}
               </p>
             </div>
           </div>
@@ -101,7 +100,15 @@ export function RemovePageConfigForm({ onSubmit, file, isLoading, error }: Remov
             disabled={!canSubmit}
             className="w-full"
           >
-            {isLoading ? t('common.processing') : t('pdf.tools.removePage.removeAndDownload')}
+            {isLoading ? (
+              <>
+                {t("common.processing")}
+              </>
+            ) : (
+              <>
+                {t("pdf.remove.action")}
+              </>
+            )}
           </Button>
         </div>
       </form>

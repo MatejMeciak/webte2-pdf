@@ -1,12 +1,13 @@
 import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/ui/page-header";
 import { PdfActionCard } from "@/features/pdf/components/PdfActionCard";
-import { pdfActions } from "@/features/pdf/data/pdfActions";
+import { usePdfActions } from "../data/pdfActions";
+import { useTranslation } from "react-i18next";
 
 function DashboardPage() {
-  const navigate = useNavigate();
   const { t } = useTranslation();
+  const pdfActions = usePdfActions();
+  const navigate = useNavigate();
 
   const handleActionClick = (path: string) => {
     navigate(path);
@@ -19,12 +20,12 @@ function DashboardPage() {
         description={t("dashboard.description")}
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {pdfActions.map((action) => (
           <PdfActionCard
             key={action.path}
-            title={t(`pdf.features.${action.titleKey}.title`)}
-            description={t(`pdf.features.${action.titleKey}.description`)}
+            title={action.title}
+            description={action.description}
             path={action.path}
             icon={action.icon}
             onClick={handleActionClick}

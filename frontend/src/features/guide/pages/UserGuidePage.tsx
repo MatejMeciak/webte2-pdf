@@ -1,135 +1,197 @@
-import { useTranslation } from "react-i18next";
+import { PageHeader } from "@/components/ui/page-header";
+import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Download, ChevronRight } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { pdfActions } from "@/features/pdf/data/pdfActions";
-import ApiDocs from "../components/ApiDocs";
+import { useTranslation } from "react-i18next";
+import { Download, FileText, Code, BookOpen } from "lucide-react";
+import { PDFDownloadLink, Document, Page, Text, View, StyleSheet, Font } from "@react-pdf/renderer";
+import { usePdfActions } from "@/features/pdf/data/pdfActions";
+
+// Register fonts that support Slovak characters
+Font.register({
+  family: 'Roboto',
+  fonts: [
+    { src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-light-webfont.ttf', fontWeight: 300 },
+    { src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-regular-webfont.ttf', fontWeight: 400 },
+    { src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-medium-webfont.ttf', fontWeight: 500 },
+    { src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-bold-webfont.ttf', fontWeight: 700 },
+  ]
+});
+
+// PDF Styles
+const styles = StyleSheet.create({
+  page: {
+    padding: 30,
+    fontFamily: 'Roboto',
+  },
+  title: {
+    fontSize: 24,
+    marginBottom: 20,
+    textAlign: 'center',
+    fontWeight: 700,
+  },
+  subtitle: {
+    fontSize: 18,
+    marginTop: 20,
+    marginBottom: 10,
+    fontWeight: 500,
+  },
+  text: {
+    fontSize: 12,
+    marginBottom: 10,
+    lineHeight: 1.5,
+  },
+  section: {
+    marginBottom: 20,
+  },
+  feature: {
+    marginBottom: 15,
+  },
+  featureTitle: {
+    fontSize: 14,
+    fontWeight: 700,
+    marginBottom: 5,
+  },
+  featureDescription: {
+    fontSize: 12,
+    marginBottom: 5,
+  },
+  featureSteps: {
+    fontSize: 11,
+    marginLeft: 10,
+    marginBottom: 5,
+    color: '#666',
+  }
+});
+
+// Helper function to render text with line breaks
+const renderTextWithLineBreaks = (text: string, style: any) => {
+  return text.split('\n').map((line, index) => (
+    <Text key={index} style={style}>
+      {line}
+    </Text>
+  ));
+};
+
+// PDF Document Component
+const UserGuidePDF = () => {
+  const { t } = useTranslation();
+  const pdfActions = usePdfActions();
+
+  return (
+    <Document>
+      <Page size="A4" style={styles.page}>
+        <Text style={styles.title}>{t("guide.title")}</Text>
+        
+        <View style={styles.section}>
+          <Text style={styles.subtitle}>{t("guide.introduction.title")}</Text>
+          <Text style={styles.text}>{t("guide.introduction.description")}</Text>
+        </View>
+
+        <View style={styles.section}>
+          <Text style={styles.subtitle}>{t("guide.features.title")}</Text>
+          {pdfActions.map((action) => (
+            <View key={action.key} style={styles.feature}>
+              <Text style={styles.featureTitle}>{action.title}</Text>
+              <Text style={styles.featureDescription}>{action.description}</Text>
+              {renderTextWithLineBreaks(t(`guide.features.${action.key}.steps`), styles.featureSteps)}
+            </View>
+          ))}
+        </View>
+
+        <View style={styles.section}>
+          <Text style={styles.subtitle}>{t("guide.api.title")}</Text>
+          <Text style={styles.text}>{t("guide.api.description")}</Text>
+          <Text style={styles.text}>{t("guide.api.swagger")}</Text>
+        </View>
+      </Page>
+    </Document>
+  );
+};
 
 export default function UserGuidePage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const pdfActions = usePdfActions();
 
-  const handleExportPdf = async () => {
-    try {
-      const response = await fetch("/api/guide/export-pdf", {
-        method: "GET",
-      });
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "user-guide.pdf";
-      a.click();
-    } catch (error) {
-      console.error("Failed to export PDF:", error);
-    }
-  };
-
-  const renderList = (key: string) => {
-    try {
-      const items = t(key, { returnObjects: true });
-      return Array.isArray(items) ? (
-        items.map((item, index) => <li key={index}>{item}</li>)
-      ) : null;
-    } catch (error) {
-      console.error(`Error rendering list for key ${key}:`, error);
-      return null;
-    }
-  };
-
-  const renderSteps = () => {
-    try {
-      const steps = t("guide.features.general.steps", { returnObjects: true });
-      if (!Array.isArray(steps)) return null;
-
-      return steps.map((step, index) => (
-        <li key={index} className="flex items-start gap-4">
-          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-medium text-primary-foreground">
-            {index + 1}
-          </span>
-          <span className="text-lg pt-1">{step}</span>
-        </li>
-      ));
-    } catch (error) {
-      console.error("Error rendering steps:", error);
-      return null;
-    }
+  // Get the appropriate filename based on language
+  const getPdfFilename = () => {
+    return i18n.language === 'sk' ? 'pouzivatelska-prirucka.pdf' : 'user-guide.pdf';
   };
 
   return (
-    <div className="container mx-auto py-6 px-4 sm:px-6 lg:px-8 space-y-8">
-      {/* Hero section */}
-      <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-2xl p-8 mb-8">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <div>
-            <h1 className="text-4xl font-bold tracking-tight">
-              {t("guide.title")}
-            </h1>
-            <p className="mt-2 text-lg text-muted-foreground max-w-2xl">
-              {t("guide.overview.description")}
-            </p>
-          </div>
-          <Button onClick={handleExportPdf} size="lg" className="shrink-0">
-            <Download className="mr-2 h-5 w-5" />
-            {t("guide.exportPdf")}
-          </Button>
-        </div>
+    <div className="w-full max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+      <PageHeader
+        title={t("guide.title")}
+        description={t("guide.description")}
+      />
+
+      <div className="flex justify-end mb-6">
+        <PDFDownloadLink
+          document={<UserGuidePDF />}
+          fileName={getPdfFilename()}
+          className="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
+        >
+          {({ loading }) => (
+            <>
+              <Download className="w-4 h-4 mr-2" />
+              {loading ? t("common.loading") : t("guide.download")}
+            </>
+          )}
+        </PDFDownloadLink>
       </div>
 
-      {/* Features Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {pdfActions.map((action) => (
-          <Card
-            key={action.path}
-            className="group hover:shadow-md transition-all"
-          >
-            <CardContent className="p-6">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="p-2 rounded-lg bg-primary/10 text-primary">
-                  <action.icon className="h-6 w-6" />
+      <div className="grid gap-6">
+        {/* Introduction Section */}
+        <Card className="p-6">
+          <div className="flex items-center gap-2 mb-4">
+            <BookOpen className="w-5 h-5 text-primary" />
+            <h2 className="text-xl font-semibold">{t("guide.introduction.title")}</h2>
+          </div>
+          <p className="text-muted-foreground">{t("guide.introduction.description")}</p>
+        </Card>
+
+        {/* Features Section */}
+        <Card className="p-6">
+          <div className="flex items-center gap-2 mb-4">
+            <FileText className="w-5 h-5 text-primary" />
+            <h2 className="text-xl font-semibold">{t("guide.features.title")}</h2>
+          </div>
+          <div className="grid gap-4">
+            {pdfActions.map((action) => (
+              <div key={action.path} className="border rounded-lg p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  {action.icon}
+                  <h3 className="font-medium">{action.title}</h3>
                 </div>
-                <h3 className="font-semibold text-lg">
-                  {t(`pdf.features.${action.titleKey}.title`)}
-                </h3>
+                <p className="text-muted-foreground mb-2">{action.description}</p>
+                <div className="text-sm text-muted-foreground space-y-1">
+                  {t(`guide.features.${action.key}.steps`).split('\n').map((line, index) => (
+                    <p key={index}>{line}</p>
+                  ))}
+                </div>
               </div>
-              <p className="text-muted-foreground">
-                {t(`pdf.features.${action.titleKey}.description`)}
-              </p>
-              <div className="mt-4 pt-4 border-t">
-                <ol className="space-y-2">
-                  <li className="flex items-center text-sm">
-                    <ChevronRight className="h-4 w-4 mr-2 text-primary" />
-                    {t("pdf.common.step1")}
-                  </li>
-                  <li className="flex items-center text-sm">
-                    <ChevronRight className="h-4 w-4 mr-2 text-primary" />
-                    {t(
-                      `pdf.features.${action.titleKey}.instructions` ||
-                        "common.configure"
-                    )}
-                  </li>
-                </ol>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-
-      {/* General Guidelines */}
-      <Card className="mt-8">
-        <CardHeader>
-          <CardTitle className="text-2xl">
-            {t("guide.features.general.title")}
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="p-6">
-          <div className="bg-muted rounded-lg p-6">
-            <ol className="space-y-4">{renderSteps()}</ol>
+            ))}
           </div>
-        </CardContent>
-      </Card>
+        </Card>
 
-      {/* API Documentation */}
-      <ApiDocs />
+        {/* API Documentation Section */}
+        <Card className="p-6">
+          <div className="flex items-center gap-2 mb-4">
+            <Code className="w-5 h-5 text-primary" />
+            <h2 className="text-xl font-semibold">{t("guide.api.title")}</h2>
+          </div>
+          <p className="text-muted-foreground mb-4">{t("guide.api.description")}</p>
+          <div className="bg-muted p-4 rounded-lg">
+            <p className="font-mono text-sm">{t("guide.api.swagger")}</p>
+            <Button
+              variant="outline"
+              className="mt-4"
+              onClick={() => window.open(import.meta.env.VITE_API_URL + "/docs", "_blank")}
+            >
+              {t("guide.api.openSwagger")}
+            </Button>
+          </div>
+        </Card>
+      </div>
     </div>
   );
 }

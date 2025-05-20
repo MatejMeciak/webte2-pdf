@@ -1,5 +1,4 @@
 import { z } from "zod";
-import type { IconProps } from "lucide-react";
 
 // Schema for split PDF form
 export const splitFormSchema = z.object({
@@ -16,8 +15,8 @@ export type SplitFormValues = z.infer<typeof splitFormSchema>;
 // Schema for merge PDF form
 export const mergeFormSchema = z.object({
   outputName: z.string()
-    .min(1, "Output filename is required")
-    .refine(name => name.endsWith('.pdf'), {
+    .optional()
+    .refine(name => !name || name.endsWith('.pdf'), {
       message: "Filename must end with .pdf"
     }),
 });
@@ -146,5 +145,5 @@ export type RotatePagesFormValues = z.infer<typeof rotatePagesFormSchema>;
 export interface PdfAction {
   titleKey: string;
   path: string;
-  icon: React.ComponentType<IconProps>;
+  icon: React.ComponentType<any>;
 }

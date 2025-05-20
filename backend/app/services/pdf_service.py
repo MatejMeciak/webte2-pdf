@@ -266,12 +266,12 @@ class PdfService:
             # Load PDF document with PyMuPDF for better encryption support
             doc = fitz.open(stream=request.pdf, filetype="pdf")
             
-            # Create a temporary file to save the encrypted PDF
-            temp_file_path = request.output_pdf_name
+            # Create a BytesIO buffer for the output
+            output_buffer = io.BytesIO()
             
-            # Set password and save to the temp file
+            # Set password and save directly to the buffer
             doc.save(
-                temp_file_path,
+                output_buffer,
                 encryption=fitz.PDF_ENCRYPT_AES_256,
                 owner_pw=request.owner_password,
                 user_pw=request.owner_password  # Using same password for both
@@ -280,14 +280,9 @@ class PdfService:
             # Close the original document
             doc.close()
             
-            # Read the encrypted file back in as bytes
-            with open(temp_file_path, "rb") as f:
-                encrypted_bytes = f.read()
-            
-            # Remove the temporary file
-            import os
-            if os.path.exists(temp_file_path):
-                os.remove(temp_file_path)
+            # Get the encrypted content from the buffer
+            output_buffer.seek(0)
+            encrypted_bytes = output_buffer.getvalue()
             
             return PdfResponse(
                 file_name=request.output_pdf_name,

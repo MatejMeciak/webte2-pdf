@@ -6,10 +6,9 @@ import { useTranslation } from "react-i18next";
 interface PdfUploaderProps {
   file: File | null;
   setFile: (file: File | null) => void;
-  feature: string; // Add feature prop
 }
 
-export function PdfUploader({ file, setFile, feature }: PdfUploaderProps) {
+export function PdfUploader({ file, setFile }: PdfUploaderProps) {
   const { t } = useTranslation();
 
   // Handle file drop with react-dropzone
@@ -38,11 +37,11 @@ export function PdfUploader({ file, setFile, feature }: PdfUploaderProps) {
         <p className="text-sm text-center text-muted-foreground">
           {isDragActive 
             ? t('common.dropFileHere') 
-            : t(`pdf.features.${feature}.dragDrop`)}
+            : t('common.dragDropHere')}
         </p>
         <Button variant="outline" size="sm" className="mt-4">
           <Upload className="h-4 w-4 mr-2" />
-          {t(`pdf.features.${feature}.chooseFile`)}
+          {t(`common.chooseFile`)}
         </Button>
       </div>
       

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import api from "@/api/axios";
 import type { RotatePagesFormValues } from "../types/pdf";
-import { isAxiosError } from "axios";
 import { useTranslation } from "react-i18next";
 
 export function usePdfRotatePages() {
@@ -11,7 +10,7 @@ export function usePdfRotatePages() {
 
   const rotatePdfPages = async (values: RotatePagesFormValues, file: File) => {
     if (!file) {
-      setError(t('errors.uploadFirst'));
+      setError(t("errors.uploadFirst"));
       return;
     }
 
@@ -22,11 +21,11 @@ export function usePdfRotatePages() {
       // Create form data with file and form values
       const formData = new FormData();
       formData.append("pdf", file);
-      values.pages.forEach((page) => formData.append("pages", page.toString()));
-      values.rotations.forEach((rotation) => formData.append("rotations", rotation.toString()));
-      if (values.outputName) {
-        formData.append("outputName", values.outputName);
-      }
+      formData.append("pages", values.pages.join(','));
+      formData.append("rotations", values.rotations.join(','));
+      
+      const outputName = values.outputName || t("pdf.rotate.outputPlaceholder");
+      formData.append("output_name", outputName);
 
       // Send request to rotate PDF pages
       const response = await api.post("/pdf/rotate", formData, {
@@ -39,28 +38,16 @@ export function usePdfRotatePages() {
 
       // Check for error status
       if (response.status && response.status >= 400) {
-        let errorMsg = "Error rotating PDF pages. Please try again.";
-        if (response.data instanceof Blob) {
-          try {
-            const text = await response.data.text();
-            errorMsg = text || errorMsg;
-          } catch {
-            // fallback to default
-          }
-        }
-        setError(errorMsg);
+        setError(t("errors.rotatePagesFailed"));
         return;
       }
 
       // Only handle download if status is OK
-      handleFileDownload(response);
+      handleFileDownload(response, outputName);
       
     } catch (err) {
-      if (isAxiosError(err)) {
-        setError(t('errors.rotatePagesFailed'));
-      } else {
-        setError(t('errors.unexpected'));
-      }
+      setError(t("errors.unexpected"));
+      console.error("Error rotating PDF pages:", err);
     } finally {
       setIsLoading(false);
     }
@@ -70,18 +57,7 @@ export function usePdfRotatePages() {
 }
 
 // Helper function to handle file download
-function handleFileDownload(response: any) {
-  // Get filename from Content-Disposition header
-  const contentDisposition = response.headers['content-disposition'];
-  let filename = 'rotated.pdf';
-  
-  if (contentDisposition) {
-    const filenameMatch = contentDisposition.match(/filename="?([^"]*)"?/);
-    if (filenameMatch && filenameMatch[1]) {
-      filename = filenameMatch[1];
-    }
-  }
-
+function handleFileDownload(response: any, filename: string) {
   // Create blob URL and trigger download
   const blob = new Blob([response.data], { type: 'application/pdf' });
   const url = window.URL.createObjectURL(blob);

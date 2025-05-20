@@ -10,211 +10,122 @@
   "common": {
     "processing": "Processing...",
     "selectPdf": "Select PDF",
+    "multiSelectPdf": "Select PDFs",
     "configure": "Configure",
     "chooseFile": "Choose file",
-    "dragDropHere": "Drag & drop file here or click to select",
-    "dropFileHere": "Drop file here"
+    "multiChooseFiles": "Choose files",
+    "dragDropHere": "Drag & drop file here or click to select file",
+    "multiDragDropHere": "Drag & drop files here or click to select files (max {{maxFiles}})",
+    "dropFileHere": "Drop file here",
+    "selectedFiles": "Selected files ({{count}})",
+    "removeAll": "Remove all",
+    "step1": "1. Select PDF File",
+    "multiStep1": "1. Select PDF Files",
+    "step2": "2. Settings",
+    "outputName": "Output filename (optional)",
+    "refresh": "Refresh",
+    "delete": "Delete",
+    "deleteAll": "Delete All",
+    "cancel": "Cancel"
   },
-  "pdf": {
-    "tools": {
-      "extractPages": {
-        "title": "Extract Pages",
-        "description": "Extract specific pages from your PDF document",
-        "summary": "Pages {{startPage}} to {{endPage}} will be extracted from the PDF into a new document.",
-        "outputFilename": "Output Filename",
-        "outputFilenamePlaceholder": "extracted.pdf",
-        "endPagePlaceholder": "e.g. 5"
-      },
-      "removePage": {
-        "title": "Remove Page",
-        "description": "Delete a specific page from your PDF document",
-        "pageNumber": "Page to Remove",
-        "outputFilename": "Output Filename (optional)",
-        "outputFilenamePlaceholder": "modified.pdf",
-        "summary": "Page {{page}} will be removed from the PDF.",
-        "removeAndDownload": "Remove Page & Download"
-      }
-    },
-    "features": {
-      "merge": {
-        "title": "Merge PDFs",
-        "description": "Combine 2 PDF files into one document",
-        "mergeAndDownload": "Merge & Download",
-        "dragDrop": "Drag & drop PDF files here, or click to select",
-        "chooseFile": "Choose files",
-        "outputFilename": "Output Filename",
-        "instructions": "To merge PDF files, upload two or more files. After uploading, you can change their order and set the output filename."
-      },
-      "split": {
-        "title": "Split PDF",
-        "description": "Split a PDF document into two parts",
-        "splitAtPage": "Split at page",
-        "firstPartFilename": "First part filename",
-        "secondPartFilename": "Second part filename",
-        "splitAndDownload": "Split & Download",
-        "outputFilename": "Output filename",
-        "placeholders": {
-          "firstPart": "first_part.pdf",
-          "secondPart": "second_part.pdf",
-          "pageNumber": "Enter page number"
-        },
-        "errors": {
-          "uploadFirst": "Please upload a PDF file first",
-          "splitFailed": "Error splitting PDF. Please try again.",
-          "unexpected": "An unexpected error occurred. Please try again."
-        },
-        "step1": "1. Select PDF File",
-        "step2": "2. Split Configuration",
-        "dragDrop": "Drag & drop a PDF file here, or click to select",
-        "chooseFile": "Choose file",
-        "instructions": "Choose where to split the PDF. Enter the page number and optionally set names for both parts of the document."
-      },
-      "removePage": {
-        "title": "Remove Page",
-        "description": "Delete a specific page from your PDF document",
-        "pageNumber": "Page number",
-        "removeAndDownload": "Remove & Download",
-        "dragDrop": "Drag & drop a PDF file here, or click to select",
-        "chooseFile": "Choose file",
-        "instructions": "Select the page number you want to remove from the document. You can also set a custom name for the output file."
-      },
-      "extractPages": {
-        "title": "Extract Pages",
-        "description": "Extract specific pages from your PDF document",
-        "startPage": "Start page",
-        "endPage": "End page",
-        "extractAndDownload": "Extract & Download",
-        "dragDrop": "Drag & drop a PDF file here, or click to select",
-        "chooseFile": "Choose file",
-        "summary": "Pages {{startPage}} to {{endPage}} will be extracted from the PDF into a new document",
-        "instructions": "Enter the range of pages (from-to) you want to extract to a new document. You can set a custom name for the new file."
-      },
-      "reorderPages": {
-        "title": "Reorder PDF Pages",
-        "description": "Rearrange the order of pages in your PDF document",
-        "instructions": "Enter the page numbers in the order you want them to appear in the output PDF. For example, 2,1,4,3 will reorder a 4-page document so that the second page becomes first, the first page becomes second, and so on.",
-        "pageOrder": "Page order (e.g. 3,1,2,4)",
-        "reorderAndDownload": "Reorder & Download",
-        "dragDrop": "Drag & drop a PDF file here, or click to select",
-        "chooseFile": "Choose file",
-        "step1": "1. Select PDF",
-        "step2": "2. Configure Page Order",
-        "placeholders": {
-          "pageOrder": "e.g. 1,3,2,4"
-        },
-        "outputFilename": "Output Filename"
-      },
-      "addPassword": {
-        "title": "Add Password",
-        "description": "Encrypt your PDF document with a password",
-        "password": "Password",
-        "confirmPassword": "Confirm password",
-        "protectAndDownload": "Protect & Download",
-        "dragDrop": "Drag & drop a PDF file here, or click to select",
-        "chooseFile": "Choose file",
-        "instructions": "The uploaded PDF will be encrypted with the password you provide.",
-        "placeholders": {
-          "password": "Enter password to protect PDF"
-        },
-        "outputFilename": "Output filename"
-      },
-      "removePassword": {
-        "title": "Remove Password",
-        "description": "Remove password protection from your PDF",
-        "currentPassword": "Current password",
-        "unlockAndDownload": "Unlock & Download",
-        "dragDrop": "Drag & drop a PDF file here, or click to select",
-        "chooseFile": "Choose file",
-        "placeholders": {
-          "password": "Enter password"
-        },
-        "instructions": "The uploaded PDF will have its password protection removed.",
-        "outputFilename": "Output filename"
-      },
-      "rotatePages": {
-        "title": "Rotate Pages",
-        "description": "Rotate specific pages in your PDF document",
-        "pages": "Pages (comma-separated)",
-        "degrees": "Rotation degrees",
-        "rotateAndDownload": "Rotate & Download",
-        "dragDrop": "Drag & drop a PDF file here, or click to select",
-        "chooseFile": "Choose file",
-        "instructions": "Enter page numbers (e.g. 1,3,5) and rotation angle (90, 180, 270)",
-        "outputFilename": "Output filename"
-      },
-      "addWatermark": {
-        "title": "Add Watermark",
-        "description": "Add a text watermark to every page of PDF",
-        "text": "Watermark text",
-        "addAndDownload": "Add Watermark & Download",
-        "placeholders": {
-          "text": "Enter watermark text"
-        },
-        "dragDrop": "Drag & drop a PDF file here, or click to select",
-        "chooseFile": "Choose file",
-        "instructions": "The watermark will be added to every page of your PDF.",
-        "outputFilename": "Output filename"
-      },
-      "rotate": {
-        "title": "Rotate Pages",
-        "description": "Rotate selected pages in your PDF document",
-        "pages": "Page numbers",
-        "degrees": "Rotation degrees",
-        "rotateAndDownload": "Rotate & Download",
-        "placeholders": {
-          "pages": "e.g. 1,2,3",
-          "degrees": "90, 180, 270"
-        }
-      },
-      "toImages": {
-        "title": "PDF to Images",
-        "description": "Convert each page of PDF to PNG images",
-        "dpi": "DPI (resolution)",
-        "convertAndDownload": "Convert & Download",
-        "placeholders": {
-          "dpi": "e.g. 300"
-        },
-        "instructions": "Each page of your PDF will be converted to a PNG image and downloaded as a ZIP file.",
-        "dragDrop": "Drag & drop a PDF file here, or click to select",
-        "chooseFile": "Choose file"
-      }
-    },
+  "pdf": { 
     "merge": {
       "title": "PDF Merge",
-      "description": "Combine 2 PDF files into one document",
-      "selectedFiles": "Selected files ({{count}})",
-      "outputFilename": "Output filename",
-      "mergeAndDownload": "Merge and Download"
+      "description": "Combine 2 PDF files into a single document",
+      "action": "Merge",
+      "outputPlaceholder": "merged.pdf"
     },
     "split": {
-      "title": "Split PDF",
+      "title": "PDF Split",
       "description": "Split a PDF document into two parts",
+      "action": "Split",
       "splitAtPage": "Split at page",
+      "explanation": "The PDF will be split into two parts. Pages 1 to {{page}} will be in the first part, and the remaining pages will be in the second part.",
+      "enterPageNumber": "Enter page number",
       "firstPartFilename": "First part filename",
       "secondPartFilename": "Second part filename",
-      "splitAndDownload": "Split & Download",
-      "placeholders": {
-        "firstPart": "part1.pdf",
-        "secondPart": "part2.pdf",
-        "pageNumber": "1"
-      }
+      "part1Placeholder": "part1.pdf",
+      "part2Placeholder": "part2.pdf"
     },
-    "common": {
-      "step1": "1. Select PDF File",
-      "step2": "2. Split Configuration",
-      "noFile": "No file selected",
-      "dragDrop": "Drag & drop a PDF file here, or click to select",
-      "chooseFile": "Choose file",
-      "removeAll": "Remove all",
-      "processing": "Processing...",
-      "outputFilename": "Output filename",
-      "download": "Download"
+    "remove": {
+      "title": "Remove Page",
+      "description": "Remove a specific page from the PDF document",
+      "action": "Remove",
+      "pageToRemove": "Page to remove",
+      "explanation": " Page {{page}} will be removed from the PDF.",
+      "enterPageNumber": "Enter page number",
+      "outputPlaceholder": "removed.pdf"
+    },
+    "extract": {
+      "title": "Extract Pages",
+      "description": "Extract specific pages from your PDF document into a new file",
+      "action": "Extract",
+      "startPage": "Start page",
+      "endPage": "End page",
+      "explanation": "Pages {{start}} to {{end}} will be extracted from the PDF into a new document.",
+      "enterStartPage": "Enter start page",
+      "enterEndPage": "Enter end page",
+      "outputPlaceholder": "extracted.pdf"
+    },
+    "reorder": {
+      "title": "PDF Page Reorder",
+      "description": "Rearrange the order of pages in your PDF document",
+      "action": "Reorder Pages",
+      "pageOrder": "Page Order",
+      "pageOrderPlaceholder": "e.g., 2,1,4,3",
+      "outputPlaceholder": "reordered.pdf",
+      "explanation": "Enter the page numbers in the order you want them to appear in the output PDF. For example, 2,1,4,3 will reorder a 4-page document so that the second page becomes first, the first page becomes second, and so on."
+    },
+    "password": {
+      "title": "Add Password to PDF",
+      "description": "Encrypt your PDF document with a password",
+      "action": "Add Password",
+      "password": "Password",
+      "passwordPlaceholder": "Enter password to protect PDF",
+      "outputPlaceholder": "protected.pdf",
+      "explanation": "The uploaded PDF will be encrypted with the password you provide."
+    },
+    "removePassword": {
+      "title": "Remove Password from PDF",
+      "description": "Remove password protection from your PDF document",
+      "action": "Remove Password",
+      "password": "Current Password",
+      "passwordPlaceholder": "Enter current PDF password",
+      "outputPlaceholder": "unprotected.pdf",
+      "explanation": "The uploaded PDF will have its password protection removed."
+    },
+    "toImages": {
+      "title": "PDF to Images",
+      "description": "Convert each page of your PDF to PNG images",
+      "action": "Convert to Images",
+      "dpi": "DPI (Resolution)",
+      "dpiPlaceholder": "150",
+      "explanation": "Each page of your PDF will be converted to a PNG image and downloaded as a ZIP file."
+    },
+    "rotate": {
+      "title": "Rotate PDF Pages",
+      "description": "Rotate specific pages in your PDF document",
+      "action": "Rotate Pages",
+      "pages": "Pages (comma-separated)",
+      "rotations": "Rotations (degrees, comma-separated)",
+      "pagesPlaceholder": "e.g., 1,2,3",
+      "rotationsPlaceholder": "e.g., 90,180,270",
+      "outputPlaceholder": "rotated.pdf",
+      "explanation": "Enter the page numbers and their corresponding rotation angles (in degrees). If you enter only one rotation value, it will be applied to all selected pages."
+    },
+    "watermark": {
+      "title": "Add Watermark to PDF",
+      "description": "Add a text watermark to every page of your PDF document",
+      "action": "Add Watermark",
+      "watermarkText": "Watermark Text",
+      "watermarkTextPlaceholder": "Enter watermark text",
+      "outputPlaceholder": "watermarked.pdf",
+      "explanation": "The watermark will be added to every page of your PDF."
     }
   },
   "dashboard": {
     "title": "PDF Tools",
-    "description": "Choose a tool to modify your PDF documents",
-    "welcome": "Welcome back"
+    "description": "Choose a tool to modify your PDF documents"
   },
   "auth": {
     "login": {
@@ -223,6 +134,7 @@
       "email": "Email",
       "password": "Password",
       "submit": "Sign in",
+      "loggingIn": "Signing in...",
       "noAccount": "Don't have an account?",
       "register": "Register",
       "placeholders": {
@@ -243,6 +155,7 @@
       "password": "Password",
       "confirmPassword": "Confirm password",
       "submit": "Register",
+      "creating": "Creating account...",
       "haveAccount": "Already have an account?",
       "login": "Sign in",
       "errors": {
@@ -258,137 +171,92 @@
     }
   },
   "errors": {
-      "uploadFirst": "Please upload a PDF file first",
-      "unexpected": "An unexpected error occurred. Please try again.",
-      "toImagesFailed": "Error converting PDF to images. Please try again.",
-      "rotatePagesFailed": "Error rotating PDF pages. Please try again.",
-      "reorderPagesFailed": "Error reordering PDF pages. Please try again.",
-      "removePasswordFailed": "Error removing password from PDF. Please try again.",
-      "removePageFailed": "Error removing page from PDF. Please try again.",
-      "extractPagesFailed": "Error extracting pages from PDF. Please try again.",
-      "addWatermarkFailed": "Error adding watermark to PDF. Please try again.",
-      "addPasswordFailed": "Error adding password to PDF. Please try again."
-    },
+    "uploadFirst": "Please upload a PDF file first",
+    "unexpected": "An unexpected error occurred. Please try again.",
+    "mergeFailed": "Error merging PDF files. Please check your PDF files or settings.",
+    "splitFailed": "Error splitting PDF file. Please check your PDF file or settings.",
+    "removeFailed": "Error removing page from PDF. Please check your PDF file or settings.",
+    "extractPagesFailed": "Error extracting pages from PDF. Please check your PDF file or settings.",
+    "reorderPagesFailed": "Error reordering PDF pages. Please check your PDF file or settings.",
+    "addPasswordFailed": "Error adding password to PDF. Please check your PDF file or settings.",
+    "removePasswordFailed": "Error removing password from PDF. Please check your PDF file or settings.",
+    "toImagesFailed": "Error converting PDF to images. Please check your PDF file or settings.",
+    "rotatePagesFailed": "Error rotating PDF pages. Please check your PDF file or settings.",
+    "addWatermarkFailed": "Error adding watermark to PDF. Please check your PDF file or settings."
+  },
   "guide": {
     "title": "User Guide",
-    "exportPdf": "Export as PDF",
-    "overview": {
-      "title": "About PDFMaster",
-      "description": "PDFMaster is a comprehensive PDF manipulation tool. The application provides numerous features for working with PDF documents, from simple merging and splitting to advanced operations like adding watermarks or password protection.",
-      "features": {
-        "title": "Available Features",
-        "list": [
-          "Merge multiple PDF files into one document",
-          "Split PDF at a specific page",
-          "Remove selected pages from document",
-          "Extract range of pages to new document",
-          "Reorder pages in document",
-          "Add or remove password protection",
-          "Convert PDF pages to images",
-          "Add watermark to document pages",
-          "Rotate selected pages in document"
-        ]
+    "description": "Learn how to use our PDF manipulation tools effectively",
+    "download": "Download Guide",
+    "introduction": {
+      "title": "Introduction",
+      "description": "Welcome to our PDF manipulation application. This guide will help you understand how to use our tools effectively, both through the user interface and programmatically via our API."
+    },
+    "features": {
+      "title": "Features",
+      "merge": {
+        "steps": "To merge PDFs:\n1) Upload two PDF files using the file selector or drag and drop.\n2) Optionally specify an output filename (default: merged.pdf).\n3) Click 'Merge' to combine the files."
+      },
+      "split": {
+        "steps": "To split a PDF:\n1) Upload a PDF file.\n2) Enter the page number where you want to split the document.\n3) Optionally specify filenames for both parts (default: part1.pdf and part2.pdf).\n4) Click 'Split' to create two separate PDFs."
+      },
+      "remove": {
+        "steps": "To remove a page:\n1) Upload a PDF file.\n2) Enter the page number you want to remove.\n3) Optionally specify an output filename (default: removed.pdf).\n4) Click 'Remove' to create a new PDF without the specified page."
+      },
+      "extract": {
+        "steps": "To extract pages:\n1) Upload a PDF file.\n2) Enter the start and end page numbers for the range you want to extract.\n3) Optionally specify an output filename (default: extracted.pdf).\n4) Click 'Extract' to create a new PDF with only the selected pages."
+      },
+      "reorder": {
+        "steps": "To reorder pages:\n1) Upload a PDF file.\n2) Enter the desired page order as comma-separated numbers (e.g., '2,1,4,3').\n3) Optionally specify an output filename (default: reordered.pdf).\n4) Click 'Reorder Pages' to create a new PDF with the specified page order."
+      },
+      "password": {
+        "steps": "To add password protection:\n1) Upload a PDF file.\n2) Enter a password to protect the PDF.\n3) Optionally specify an output filename (default: protected.pdf).\n4) Click 'Add Password' to create an encrypted PDF."
+      },
+      "removePassword": {
+        "steps": "To remove password protection:\n1) Upload a password-protected PDF file.\n2) Enter the current password.\n3) Optionally specify an output filename (default: unprotected.pdf).\n4) Click 'Remove Password' to create an unencrypted PDF."
+      },
+      "toImages": {
+        "steps": "To convert PDF to images:\n1) Upload a PDF file.\n2) Optionally adjust the DPI (resolution) setting (default: 150).\n3) Click 'Convert to Images' to download a ZIP file containing PNG images of each page."
+      },
+      "rotate": {
+        "steps": "To rotate pages:\n1) Upload a PDF file.\n2) Enter the page numbers to rotate (comma-separated).\n3) Enter the rotation angles in degrees (comma-separated, e.g., '90,180,270').\n4) Optionally specify an output filename (default: rotated.pdf).\n5) Click 'Rotate Pages' to create a new PDF with rotated pages."
+      },
+      "watermark": {
+        "steps": "To add a watermark:\n1) Upload a PDF file.\n2) Enter the watermark text.\n3) Optionally specify an output filename (default: watermarked.pdf).\n4) Click 'Add Watermark' to create a new PDF with the watermark on every page."
       }
     },
     "api": {
       "title": "API Documentation",
-      "auth": {
-        "title": "Authentication",
-        "description": "All API endpoints require a JWT token in the request header",
-        "example": "Authorization: Bearer your_jwt_token"
-      },
-      "endpoints": {
-        "title": "Available Endpoints",
-        "base": "Base URL",
-        "merge": {
-          "title": "Merge PDFs",
-          "url": "POST /pdf/merge",
-          "description": "Combines multiple PDF files into one document",
-          "request": "Content-Type: multipart/form-data\n\nPDF files: files[]\nOutput filename: outputName (optional)",
-          "response": "Content-Type: application/pdf\nThe resulting merged PDF file"
-        },
-        "split": {
-          "title": "Split PDF",
-          "url": "POST /pdf/split",
-          "description": "Splits a PDF document into two parts",
-          "request": "Content-Type: multipart/form-data\n\nPDF file: pdf\nPage number: splitAtPage\nFirst part name: firstOutputName (optional)\nSecond part name: secondOutputName (optional)",
-          "response": "Content-Type: application/zip\nArchive containing both PDF parts"
-        },
-        "removePage": {
-          "title": "Remove Page",
-          "url": "POST /pdf/remove-page",
-          "description": "Removes a specific page from the PDF document",
-          "request": "Content-Type: multipart/form-data\n\nPDF file: pdf\nPage number: pageToRemove\nOutput filename: outputName (optional)",
-          "response": "Content-Type: application/pdf\nThe resulting PDF file without the removed page"
-        },
-        "extractPages": {
-          "title": "Extract Pages",
-          "url": "POST /pdf/extract",
-          "description": "Extracts selected pages from the PDF document",
-          "request": "Content-Type: multipart/form-data\n\nPDF file: pdf\nStart page: startPage\nEnd page: endPage\nOutput filename: outputName (optional)",
-          "response": "Content-Type: application/pdf\nThe resulting PDF file with extracted pages"
-        },
-        "reorderPages": {
-          "title": "Reorder Pages",
-          "url": "POST /pdf/reorder",
-          "description": "Rearranges pages in a PDF document",
-          "request": "Content-Type: multipart/form-data\n\nPDF file: pdf\nPage order: pageOrder (comma-separated page numbers)\nOutput filename: outputName (optional)",
-          "response": "Content-Type: application/pdf\nPDF file with reordered pages"
-        },
-        "addPassword": {
-          "title": "Add Password",
-          "url": "POST /pdf/add-password",
-          "description": "Adds password protection to a PDF document",
-          "request": "Content-Type: multipart/form-data\n\nPDF file: pdf\nPassword: password\nOutput filename: outputName (optional)",
-          "response": "Content-Type: application/pdf\nPassword-protected PDF file"
-        },
-        "removePassword": {
-          "title": "Remove Password",
-          "url": "POST /pdf/remove-password",
-          "description": "Removes password protection from a PDF document",
-          "request": "Content-Type: multipart/form-data\n\nPDF file: pdf\nCurrent password: password\nOutput filename: outputName (optional)",
-          "response": "Content-Type: application/pdf\nUnprotected PDF file"
-        },
-        "addWatermark": {
-          "title": "Add Watermark",
-          "url": "POST /pdf/add-watermark",
-          "description": "Adds a watermark to a PDF document",
-          "request": "Content-Type: multipart/form-data\n\nPDF file: pdf\nWatermark text: text\nOutput filename: outputName (optional)",
-          "response": "Content-Type: application/pdf\nPDF file with watermark"
-        },
-        "toImages": {
-          "title": "Convert to Images",
-          "url": "POST /pdf/to-images",
-          "description": "Converts PDF pages to PNG images",
-          "request": "Content-Type: multipart/form-data\n\nPDF file: pdf\nResolution: dpi (optional)",
-          "response": "Content-Type: application/zip\nArchive containing PNG images"
-        },
-        "rotatePages": {
-          "title": "Rotate Pages",
-          "url": "POST /pdf/rotate",
-          "description": "Rotates specified pages in a PDF document",
-          "request": "Content-Type: multipart/form-data\n\nPDF file: pdf\nPages: pages[]\nDegrees: degrees[]\nOutput filename: outputName (optional)",
-          "response": "Content-Type: application/pdf\nPDF with rotated pages"
-        }
-      },
-      "common": {
-        "request": "Request",
-        "response": "Response"
-      }
-    },
-    "features": {
-      "title": "Usage Guide",
-      "howTo": "How to Use",
-      "general": {
-        "title": "General Steps",
-        "steps": [
-          "Select a tool from the PDF tools menu",
-          "Upload PDF file(s) via drag & drop or file selection",
-          "Configure the settings for your chosen tool",
-          "Click the action button (e.g. 'Merge & Download')",
-          "Download your processed PDF file"
-        ]
-      }
+      "description": "Our application provides a RESTful API that allows you to programmatically access all PDF manipulation features. The API is documented using Swagger/OpenAPI specification.",
+      "swagger": "Access our API documentation",
+      "openSwagger": "Open Swagger Documentation"
+    }
+  },
+  "admin": {
+    "history": {
+      "title": "Operation History",
+      "description": "View and manage the history of operations performed in the application",
+      "operations": "Operations History",
+      "operation": "Operation",
+      "source": "Source",
+      "details": "Details",
+      "user": "User",
+      "location": "Location",
+      "timestamp": "Timestamp",
+      "unknownLocation": "Unknown location",
+      "noRecords": "No history records found",
+      "deleteEntryTitle": "Delete History Entry",
+      "deleteEntryDescription": "Are you sure you want to delete this history entry? This action cannot be undone.",
+      "deleteAllTitle": "Delete All History",
+      "deleteAllDescription": "Are you sure you want to delete all history records? This action cannot be undone.",
+      "export": "Export CSV",
+      "exportSuccess": "History exported successfully",
+      "exportError": "Failed to export history",
+      "entryDeleted": "History entry deleted",
+      "deleteError": "Failed to delete history entry",
+      "allEntriesDeleted": "All history entries deleted",
+      "deleteAllError": "Failed to delete history entries",
+      "fetchError": "Failed to fetch history data"
     }
   }
 }

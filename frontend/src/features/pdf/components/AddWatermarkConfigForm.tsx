@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { type AddWatermarkFormValues, addWatermarkFormSchema } from "../types/pdf";
-import { Droplet } from "lucide-react";
+import { AlertCircle, Loader2 } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useTranslation } from "react-i18next";
 
 interface AddWatermarkConfigFormProps {
@@ -41,10 +42,10 @@ export function AddWatermarkConfigForm({ onSubmit, file, isLoading, error }: Add
             name="watermarkText"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t('pdf.features.addWatermark.text')}</FormLabel>
+                <FormLabel>{t("pdf.watermark.watermarkText")}</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder={t('pdf.features.addWatermark.placeholders.text')}
+                    placeholder={t("pdf.watermark.watermarkTextPlaceholder")}
                     {...field}
                   />
                 </FormControl>
@@ -58,10 +59,10 @@ export function AddWatermarkConfigForm({ onSubmit, file, isLoading, error }: Add
             name="outputName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t('pdf.features.addWatermark.outputFilename')}</FormLabel>
+                <FormLabel>{t("common.outputName")}</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="watermarked.pdf"
+                    placeholder={t("pdf.watermark.outputPlaceholder")}
                     {...field}
                   />
                 </FormControl>
@@ -72,17 +73,19 @@ export function AddWatermarkConfigForm({ onSubmit, file, isLoading, error }: Add
         </div>
 
         <div className="flex flex-col space-y-4">
-          <div className="flex items-center justify-center py-4 px-3 rounded-md bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 text-sm">
-            <div className="flex items-center">
-              <Droplet className="h-5 w-5 mr-2" />
-              <p>{t('pdf.features.addWatermark.instructions')}</p>
-            </div>
-          </div>
+          <Alert className="bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-800">
+            <AlertDescription>
+              {t("pdf.watermark.explanation")}
+            </AlertDescription>
+          </Alert>
 
           {error && (
-            <div className="p-3 rounded-md bg-destructive/10 text-destructive text-sm">
-              {error}
-            </div>
+            <Alert variant="destructive">
+              <AlertCircle className="h-4 w-4" />
+              <AlertDescription>
+                {error}
+              </AlertDescription>
+            </Alert>
           )}
 
           <Button
@@ -90,7 +93,14 @@ export function AddWatermarkConfigForm({ onSubmit, file, isLoading, error }: Add
             disabled={!canSubmit || isLoading}
             className="w-full"
           >
-            {isLoading ? t('common.processing') : t('pdf.features.addWatermark.addAndDownload')}
+            {isLoading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                {t("common.processing")}
+              </>
+            ) : (
+              t("pdf.watermark.action")
+            )}
           </Button>
         </div>
       </form>

@@ -1,3 +1,4 @@
+// filepath: c:\fei\sem6\b-webte2\webte2-pdf\frontend\src\features\pdf\pages\PdfAddWatermarkPage.tsx
 import { useState } from "react";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card } from "@/components/ui/card";
@@ -14,24 +15,20 @@ export default function PdfAddWatermarkPage() {
   return (
     <div className="w-full max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
       <PageHeader
-        title={t("pdf.features.addWatermark.title")}
-        description={t("pdf.features.addWatermark.description")}
+        title={t("pdf.watermark.title")}
+        description={t("pdf.watermark.description")}
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Upload section */}
         <Card className="p-6 shadow-sm col-span-1 lg:col-span-1">
-          <h2 className="text-xl font-semibold mb-4">
-            {t("pdf.common.step1")}
-          </h2>
-          <PdfUploader file={file} setFile={setFile} feature="addWatermark" />
+          <h2 className="text-xl font-semibold mb-4">{t("common.step1")}</h2>
+          <PdfUploader file={file} setFile={setFile} />
         </Card>
 
         {/* Add watermark configuration */}
         <Card className="p-6 shadow-sm col-span-1 lg:col-span-2">
-          <h2 className="text-xl font-semibold mb-4">
-            {t("pdf.common.step2")}
-          </h2>
+          <h2 className="text-xl font-semibold mb-4">{t("common.step2")}</h2>
           <AddWatermarkConfigForm
             onSubmit={addWatermarkToPdf}
             file={file}

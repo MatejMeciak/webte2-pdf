@@ -33,8 +33,8 @@ export function LoginForm() {
       const response = await authService.login({ email, password });
       
       login(
-        response.accessToken,
-        response.refreshToken,
+        response.access_token,
+        response.refresh_token,
         response.email,
         response.role
       );
@@ -102,7 +102,7 @@ export function LoginForm() {
       <CardFooter>
         <p className="text-center w-full text-sm">
           {t('auth.login.noAccount')}{' '}
-          <a href="/register" className="text-blue-600 hover:underline">
+          <a href="register" className="text-blue-600 hover:underline">
             {t('auth.login.register')}
           </a>
         </p>

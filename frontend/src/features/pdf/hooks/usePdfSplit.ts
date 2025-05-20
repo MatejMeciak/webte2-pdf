@@ -1,7 +1,6 @@
 import { useState } from "react";
 import api from "@/api/axios";
 import type { SplitFormValues } from "../types/pdf";
-import { isAxiosError } from "axios";
 import { useTranslation } from "react-i18next";
 
 export function usePdfSplit() {
@@ -38,17 +37,20 @@ export function usePdfSplit() {
         headers: {
           "Content-Type": "multipart/form-data"
         },
+        validateStatus: () => true,
       });
+
+      if (response.status >= 400) {
+        setError(t("errors.splitFailed"));
+        return;
+      }
 
       // Handle the download
       handleFileDownload(response);
       
     } catch (err) {
-      if (isAxiosError(err)) {
-        setError(t('pdf.features.split.errors.splitFailed'));
-      } else {
-        setError(t('pdf.features.split.errors.unexpected'));
-      }
+      setError(t("errors.unexpected"));
+      console.error("Error merging PDFs:", err);
     } finally {
       setIsLoading(false);
     }

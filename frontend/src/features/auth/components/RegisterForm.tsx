@@ -66,15 +66,15 @@ export function RegisterForm() {
       setError('');
       
       const response = await authService.register({
-        firstName,
-        lastName,
+        first_name: firstName,
+        last_name: lastName,
         email,
         password
       });
       
       login(
-        response.accessToken,
-        response.refreshToken,
+        response.access_token,
+        response.refresh_token,
         response.email,
         response.role
       );
@@ -180,7 +180,7 @@ export function RegisterForm() {
       <CardFooter>
         <p className="text-center w-full text-sm">
           {t('auth.register.haveAccount')}{' '}
-          <a href="/login" className="text-blue-600 hover:underline">
+          <a href="login" className="text-blue-600 hover:underline">
             {t('auth.register.login')}
           </a>
         </p>

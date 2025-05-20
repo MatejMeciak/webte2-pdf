@@ -25,7 +25,6 @@ export default function PdfSplitPage() {
           <PdfUploader 
             file={file} 
             setFile={setFile} 
-            feature="split"  // Make sure this is "split"
           />
         </Card>
 

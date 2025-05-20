@@ -1,89 +1,43 @@
-import { useState } from "react";
-import {
-  getHistory,
-  searchHistory,
-  exportHistory,
-  deleteHistoryEntry,
-  deleteAllHistory,
-} from "../api/historyApi";
-import type { HistoryResponse, HistorySearchRequest, PaginatedHistoryResponse } from "../types/history";
+import { useState, useEffect, useCallback } from "react";
+import { useTranslation } from "react-i18next";
+import api from "@/api/axios";
+import type { PaginatedHistoryResponse } from "../types/history";
 
 export function useAdminHistory() {
+  const { t } = useTranslation();
   const [history, setHistory] = useState<PaginatedHistoryResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [searchParams, setSearchParams] = useState<HistorySearchRequest | null>(null);
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(20);
 
-  const fetchHistory = async (pageOverride?: number, sizeOverride?: number) => {
+  const fetchHistory = useCallback(async () => {
     setLoading(true);
     setError(null);
+    
     try {
-      const data = searchParams
-        ? await searchHistory(searchParams, pageOverride ?? page, sizeOverride ?? size)
-        : await getHistory(pageOverride ?? page, sizeOverride ?? size);
-      setHistory(data);
-      setPage(data.number);
-      setSize(data.size);
-    } catch (e: any) {
-      setError(e?.response?.data || "Failed to fetch history");
+      const response = await api.get<PaginatedHistoryResponse>(`/history?page=${page}&size=${size}`);
+      setHistory(response.data);
+    } catch (err) {
+      setError(t('admin.history.fetchError'));
+      console.error("Error fetching history:", err);
     } finally {
       setLoading(false);
     }
-  };
+  }, [page, size, t]);
 
-  const doSearch = async (params: HistorySearchRequest) => {
-    setSearchParams(params);
-    setPage(0);
-    setLoading(true);
-    setError(null);
-    try {
-      const data = await searchHistory(params, 0, size);
-      setHistory(data);
-    } catch (e: any) {
-      setError(e?.response?.data || "Failed to search history");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const doExport = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const res = await exportHistory();
-      // Download logic
-      const contentDisposition = res.headers['content-disposition'];
-      let filename = 'pdf_operations_history.csv';
-      if (contentDisposition) {
-        const match = contentDisposition.match(/filename="?([^";]+)"?/);
-        if (match && match[1]) filename = match[1];
-      }
-      const blob = new Blob([res.data], { type: 'text/csv' });
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', filename);
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      window.URL.revokeObjectURL(url);
-    } catch (e: any) {
-      setError(e?.response?.data || "Failed to export history");
-    } finally {
-      setLoading(false);
-    }
-  };
+  useEffect(() => {
+    fetchHistory();
+  }, [fetchHistory]);
 
   const doDeleteEntry = async (id: number) => {
     setLoading(true);
-    setError(null);
+    
     try {
-      await deleteHistoryEntry(id);
-      await fetchHistory();
-    } catch (e: any) {
-      setError(e?.response?.data || "Failed to delete entry");
+      await api.delete(`/history/${id}`);
+      fetchHistory();
+    } catch (err) {
+      console.error("Error deleting history entry:", err);
     } finally {
       setLoading(false);
     }
@@ -91,12 +45,38 @@ export function useAdminHistory() {
 
   const doDeleteAll = async () => {
     setLoading(true);
-    setError(null);
+    
     try {
-      await deleteAllHistory();
-      await fetchHistory();
-    } catch (e: any) {
-      setError(e?.response?.data || "Failed to delete all history");
+      await api.delete('/history');
+      fetchHistory();
+    } catch (err) {
+      console.error("Error deleting all history:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const doExport = async () => {
+    setLoading(true);
+    
+    try {
+      // Direct download with blob handling
+      const response = await api.get('/history/export', { responseType: 'blob' });
+      
+      // Create a URL for the blob
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      
+      // Create a temporary link element
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'operation_history.csv');
+      
+      // Append to body, click, then remove
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (err) {
+      console.error("Error exporting history:", err);
     } finally {
       setLoading(false);
     }
@@ -111,9 +91,8 @@ export function useAdminHistory() {
     setPage,
     setSize,
     fetchHistory,
-    doSearch,
-    doExport,
     doDeleteEntry,
     doDeleteAll,
+    doExport
   };
-} 
+}

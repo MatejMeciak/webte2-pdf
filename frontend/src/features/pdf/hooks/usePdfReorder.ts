@@ -1,15 +1,16 @@
 import { useState } from "react";
 import api from "@/api/axios";
 import type { ReorderPagesFormValues } from "../types/pdf";
-import { isAxiosError } from "axios";
+import { useTranslation } from "react-i18next";
 
 export function usePdfReorder() {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const reorderPdfPages = async (values: ReorderPagesFormValues, file: File) => {
     if (!file) {
-      setError("Please upload a PDF file first");
+      setError(t("errors.uploadFirst"));
       return;
     }
 
@@ -17,21 +18,15 @@ export function usePdfReorder() {
     setError(null);
 
     try {
-      // Parse the comma-separated string into an array of integers
-      const pageOrder = values.pageOrder.split(',').map(page => parseInt(page.trim(), 10));
-      
       // Create form data with file and form values
       const formData = new FormData();
       formData.append("pdf", file);
       
-      // Add each page number as a separate parameter with the same name
-      pageOrder.forEach(pageNum => {
-        formData.append("page_order", pageNum.toString());
-      });
+      // Send the page order as a single comma-separated string
+      formData.append("page_order", values.pageOrder);
       
-      if (values.outputName) {
-        formData.append("output_name", values.outputName);
-      }
+      const outputName = values.outputName || t("pdf.reorder.outputPlaceholder");
+      formData.append("output_name", outputName);
 
       // Send request to reorder pages in the PDF
       const response = await api.post("/pdf/reorder", formData, {
@@ -39,17 +34,21 @@ export function usePdfReorder() {
         headers: {
           "Content-Type": "multipart/form-data",
         },
+        validateStatus: () => true,
       });
 
+      // Check for error status
+      if (response.status >= 400) {
+        setError(t("errors.reorderFailed"));
+        return;
+      }
+
       // Handle the download
-      handleFileDownload(response);
+      handleFileDownload(response, outputName);
       
     } catch (err) {
-      if (isAxiosError(err)) {
-        setError(err.response?.data || "Error reordering PDF pages. Please try again.");
-      } else {
-        setError("An unexpected error occurred. Please try again.");
-      }
+      setError(t("errors.unexpected"));
+      console.error("Error reordering PDF pages:", err);
     } finally {
       setIsLoading(false);
     }
@@ -59,18 +58,7 @@ export function usePdfReorder() {
 }
 
 // Helper function to handle file download
-function handleFileDownload(response: any) {
-  // Get filename from Content-Disposition header
-  const contentDisposition = response.headers['content-disposition'];
-  let filename = 'reordered.pdf';
-  
-  if (contentDisposition) {
-    const filenameMatch = contentDisposition.match(/filename="?([^"]*)"?/);
-    if (filenameMatch && filenameMatch[1]) {
-      filename = filenameMatch[1];
-    }
-  }
-
+function handleFileDownload(response: any, filename: string) {
   // Create blob URL and trigger download
   const blob = new Blob([response.data], { type: 'application/pdf' });
   const url = window.URL.createObjectURL(blob);
